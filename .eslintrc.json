@@ -16,9 +16,13 @@
           "type",
           "index"
         ],
-        "newlines-between": "always",
         "pathGroupsExcludedImportTypes": ["builtin"],
         "pathGroups": [
+          {
+            "pattern": "@/const/**",
+            "group": "internal",
+            "position": "before"
+          },
           {
             "pattern": "@/utils/**",
             "group": "internal",
@@ -36,11 +40,6 @@
           },
           {
             "pattern": "@/components/**",
-            "group": "internal",
-            "position": "before"
-          },
-          {
-            "pattern": "@/const/**",
             "group": "internal",
             "position": "before"
           },
