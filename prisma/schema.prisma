@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+// -----------------------   Data Source   ----------------------------- //
+
+// 記事情報の格納、主に管理用
+model Blogs {
+  id         Int      @id @default(autoincrement())
+  image Images @relation(fields: [image_id], references: [id])
+  image_id Int @unique
+  article Users @relation(fields: [article_id], references: [id])
+  article_id Int @unique
+  title      String
+  en_name    String
+  preview    String
+  release_flg Boolean
+  updated_at DateTime @default(now())
+  post_at    DateTime @default(now())
+  created_at DateTime @default(now())
+  monsters Monsters?
+  tags BlogTags[]
+}
+
+// 記事の詳細管理（AI生成あり
+model Monsters {
+  id         Int      @id @default(autoincrement())
+  blog Blogs @relation(fields: [blog_id], references: [id])
+  blog_id   Int @unique
+  name    String
+  jp_name    String
+  size Int
+  weight Int
+  strength_value Int
+  magic_power_value Int
+  intelligence_value Int
+  risk_value Int
+  rarity_value Int
+  trait_text String
+  root_text String
+  weakness_text String
+  habitat_text String
+  updated_at DateTime @default(now())
+  created_at DateTime @default(now())
+}
+
+// 画像情報（AI生成あり
+model Images {
+  id    Int    @id @default(autoincrement())
+  path String
+  alt String
+  created_at DateTime @default(now())
+  blogs Blogs?
+}
+
+// ユーザー情報
+model Users {
+  id    Int    @id @default(autoincrement())
+  username String
+  created_at DateTime @default(now())
+  blogs Blogs?
+}
+
+// タグ情報
+model Tags {
+  id    Int    @id @default(autoincrement())
+  name String
+  created_at DateTime @default(now())
+  blogTags BlogTags[]
+}
+
+// テスト用
+model Templates {
+  id    Int    @id @default(autoincrement())
+  column String
+  created_at DateTime @default(now())
+}
+
+// ブログタグ中間テーブル
+model BlogTags {
+  id         Int      @id @default(autoincrement())
+  blogs Blogs @relation(fields: [blog_id], references: [id])
+  blog_id   Int
+  tags Tags @relation(fields: [tag_id], references: [id])
+  tag_id    Int
+}
