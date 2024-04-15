@@ -1,0 +1,97 @@
+{
+  "users": [
+    {
+      "username": "Ura"
+    },
+    {
+      "username": "Hirano"
+    }
+  ],
+  "blogs": [
+    {
+      "title": "Example Blog Post",
+      "image_id": 1,
+      "article_id": 1,
+      "en_name": "ゴブリンガイド",
+      "preview": "This is a preview of the blog post.",
+      "release_flg": false
+    },
+    {
+      "title": "Example Blog Post2",
+      "image_id": 2,
+      "article_id": 2,
+      "en_name": "ゼウスガイド",
+      "preview": "This is a preview of the blog post2",
+      "release_flg": true
+    }
+  ],
+  "blog_tags": [
+    {
+      "blog_id": 3,
+      "tag_id": 2
+    },
+    {
+      "blog_id": 3,
+      "tag_id": 3
+    },
+    {
+      "blog_id": 4,
+      "tag_id": 1
+    }
+  ],
+  "tags": [
+    {
+      "name": "神"
+    },
+    {
+      "name": "UMA"
+    },
+    {
+      "name": "モンスター"
+    }
+  ],
+  "monsters": [
+    {
+      "blog_id": 3,
+      "name": "goblin",
+      "jp_name": "ゴブリン",
+      "size": 150,
+      "weight": 80,
+      "strength_value": 6,
+      "magic_power_value": 1,
+      "rarity_value": 1,
+      "intelligence_value": 2,
+      "risk_value": 4,
+      "trait_text": "ああああ",
+      "root_text": "いいいい",
+      "weakness_text": "うううう",
+      "habitat_text": "ええええ"
+    },
+    {
+      "blog_id": 4,
+      "name": "zeus",
+      "jp_name": "ゼウス",
+      "size": 1000,
+      "weight": 800,
+      "strength_value": 10,
+      "magic_power_value": 10,
+      "rarity_value": 10,
+      "intelligence_value": 10,
+      "risk_value": 8,
+      "trait_text": "ああああ",
+      "root_text": "いいいい",
+      "weakness_text": "うううう",
+      "habitat_text": "ええええ"
+    }
+  ],
+  "images": [
+    {
+      "path": "/goblin.png",
+      "alt": "goblin"
+    },
+    {
+      "path": "/zeus.png",
+      "alt": "zeus"
+    }
+  ]
+}
