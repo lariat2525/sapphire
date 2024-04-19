@@ -30,6 +30,7 @@ model Blogs {
   created_at DateTime @default(now())
   monsters Monsters?
   tags BlogTags[]
+  appearances BlogAppearances[]
 }
 
 // 記事の詳細管理（AI生成あり
@@ -41,6 +42,7 @@ model Monsters {
   jp_name    String
   size Int
   weight Int
+  habitat String
   strength_value Int
   magic_power_value Int
   intelligence_value Int
@@ -49,7 +51,6 @@ model Monsters {
   trait_text String
   root_text String
   weakness_text String
-  habitat_text String
   updated_at DateTime @default(now())
   created_at DateTime @default(now())
 }
@@ -93,4 +94,23 @@ model BlogTags {
   blog_id   Int
   tags Tags @relation(fields: [tag_id], references: [id])
   tag_id    Int
+}
+
+
+// 出演作品テーブル
+model BlogAppearances {
+  id         Int      @id @default(autoincrement())
+  blogs Blogs @relation(fields: [blog_id], references: [id])
+  blog_id   Int
+  appearances Appearances @relation(fields: [appearance_id], references: [id])
+  appearance_id    Int
+}
+
+// ブログ出演作品中間テーブル
+model Appearances {
+  id    Int    @id @default(autoincrement())
+  name String
+  en_name String
+  created_at DateTime @default(now())
+  blogAppearances BlogAppearances[]
 }

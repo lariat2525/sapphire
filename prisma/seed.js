@@ -13,7 +13,6 @@ async function main() {
   await prisma.users.createMany({
     data: data.users,
   });
-
   // タグデータの挿入
   await prisma.tags.createMany({
     data: data.tags,
@@ -30,10 +29,17 @@ async function main() {
   await prisma.blogTags.createMany({
     data: data.blog_tags,
   });
-
   // モンスターデータの挿入
   await prisma.monsters.createMany({
     data: data.monsters,
+  });
+  // 出演作品データの挿入
+  await prisma.appearances.createMany({
+    data: data.appearances,
+  });
+  // ブログ出演作品中間データの挿入
+  await prisma.blogAppearances.createMany({
+    data: data.blog_appearances,
   });
 }
 

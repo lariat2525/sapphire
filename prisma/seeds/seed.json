@@ -9,18 +9,18 @@
   ],
   "blogs": [
     {
-      "title": "Example Blog Post",
+      "title": "ゼウスガイド",
       "image_id": 1,
       "article_id": 1,
-      "en_name": "ゴブリンガイド",
+      "name": "goblin",
       "preview": "This is a preview of the blog post.",
       "release_flg": false
     },
     {
-      "title": "Example Blog Post2",
+      "title": "ゼウスガイド",
       "image_id": 2,
       "article_id": 2,
-      "en_name": "ゼウスガイド",
+      "name": "zeus",
       "preview": "This is a preview of the blog post2",
       "release_flg": true
     }
@@ -65,7 +65,8 @@
       "trait_text": "ああああ",
       "root_text": "いいいい",
       "weakness_text": "うううう",
-      "habitat_text": "ええええ"
+      "habitat": "オランダ",
+      "appearance": null
     },
     {
       "blog_id": 4,
@@ -81,7 +82,7 @@
       "trait_text": "ああああ",
       "root_text": "いいいい",
       "weakness_text": "うううう",
-      "habitat_text": "ええええ"
+      "habitat": "オランダ"
     }
   ],
   "images": [
@@ -92,6 +93,26 @@
     {
       "path": "/zeus.png",
       "alt": "zeus"
+    }
+  ],
+  "appearances": [
+    {
+      "name": "ゲームオブスローンズ",
+      "en_name": "Game Of Thrones"
+    },
+    {
+      "name": "ドラゴンクエスト",
+      "en_name": "Dragon Quest"
+    }
+  ],
+  "blog_appearances": [
+    {
+      "appearance_id": 1,
+      "blog_id": 1
+    },
+    {
+      "appearance_id": 1,
+      "blog_id": 2
     }
   ]
 }
