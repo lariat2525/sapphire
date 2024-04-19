@@ -2,7 +2,6 @@
   "extends": "next/core-web-vitals",
   "rules": {
     "no-console": "error",
-    "indent": ["error", 2],
     "import/order": [
       "error",
       // TODO: ディレクトリ構成に合わせて直す
