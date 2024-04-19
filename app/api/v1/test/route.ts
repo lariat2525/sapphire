@@ -41,7 +41,7 @@ export const GET = async (req: Request) => {
     });
     return NextResponse.json({ templates }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: "Error" }, { status: 500 });
+    return NextResponse.json({ message: error }, { status: 500 });
   } finally {
     await prisma.$disconnect();
   }
