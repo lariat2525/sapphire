@@ -89,14 +89,14 @@ async function main() {
     ],
   });
 
-  // ブログタグの一括追加
-  // const blogTags = await prisma.blogTags.createMany({
-  //   data: [
-  //     { blog_id: 1, tag_id: 1 },
-  //     { blog_id: 1, tag_id: 2 },
-  //     { blog_id: 2, tag_id: 3 },
-  //   ],
-  // });
+  ブログタグの一括追加;
+  const blogTags = await prisma.blogTags.createMany({
+    data: [
+      { blog_id: 1, tag_id: 1 },
+      { blog_id: 1, tag_id: 2 },
+      { blog_id: 2, tag_id: 3 },
+    ],
+  });
 
   // ブログ出演作品の一括追加
   const blogAppearances = await prisma.blogAppearances.createMany({
