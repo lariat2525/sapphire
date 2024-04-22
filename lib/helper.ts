@@ -21,6 +21,7 @@ export const prismaFindMany = async (
     take: number | undefined;
     where: WhereOptions | undefined;
     orderBy: { [key: string]: string } | undefined;
+    include: any;
   }
 ) => {
   switch (table) {
@@ -30,6 +31,10 @@ export const prismaFindMany = async (
       return prisma.templates.findMany(options);
     case "blogs":
       return prisma.blogs.findMany(options);
+    case "monsters":
+      return prisma.monsters.findMany(options);
+    case "tags":
+      return prisma.tags.findMany(options);
     // 他のテーブルに対するcaseをここに追加
     default:
       throw new Error(`Unknown table: ${table}`);

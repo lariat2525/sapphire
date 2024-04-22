@@ -21,8 +21,8 @@ const prisma = getPrismaClient();
 // 通常時条件付きテスト
 // export const GET = async (req: Request) => {
 //   try {
-//     const templates = await getRecords("templates", [], {
-//       equal: { id: 2 },
+//     const templates = await getRecords("blogs", [], {
+//       where: { equal: { id: 1 } },
 //     });
 //     return NextResponse.json({ templates }, { status: 200 });
 //   } catch (error) {
@@ -35,9 +35,15 @@ const prisma = getPrismaClient();
 // リレーションつきGETテスト
 export const GET = async (req: Request) => {
   try {
-    const templates = await prisma.monsters.findMany({
-      where: { id: 1 },
-      include: { blog: true },
+    const templates = await getRecords("blogs", [], {
+      where: { equal: { id: 1 } },
+      include: {
+        tags: {
+          include: {
+            tags: true,
+          },
+        },
+      },
     });
     return NextResponse.json({ templates }, { status: 200 });
   } catch (error) {

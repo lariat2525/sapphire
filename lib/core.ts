@@ -1,17 +1,21 @@
 import { getPrismaClient } from "./config";
 import { converterWhereOptions, prismaFindMany } from "./helper";
-import { TableOrderByType, TableType, WhereOptions } from "./types/db";
+import {
+  IncludeType,
+  TableOrderByType,
+  TableType,
+  WhereOptions,
+} from "./types/db";
 
 const prisma = getPrismaClient();
 
 /**
  * 指定されたテーブルからレコードを取得します。
  *
- * @param table テーブルの種類
- * @param columns 取得するカラムの配列  default:[] カラム全選択
- * @param filter レコードのフィルター条件　default: 全取得
- * @param order レコードのソートオプション default: null
- * @returns レコードの配列
+ * @param table 取得するレコードのテーブル名
+ * @param columns 取得するカラムの配列。デフォルトは全カラムを選択します。
+ * @param options オプションのオブジェクト。where（フィルター条件）、filter（取得するレコード数）、order（ソートオプション）、include（関連するレコードを含むかどうか）を指定できます。デフォルトは全てのオプションが未指定（全レコードを取得）です。
+ * @returns 取得したレコードの配列を返します。
  */
 export const getRecords = async (
   table: TableType,
@@ -46,6 +50,7 @@ export const getRecords = async (
     where: options.where ? whereOption : undefined,
     take: options.filter || undefined,
     orderBy: options.order ? orderBy : undefined,
+    include: options.include || undefined,
   });
 
   return records;
