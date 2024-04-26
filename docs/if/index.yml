@@ -1,0 +1,10 @@
+openapi: 3.0.1
+info:
+  title: Combined API
+  description: Combined API definition using index.yaml as an index file
+  version: 1.0.0
+servers:
+  - url: https://api.example.com/v1
+paths:
+  /read/blogs:
+    $ref: "v1/read/blogs.yml"

@@ -1,0 +1,111 @@
+get:
+  summary: ブログ一覧を取得
+  description: オプションのフィルタリングを使用してブログ一覧を取得します
+  parameters:
+    - name: includeMonsters
+      in: query
+      description: ブログデータにモンスターを含めるかどうか
+      schema:
+        type: boolean
+  responses:
+    "200":
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                image:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    path:
+                      type: string
+                    alt:
+                      type: string
+                article:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    username:
+                      type: string
+                title:
+                  type: string
+                en_name:
+                  type: string
+                preview:
+                  type: string
+                release_flg:
+                  type: boolean
+                updated_at:
+                  type: string
+                  format: date-time
+                post_at:
+                  type: string
+                  format: date-time
+                created_at:
+                  type: string
+                  format: date-time
+                monsters:
+                  $ref: "#/components/schemas/MonstersWithConditional"
+                tags:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                appearances:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      en_name:
+                        type: string
+components:
+  schemas:
+    MonstersWithConditional:
+      anyOf:
+        - type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            jp_name:
+              type: string
+            size:
+              type: integer
+            weight:
+              type: integer
+            habitat:
+              type: string
+            strength_value:
+              type: integer
+            magic_power_value:
+              type: integer
+            intelligence_value:
+              type: integer
+            risk_value:
+              type: integer
+            rarity_value:
+              type: integer
+            trait_text:
+              type: string
+            root_text:
+              type: string
+            weakness_text:
+              type: string
+        - type: null
