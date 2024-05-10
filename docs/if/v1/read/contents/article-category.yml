@@ -1,0 +1,34 @@
+get:
+  summary: カテゴリーとしてブログヘッダー情報の１部を取得
+  description: ブログヘッダー情報の１部を取得します。またカテゴリーリストの際にメインタグを種を取得が可能です。
+  parameters:
+    - name: includeTags
+      in: query
+      description: タグ情報を含めるかどうか
+      schema:
+        type: boolean
+  tags:
+    - "blogs"
+  responses:
+    "200":
+      description: "成功。更新が正常に行われました。"
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                en_name:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string

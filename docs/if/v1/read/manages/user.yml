@@ -1,0 +1,28 @@
+get:
+  summary: "ユーザー情報を取得"
+  description: "ユーザー情報を取得する"
+  tags:
+    - "manages"
+  parameters:
+    - name: userId
+      in: path
+      description: ユーザーIDを指定。指定しなければすべて取得
+      schema:
+        type: integer
+        format: int64
+  responses:
+    "200":
+      description: "成功。更新が正常に行われました。"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                format: int64
+              username:
+                type: string
+              created_at:
+                type: string
+                format: date-time

@@ -1,0 +1,123 @@
+get:
+  summary: ブログを取得
+  description: 記事単一ページで利用するブログを取得します
+  tags:
+    - "blogs"
+  parameters:
+    - name: includeHeaders
+      in: query
+      description: ブログデータにブログヘッダー情報を含めるかどうか
+      schema:
+        type: boolean
+    - name: includeMonsters
+      in: query
+      description: ブログデータにモンスターを含めるかどうか
+      schema:
+        type: boolean
+    - name: blogId
+      in: path
+      description: ID
+      schema:
+        type: boolean
+  responses:
+    "200":
+      description: "成功。更新が正常に行われました。"
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                image:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    path:
+                      type: string
+                    alt:
+                      type: string
+                article:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    username:
+                      type: string
+                title:
+                  type: string
+                en_name:
+                  type: string
+                preview:
+                  type: string
+                release_flg:
+                  type: boolean
+                updated_at:
+                  type: string
+                  format: date-time
+                post_at:
+                  type: string
+                  format: date-time
+                created_at:
+                  type: string
+                  format: date-time
+                monsters:
+                  $ref: "#/components/schemas/includeMonsters"
+                tags:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                appearances:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      en_name:
+                        type: string
+components:
+  schemas:
+    includeMonsters:
+      anyOf:
+        - type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            jp_name:
+              type: string
+            size:
+              type: integer
+            weight:
+              type: integer
+            habitat:
+              type: string
+            strength_value:
+              type: integer
+            magic_power_value:
+              type: integer
+            intelligence_value:
+              type: integer
+            risk_value:
+              type: integer
+            rarity_value:
+              type: integer
+            trait_text:
+              type: string
+            root_text:
+              type: string
+            weakness_text:
+              type: string
+        - type: null

@@ -1,0 +1,27 @@
+post:
+  summary: ユーザー追加
+  description: ユーザー追加
+  tags:
+    - "manages"
+  parameters:
+    - in: body
+      name: options
+      description: ユーザー設定
+      required: true
+      schema:
+        type: object
+        properties:
+          name:
+            description: ユーザー名
+  responses:
+    "200":
+      description: "成功。更新が正常に行われました。"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+    "400":
+      description: Bad request

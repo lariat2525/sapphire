@@ -1,0 +1,44 @@
+put:
+  summary: "ユーザーの更新"
+  description: "ユーザー情報の更新を行います。"
+  tags:
+    - "manages"
+  parameters:
+    - in: body
+      name: names
+      description: "対象レコードと対象カラムと新しい値を設定してください。"
+      required: true
+      schema:
+        type: object
+        properties:
+          id:
+            type: integer
+            description: "対象レコードのID"
+          column:
+            type: string
+            description: "更新する対象のカラム名"
+          new_value:
+            type: string
+            description: "新しい値"
+  responses:
+    "200":
+      description: "成功。更新が正常に行われました。"
+    "400":
+      description: |
+        リクエストが不正です。
+        - 対象レコードのIDが存在しない場合
+        - 更新する対象のカラム名が存在しない場合
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: integer
+                example:
+                  ID_NOT_FOUND: 4001
+                  COLUMN_NOT_FOUND: 4002
+              message:
+                type: string
+                example: |
+                  リクエストが不正です。対象レコードのIDが存在しないか、更新する対象のカラム名が存在しません。

@@ -1,0 +1,29 @@
+post:
+  summary: 記事追加
+  description: ほぼ空の記事データ追加する
+  tags:
+    - "manages"
+  parameters:
+    - in: body
+      name: names
+      description: 日本語名/英語名を入力する
+      required: true
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+          en_name:
+            type: string
+  responses:
+    "200":
+      description: "成功。更新が正常に行われました。"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+    "400":
+      description: Bad request
