@@ -1,0 +1,86 @@
+get:
+  summary: ブログヘッダーリストを取得
+  description: 記事単一ページで利用するブログを取得します
+  tags:
+    - "blogs"
+  parameters:
+    - name: page
+      in: query
+      description: 取得するページ番号
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    - name: pageSize
+      in: query
+      description: ページごとのブログ数
+      schema:
+        type: integer
+        minimum: 1
+        default: 10
+  responses:
+    "200":
+      description: "成功。更新が正常に行われました。"
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                image:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    path:
+                      type: string
+                    alt:
+                      type: string
+                article:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    username:
+                      type: string
+                title:
+                  type: string
+                en_name:
+                  type: string
+                preview:
+                  type: string
+                release_flg:
+                  type: boolean
+                updated_at:
+                  type: string
+                  format: date-time
+                post_at:
+                  type: string
+                  format: date-time
+                created_at:
+                  type: string
+                  format: date-time
+
+                tags:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                appearances:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      en_name:
+                        type: string

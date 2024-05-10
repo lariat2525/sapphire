@@ -1,0 +1,51 @@
+post:
+  summary: AIで記事を生成
+  description: 記事を生成する
+  tags:
+    - "manages"
+  parameters:
+    - in: body
+      name: options
+      description: 日本語名/英語名を入力する
+      required: true
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+          en_name:
+            type: string
+          prompt:
+            type: string
+  responses:
+    "200":
+      description: "成功。更新が正常に行われました。"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              size:
+                type: integer
+              weight:
+                type: integer
+              habitat:
+                type: string
+              strength_value:
+                type: integer
+              magic_power_value:
+                type: integer
+              intelligence_value:
+                type: integer
+              risk_value:
+                type: integer
+              rarity_value:
+                type: integer
+              trait_text:
+                type: string
+              root_text:
+                type: string
+              weakness_text:
+                type: string
+    "400":
+      description: Bad request

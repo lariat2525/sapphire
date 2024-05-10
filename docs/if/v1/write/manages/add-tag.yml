@@ -1,0 +1,28 @@
+post:
+  summary: "タグ追加"
+  description: "タグを追加します。"
+  tags:
+    - "manages"
+  parameters:
+    - in: body
+      name: option
+      description: "タグ名と色の設定"
+      required: true
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            description: "タグ名"
+          en_name:
+            type: string
+            description: "英名"
+          color:
+            type: string
+            description: "色(#XXXXX)"
+  responses:
+    "200":
+      description: "成功。更新が正常に行われました。"
+    "400":
+      description: |
+        リクエストが不正です。

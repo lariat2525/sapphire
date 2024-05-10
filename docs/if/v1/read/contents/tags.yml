@@ -1,0 +1,23 @@
+get:
+  summary: "全タグを取得"
+  description: "存在するタグリストすべてを取得する"
+  tags:
+    - "contents"
+  responses:
+    "200":
+      description: "成功。更新が正常に行われました。"
+      content:
+        application/json:
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                id:
+                  type: "integer"
+                  format: "int64"
+                name:
+                  type: "string"
+                created_at:
+                  type: "string"
+                  format: "date-time"

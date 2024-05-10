@@ -6,5 +6,40 @@ info:
 servers:
   - url: https://api.example.com/v1
 paths:
-  /read/blogs:
-    $ref: "v1/read/blogs.yml"
+  /read/articles/{article_id}:
+    $ref: "v1/read/contents/article.yml"
+  /read/articles/list:
+    $ref: "v1/read/contents/article-list.yml"
+  /read/articles/ranking:
+    $ref: "v1/read/contents/article-ranking.yml"
+  /read/articles/category:
+    $ref: "v1/read/contents/article-category.yml"
+  /read/tags:
+    $ref: "v1/read/contents/tags.yml"
+  /read/appearances:
+    $ref: "v1/read/contents/appearances.yml"
+  /read/users/{userId}:
+    $ref: "v1/read/manages/user.yml"
+  /read/images/{imageId}:
+    $ref: "v1/read/manages/image.yml"
+
+  /write/make/image:
+    $ref: "v1/write/manages/make-image.yml"
+  /write/make/article:
+    $ref: "v1/write/manages/make-article.yml"
+  /write/create/image:
+    $ref: "v1/write/manages/add-image.yml"
+  /write/create/article:
+    $ref: "v1/write/manages/add-article.yml"
+  /write/create/tag:
+    $ref: "v1/write/manages/add-tag.yml"
+  /write/create/appearance:
+    $ref: "v1/write/manages/add-appearance.yml"
+  /write/create/user:
+    $ref: "v1/write/manages/add-user.yml"
+  /write/meta:
+    $ref: "v1/write/manages/meta.yml"
+  /write/monster:
+    $ref: "v1/write/manages/monster.yml"
+  /write/user:
+    $ref: "v1/write/manages/user.yml"
