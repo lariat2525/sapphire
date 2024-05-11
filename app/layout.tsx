@@ -1,6 +1,9 @@
 "use client";
 import "./globals.css";
 import { RecoilRoot } from "recoil";
+import Footer from "@/components/layouts/articles/Footer";
+import Header from "@/components/layouts/articles/Header";
+// FIXME: レイアウトのデザインを後で直す
 
 export default function RootLayout({
   children,
@@ -8,13 +11,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <head>
         <title>Title</title>
         <meta name="description" content="Description" />
       </head>
       <RecoilRoot>
-        <body>{children}</body>
+        <body className="bg-primary-color">
+          <Header></Header>
+          {children}
+          <Footer></Footer>
+        </body>
       </RecoilRoot>
     </html>
   );
