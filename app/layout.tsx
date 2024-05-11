@@ -18,9 +18,9 @@ export default function RootLayout({
       </head>
       <RecoilRoot>
         <body className="bg-primary-color">
-          <Header></Header>
-          {children}
-          <Footer></Footer>
+          <Header />
+          <main className="bg-white max-w-6xl mx-auto">{children}</main>
+          <Footer />
         </body>
       </RecoilRoot>
     </html>
