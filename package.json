@@ -8,7 +8,7 @@
     "start": "next start",
     "lint fix": "next lint --fix",
     "lint": "next lint",
-    "prisma:seed": "ts-node prisma/seed.js"
+    "prisma:seed": "ts-node --project prisma/tsconfig-seed.json prisma/seed.js"
   },
   "dependencies": {
     "@prisma/client": "^5.12.1",
