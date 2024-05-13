@@ -35,16 +35,10 @@ const prisma = getPrismaClient();
 // リレーションつきGETテスト
 export const GET = async (req: Request) => {
   try {
-    const templates = await getRecords("blogs", [], {
+    const templates = await getRecords("articles", [], {
       where: { equal: { id: 1 } },
-      include: {
-        tags: {
-          include: {
-            tags: true,
-          },
-        },
-      },
     });
+
     return NextResponse.json({ templates }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });
