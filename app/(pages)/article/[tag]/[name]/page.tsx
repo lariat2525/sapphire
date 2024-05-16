@@ -1,10 +1,22 @@
 "use client";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
 import DotLine from "@/components/elements/shapes/DotLine";
 import LineDotCenter from "@/components/elements/shapes/LineDotCenter";
-// http://localhost:3000/article/UMA/2
+import useGetArticle from "@/features/articles/hooks/useGetArticle";
+import { articlesState } from "@/features/articles/state/article";
 
 export default function Article() {
+  const callGetArticle = useGetArticle();
+  const articlesData = useRecoilValue(articlesState);
+
+  useEffect(() => {
+    callGetArticle();
+  }, [callGetArticle]);
+
+  console.log(articlesData);
+
   return (
     <div className="Content flex justify-center">
       <div className="Left mx-4 w-2/3">

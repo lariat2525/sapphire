@@ -1,11 +1,12 @@
 import { useCallback } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { EndPoint } from "@/constants/api";
 import { articlesState } from "@/features/articles/state/article";
 
 const APIUrl = EndPoint.Read.ARTICLE_SINGLE;
+
 const useGetArticle = () => {
-  const [articles, setArticles] = useRecoilState(articlesState);
+  const setArticles = useSetRecoilState(articlesState);
 
   const fetchData = useCallback(async () => {
     try {
