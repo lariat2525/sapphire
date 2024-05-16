@@ -19,7 +19,7 @@ export default function RootLayout({
       <RecoilRoot>
         <body className="bg-primary-color">
           <Header />
-          <main className="max-w-6xl mx-auto">{children}</main>
+          <main className="max-w-4xl mx-auto">{children}</main>
           <Footer />
         </body>
       </RecoilRoot>
