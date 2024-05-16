@@ -1,4 +1,4 @@
-namespace Api {
+namespace EndPoint {
   export const Read = {
     //　記事取得API
     ARTICLE_SINGLE: "/api/v1/read/articles/{article_id}",
@@ -6,4 +6,4 @@ namespace Api {
   namespace Write {}
 }
 
-export { Api };
+export { EndPoint };
