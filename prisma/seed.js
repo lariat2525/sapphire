@@ -10,37 +10,43 @@ async function main() {
     data: [{ username: "Ura" }, { username: "Hirano" }],
   });
 
+  const articles = await prisma.articles.createMany({
+    data: [
+      {
+        title: "全知全能の神",
+        name: "zeus",
+        jp_name: "ゼウス",
+        release_flg: false,
+        created_at: new Date(),
+        updated_at: new Date(),
+        user_id: 1,
+      },
+      {
+        title: "ゴブリン",
+        name: "goblin",
+        jp_name: "ゴブリン",
+        release_flg: true,
+        created_at: new Date(),
+        updated_at: new Date(),
+        user_id: 2,
+      },
+    ],
+  });
+
   // 画像データの一括追加
   const images = await prisma.images.createMany({
     data: [
-      { path: "/goblin.png", alt: "goblin" },
-      { path: "/zeus.png", alt: "zeus" },
+      { path: "/goblin.png", alt: "goblin", article_id: 1 },
+      { path: "/zeus.png", alt: "zeus", article_id: 2 },
     ],
   });
 
   // タグデータの一括追加
   const tags = await prisma.tags.createMany({
-    data: [{ name: "神" }, { name: "UMA" }, { name: "モンスター" }],
-  });
-
-  const blogs = await prisma.blogs.createMany({
     data: [
-      {
-        title: "ゼウスガイド",
-        en_name: "Zeus Guide",
-        preview: "This is a preview of the blog post.",
-        release_flg: false,
-        image_id: 1, // 前パートで追加された画像ID
-        article_id: 1, // 前パートで追加されたユーザーID
-      },
-      {
-        title: "ゼウスガイド",
-        en_name: "Zeus Guide",
-        preview: "This is a preview of the blog post2",
-        release_flg: true,
-        image_id: 2, // 前パートで追加された画像ID
-        article_id: 2, // 前パートで追加されたユーザーID
-      },
+      { name: "god", jp_name: "神" },
+      { name: "UMA", jp_name: "UMA" },
+      { name: "monster", jp_name: "モンスター" },
     ],
   });
 
@@ -48,7 +54,7 @@ async function main() {
   const monsters = await prisma.monsters.createMany({
     data: [
       {
-        blog_id: 1,
+        article_id: 1,
         name: "goblin",
         jp_name: "ゴブリン",
         size: 150,
@@ -64,7 +70,7 @@ async function main() {
         weakness_text: "うううう",
       },
       {
-        blog_id: 2,
+        article_id: 2,
         name: "zeus",
         jp_name: "ゼウス",
         size: 1000,
@@ -84,25 +90,25 @@ async function main() {
 
   const appearances = await prisma.appearances.createMany({
     data: [
-      { name: "ゲームオブスローンズ", en_name: "Game Of Thrones" },
-      { name: "ドラゴンクエスト", en_name: "Dragon Quest" },
+      { name: "Game Of Thrones", jp_name: "ゲームオブスローンズ" },
+      { name: "Dragon Quest", jp_name: "ドラゴンクエスト" },
     ],
   });
 
-  ブログタグの一括追加;
-  const blogTags = await prisma.blogTags.createMany({
+  // 記事タグの一括追加
+  const articleTags = await prisma.articleTags.createMany({
     data: [
-      { blog_id: 1, tag_id: 1 },
-      { blog_id: 1, tag_id: 2 },
-      { blog_id: 2, tag_id: 3 },
+      { article_id: 1, tag_id: 1, main_flg: true },
+      { article_id: 1, tag_id: 2, main_flg: false },
+      { article_id: 2, tag_id: 3, main_flg: true },
     ],
   });
 
-  // ブログ出演作品の一括追加
-  const blogAppearances = await prisma.blogAppearances.createMany({
+  // 記事出演作品の一括追加
+  const articleAppearances = await prisma.articleAppearances.createMany({
     data: [
-      { blog_id: 1, appearance_id: 1 },
-      { blog_id: 2, appearance_id: 1 },
+      { article_id: 1, appearance_id: 1 },
+      { article_id: 2, appearance_id: 1 },
     ],
   });
 
