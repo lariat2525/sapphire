@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { useRecoilState } from "recoil";
-import { Api } from "@/constants/api";
+import { EndPoint } from "@/constants/api";
 import { articlesState } from "@/features/articles/state/article";
 
-const APIUrl = Api.Read.ARTICLE_SINGLE;
+const APIUrl = EndPoint.Read.ARTICLE_SINGLE;
 const useGetArticle = () => {
   const [articles, setArticles] = useRecoilState(articlesState);
 
