@@ -6,12 +6,12 @@ get:
   parameters:
     - name: includeHeaders
       in: query
-      description: ブログデータにブログヘッダー情報を含めるかどうか
+      description: ブログデータにブログヘッダー情報を含めるかどうか　デフォルトは含める
       schema:
         type: boolean
     - name: includeMonsters
       in: query
-      description: ブログデータにモンスターを含めるかどうか
+      description: ブログデータにモンスターを含めるかどうか デフォルトは含める
       schema:
         type: boolean
     - name: blogId
