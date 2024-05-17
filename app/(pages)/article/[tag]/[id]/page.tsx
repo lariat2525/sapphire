@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import DotLine from "@/components/elements/shapes/DotLine";
@@ -17,23 +16,25 @@ export default function Article() {
   }, [callGetArticle]);
 
   console.log(articlesData);
+
   return (
-    <div className="Content flex justify-center">
+    <div className="Content mt-24 flex justify-center z-0">
       <div className="Left mx-4 w-2/3">
         <div className="Info">
           <div className="Image bg-secondary-color">
             <img src="/test/goblin.svg" alt="image" className="h-" />
           </div>
-          {/* TODO: 後で"h-screen"消してね👍 */}
-          <div className="Detail p-4 bg-white h-screen">
+          <div className="Detail p-4 pb-10 bg-secondary-color">
             <div className="Profile m-4">
               <div className="Names p-5">
                 <div className="Name flex justify-center">
                   <div className="EN text-5xl">
-                    <p>GOBLIN</p>
+                    <p className="font-overlock font-bold">
+                      {articlesData.name.toUpperCase()}
+                    </p>
                   </div>
                   <div className="JP text-2xl ml-2 flex items-end">
-                    <p className="inline-block">ゴブリン</p>
+                    <p className="inline-block">{articlesData.jp_name}</p>
                   </div>
                 </div>
                 <div className="Tags text-1xl flex justify-end">
@@ -94,7 +95,7 @@ export default function Article() {
                   <p className="">大きさ</p>
                 </div>
                 <div className="Value">
-                  <p className="ml-10 px-2">約130㎝</p>
+                  <p className="ml-10 px-2">約{articlesData.monsters.size}cm</p>
                 </div>
               </div>
               <div className="Weight my-2 mx-5 p-2 flex border-b">
@@ -102,23 +103,25 @@ export default function Article() {
                   <p className="">体重</p>
                 </div>
                 <div className="value">
-                  <p className="ml-10 px-2">約60kg</p>
+                  <p className="ml-10 px-2">
+                    約{articlesData.monsters.weight}kg
+                  </p>
                 </div>
               </div>
               <div className="Habitat my-2 mx-5 flex">
                 <div className="Name mx-2 px-2">
-                  <p className="">生息地</p>
+                  <p className="">登場作品</p>
                 </div>
                 <div className="Value">
                   <p className="ml-9 px-2">オランダ</p>
+                  <p className="ml-9 px-2">フランス</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className="Advertisement bg-white my-4 h-48">広告</div>
-        {/* TODO: 後で"h-screen"消してね👍 */}
-        <div className="Category bg-secondary-color mt-6 h-screen">
+        <div className="Category bg-secondary-color mt-6 utl-size-h-550">
           <div className="Labels">
             <div className="Label p-2 ml-5 mt-0.5 text-2xl">
               <p>カテゴリー</p>
