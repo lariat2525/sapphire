@@ -48,7 +48,7 @@ export const GET = async (req: Request, { params }: Params) => {
         res = await prisma.monsters.findUnique(newSchema);
       } else {
         const rawRes = await prisma.articles.findUnique(schema);
-        if (rawRes && rawRes.tags) {
+        if (rawRes) {
           res = {
             ...rawRes,
             // タグと出演情報をフォーマット

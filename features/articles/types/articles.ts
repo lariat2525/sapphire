@@ -47,3 +47,58 @@ export type FormattedAppearance = {
   jp_name: string; // 出演情報の日本語名
   created_at: string; // 出演情報の作成日時（ISO形式の文字列）
 };
+
+// 記事情報を表す型
+export type Article = {
+  id: number; // 記事ID
+  user_id: number; // ユーザーID
+  title: string; // 記事のタイトル
+  name: string; // 記事の名前
+  jp_name: string; // 記事の日本語名
+  release_flg: boolean; // 公開フラグ
+  updated_at: string; // 記事の更新日時
+  post_at: string; // 記事の投稿日時
+  created_at: string; // 記事の作成日時
+  images: Image[]; // 画像の配列
+  monsters: Monster; // モンスター情報
+  tags: FormattedTag[]; // タグの配列
+  appearances: FormattedAppearance[]; // 出演の配列
+  user: User; // ユーザー情報
+};
+
+// 画像情報を表す型
+type Image = {
+  id: number; // 画像ID
+  path: string; // 画像のパス
+  alt: string; // 画像の代替テキスト
+  created_at: string; // 画像の作成日時
+  article_id: number; // 関連する記事のID
+};
+
+// モンスター情報を表す型
+type Monster = {
+  id: number; // モンスターID
+  article_id: number; // 関連する記事のID
+  name: string; // モンスターの名前
+  jp_name: string; // モンスターの日本語名
+  size: number; // モンスターのサイズ
+  weight: number; // モンスターの重さ
+  habitat: string; // モンスターの生息地
+  strength_value: number | null; // モンスターの強さの値
+  magic_power_value: number | null; // モンスターの魔力の値
+  intelligence_value: number | null; // モンスターの知性の値
+  risk_value: number | null; // モンスターの危険度の値
+  rarity_value: number | null; // モンスターの希少度の値
+  trait_text: string; // モンスターの特徴テキスト
+  root_text: string; // モンスターの起源テキスト
+  weakness_text: string; // モンスターの弱点テキスト
+  updated_at: string; // モンスターの更新日時
+  created_at: string; // モンスターの作成日時
+};
+
+// ユーザー情報を表す型
+type User = {
+  id: number; // ユーザーID
+  username: string; // ユーザー名
+  created_at: string; // ユーザーの作成日時
+};

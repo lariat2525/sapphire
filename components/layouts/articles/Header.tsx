@@ -8,7 +8,7 @@ const Header: React.FC = () => {
       <nav className="flex justify-around text-secondary-color">
         <div className="Titles flex">
           <img src="/test/AI-meme.svg" alt="image" />
-          <div className="Title text-2xl flex items-center font-raleway">
+          <div className="Title text-2xl flex items-center font-zcoolKuaile">
             AI-meme
           </div>
         </div>
