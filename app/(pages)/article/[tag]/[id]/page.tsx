@@ -12,15 +12,12 @@ import { articlesState } from "@/features/articles/state/article";
 export default function Article() {
   const callGetArticle = useGetArticle();
   const articlesData = useRecoilValue(articlesState);
-  const { name } = useParams();
 
   useEffect(() => {
     callGetArticle();
   }, [callGetArticle]);
 
   console.log(articlesData);
-  console.log(name);
-
   return (
     <div className="Content mt-24 flex justify-center z-0">
       <div className="Left mx-4 w-2/3">
