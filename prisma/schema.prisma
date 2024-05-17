@@ -36,8 +36,8 @@ model Monsters {
   article_id          Int       @unique
   name                String
   jp_name             String
-  size                Int
-  weight              Int
+  size                String
+  weight              String
   habitat             String
   strength_value      Int
   magic_power_value   Int
