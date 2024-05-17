@@ -1,12 +1,7 @@
 import { NextResponse } from "next/server";
 import { Params } from "@/types/common";
-import {
-  FormattedAppearance,
-  FormattedTag,
-  ResponseAppearance,
-  ResponseArticleTag,
-} from "@/features/articles/types/articles";
 import { getPrismaClient } from "@/lib/config";
+import { formatAppearances, formatTags } from "@/lib/feature";
 import { isProduction } from "@/lib/helper";
 import { articles } from "@/mock/v1/read/content";
 
@@ -47,13 +42,13 @@ export const GET = async (req: Request, { params }: Params) => {
         const { include, ...newSchema } = schema;
         res = await prisma.monsters.findUnique(newSchema);
       } else {
-        const rawRes = await prisma.articles.findUnique(schema);
-        if (rawRes && rawRes.tags) {
+        const initResponse = await prisma.articles.findUnique(schema);
+        if (initResponse) {
           res = {
-            ...rawRes,
+            ...initResponse,
             // タグと出演情報をフォーマット
-            tags: formatTags(rawRes.tags),
-            appearances: formatAppearances(rawRes.appearances),
+            tags: formatTags(initResponse.tags),
+            appearances: formatAppearances(initResponse.appearances),
           };
         }
       }
@@ -67,31 +62,4 @@ export const GET = async (req: Request, { params }: Params) => {
   } finally {
     await prisma.$disconnect(); // データベース接続を閉じる
   }
-};
-
-/**
- * タグ情報をフォーマット
- * @param tags タグ情報の配列
- * @returns フォーマットされたタグ情報の配列
- */
-const formatTags = (tags: ResponseArticleTag[]): FormattedTag[] => {
-  return tags.map(({ main_flg, tags }) => ({
-    ...tags,
-    created_at: new Date(tags.created_at).toISOString(), // Date型をstring型に変換
-    main_flg,
-  }));
-};
-
-/**
- * 出演情報をフォーマット
- * @param appearances 出演情報の配列
- * @returns フォーマットされた出演情報の配列
- */
-const formatAppearances = (
-  appearances: ResponseAppearance[]
-): FormattedAppearance[] => {
-  return appearances.map(({ appearances }) => ({
-    ...appearances,
-    created_at: new Date(appearances.created_at).toISOString(), // Date型をstring型に変換
-  }));
 };

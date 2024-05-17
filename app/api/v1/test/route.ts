@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { getPrismaClient } from "@/lib/config";
-import { getRecords } from "@/lib/core";
 
 const prisma = getPrismaClient();
 
@@ -32,29 +31,29 @@ const prisma = getPrismaClient();
 //   }
 // };
 
-// リレーションつきGETテスト
-export const GET = async (req: Request) => {
-  try {
-    const templates = await getRecords("articles", [], {
-      where: { equal: { id: 1 } },
-    });
+// // リレーションつきGETテスト
+// export const GET = async (req: Request) => {
+//   try {
+//     const templates = await getRecords("articles", [], {
+//       where: { equal: { id: 1 } },
+//     });
 
-    return NextResponse.json({ templates }, { status: 200 });
-  } catch (error) {
-    return NextResponse.json({ message: error }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
-  }
-};
+//     return NextResponse.json({ templates }, { status: 200 });
+//   } catch (error) {
+//     return NextResponse.json({ message: error }, { status: 500 });
+//   } finally {
+//     await prisma.$disconnect();
+//   }
+// };
 
-// CRUDで単一のエンドポイントでも切り替えれるかテスト
-export const POST = async (req: Request) => {
-  try {
-    const templates = await getRecords("templates", []);
-    return NextResponse.json({ templates }, { status: 200 });
-  } catch (error) {
-    return NextResponse.json({ message: "Error" }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
-  }
-};
+// // CRUDで単一のエンドポイントでも切り替えれるかテスト
+// export const POST = async (req: Request) => {
+//   try {
+//     const templates = await getRecords("templates", []);
+//     return NextResponse.json({ templates }, { status: 200 });
+//   } catch (error) {
+//     return NextResponse.json({ message: "Error" }, { status: 500 });
+//   } finally {
+//     await prisma.$disconnect();
+//   }
+// };

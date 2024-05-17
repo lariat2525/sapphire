@@ -17,6 +17,7 @@ model Articles {
   title        String
   name         String
   jp_name      String
+  preview　　　Int
   release_flg  Boolean
   updated_at   DateTime              @default(now())
   post_at      DateTime              @default(now())
@@ -94,7 +95,7 @@ model ArticleTags {
   tag_id      Int
 }
 
-// 出演作品テーブル
+// 登場作品テーブル
 model ArticleAppearances {
   id              Int             @id @default(autoincrement())
   articles        Articles        @relation(fields: [article_id], references: [id])
@@ -103,7 +104,7 @@ model ArticleAppearances {
   appearance_id   Int
 }
 
-// ブログ出演作品中間テーブル
+// ブログ登場作品中間テーブル
 model Appearances {
   id                  Int                   @id @default(autoincrement())
   name                String
