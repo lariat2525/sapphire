@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import DotLine from "@/components/elements/shapes/DotLine";
@@ -10,12 +11,14 @@ import { articlesState } from "@/features/articles/state/article";
 export default function Article() {
   const callGetArticle = useGetArticle();
   const articlesData = useRecoilValue(articlesState);
+  const { name } = useParams();
 
   useEffect(() => {
     callGetArticle();
   }, [callGetArticle]);
 
   console.log(articlesData);
+  console.log(name);
 
   return (
     <div className="Content flex justify-center">
