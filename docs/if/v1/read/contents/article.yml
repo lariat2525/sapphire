@@ -118,6 +118,6 @@ components:
               type: string
             root_text:
               type: string
-            weakness_text:
+            other_text:
               type: string
         - type: null

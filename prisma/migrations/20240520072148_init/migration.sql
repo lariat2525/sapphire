@@ -30,7 +30,7 @@ CREATE TABLE "Monsters" (
     "rarity_value" INTEGER NOT NULL,
     "trait_text" TEXT NOT NULL,
     "root_text" TEXT NOT NULL,
-    "weakness_text" TEXT NOT NULL,
+    "other_text" TEXT NOT NULL,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
