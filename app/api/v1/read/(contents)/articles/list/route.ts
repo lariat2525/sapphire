@@ -3,6 +3,7 @@ import { getPrismaClient } from "@/lib/config";
 import { formatAppearances, formatTags } from "@/lib/feature";
 import { isProduction } from "@/lib/helper";
 import { articles } from "@/mock/v1/read/content";
+import { addColumnArticleListLocal } from "@/mock/v1/read/helper";
 
 const prisma = getPrismaClient();
 
@@ -10,42 +11,14 @@ const prisma = getPrismaClient();
 export const GET = async (req: Request) => {
   try {
     const { searchParams } = new URL(req.url);
-
-    //　絞り込みオプション
-    const tagName = searchParams.get("tagName");
-    const appearanceName = searchParams.get("appearanceName");
-
-    //　取得時オプション
     const page: number = Number(searchParams.get("page")) || 1;
     const pageSize: number = Number(searchParams.get("pageSize")) || 10;
 
     const skip = (page - 1) * pageSize;
     const take = pageSize;
 
-    const where: any = {};
-
-    if (tagName) {
-      where.tags = {
-        some: {
-          tags: {
-            name: tagName,
-          },
-        },
-      };
-    }
-
-    if (appearanceName) {
-      where.appearances = {
-        some: {
-          appearances: {
-            name: appearanceName, // 指定されたタグ名のいずれかに一致
-          },
-        },
-      };
-    }
-
     const schema = {
-      where,
+      where: {},
       include: {
         images: true,
         tags: {
@@ -65,14 +38,14 @@ export const GET = async (req: Request) => {
     };
 
     // TODO: arinosu mati
-    let result: any = [];
+    let res: any = [];
 
     if (isProduction()) {
       const initResponses = await prisma.articles.findMany(schema);
       if (initResponses.length) {
-        result = initResponses.map((response) => {
+        res = initResponses.map((response) => {
           return [
-            ...result,
+            ...res,
             {
               ...response,
               tags: formatTags(response.tags),
@@ -82,10 +55,10 @@ export const GET = async (req: Request) => {
         });
       }
     } else {
-      result = articles; // 開発環境ではモックデータを使用
+      res = addColumnArticleListLocal(20); // 開発環境ではモックデータを使用
     }
 
-    return NextResponse.json(result);
+    return NextResponse.json(res);
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });
   } finally {

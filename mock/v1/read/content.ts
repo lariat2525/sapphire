@@ -1,3 +1,5 @@
+import { Article } from "@/features/articles/types/articles";
+
 export const articles = {
   id: 1,
   user_id: 1,
@@ -32,7 +34,7 @@ export const articles = {
     rarity_value: 1,
     trait_text: "ああああ",
     root_text: "いいいい",
-    other_text: "うううう",
+    weakness_text: "うううう",
     updated_at: "2024-05-13T06:14:07.075Z",
     created_at: "2024-05-13T06:14:07.075Z",
   },
@@ -67,21 +69,28 @@ export const articles = {
   },
 };
 
-export const articleList = [
+export const articleList: Article[] = [
   {
     id: 1,
-    image: {
-      id: 5,
-      path: "/image/path",
-      alt: "image alt",
-    },
-    article: {
+    user_id: 2,
+    images: [
+      {
+        id: 5,
+        article_id: 5,
+        path: "/image/path",
+        alt: "image alt",
+        created_at: "2024-05-01T12:00:00Z",
+      },
+    ],
+    user: {
       id: 6,
       username: "username",
+      created_at: "2024-05-01T12:00:00Z",
     },
-    title: "title",
-    en_name: "english name",
-    preview: "preview text",
+    title: "海外の有名SNSシェアボタンsasasa",
+    jp_name: "レネクトン",
+    name: "renekton",
+    preview: 6214,
     release_flg: true,
     updated_at: "2024-05-01T12:00:00Z",
     post_at: "2024-05-01T12:00:00Z",
@@ -89,23 +98,31 @@ export const articleList = [
     tags: [
       {
         id: 1,
+        main_flg: true,
+        jp_name: "幽霊",
         name: "tag1",
+        created_at: "2024-05-01T12:00:00Z",
       },
       {
         id: 2,
+        main_flg: false,
+        jp_name: "妖怪",
         name: "tag2",
+        created_at: "2024-05-01T12:00:00Z",
       },
     ],
     appearances: [
       {
         id: 1,
         name: "appearance1",
-        en_name: "appearance1_en",
+        jp_name: "appearance1_en",
+        created_at: "2024-05-01T12:00:00Z",
       },
       {
         id: 2,
         name: "appearance2",
-        en_name: "appearance2_en",
+        jp_name: "appearance2_en",
+        created_at: "2024-05-01T12:00:00Z",
       },
     ],
   },
@@ -257,5 +274,18 @@ export const category = [
         name: "Tag 4",
       },
     ],
+  },
+];
+
+export const users = [
+  {
+    id: 1,
+    username: "Ura",
+    created_at: "2024-05-13T06:14:06.905Z",
+  },
+  {
+    id: 1,
+    username: "Tanaka",
+    created_at: "2024-05-13T06:14:06.905Z",
   },
 ];

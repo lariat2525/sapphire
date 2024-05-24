@@ -54,13 +54,14 @@ export type Article = {
   user_id: number; // ユーザーID
   title: string; // 記事のタイトル
   name: string; // 記事の名前
+  preview: number;
   jp_name: string; // 記事の日本語名
   release_flg: boolean; // 公開フラグ
   updated_at: string; // 記事の更新日時
   post_at: string; // 記事の投稿日時
   created_at: string; // 記事の作成日時
   images: Image[]; // 画像の配列
-  monsters: Monster; // モンスター情報
+  monsters?: Monster; // モンスター情報
   tags: FormattedTag[]; // タグの配列
   appearances: FormattedAppearance[]; // 出演の配列
   user: User; // ユーザー情報
@@ -91,7 +92,7 @@ type Monster = {
   rarity_value: number | null; // モンスターの希少度の値
   trait_text: string; // モンスターの特徴テキスト
   root_text: string; // モンスターの起源テキスト
-  other_text: string; // モンスターの弱点テキスト
+  weakness_text: string; // モンスターの弱点テキスト
   updated_at: string; // モンスターの更新日時
   created_at: string; // モンスターの作成日時
 };
