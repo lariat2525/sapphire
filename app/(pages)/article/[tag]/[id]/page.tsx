@@ -2,8 +2,12 @@
 import Image from "next/image";
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
+import Tag from "@/components/elements/Tag";
 import DotLine from "@/components/elements/shapes/DotLine";
 import LineDotCenter from "@/components/elements/shapes/LineDotCenter";
+import Profiles from "@/features/articles/components/Profiles";
+import RadarCharts from "@/features/articles/components/RadarCharts";
+import SentenceTemplate from "@/features/articles/components/SentenceTemplate";
 import useGetArticle from "@/features/articles/hooks/useGetArticle";
 import { articlesState } from "@/features/articles/state/article";
 
@@ -22,13 +26,18 @@ export default function Article() {
       <div className="Left mx-4 w-2/3">
         <div className="Info">
           <div className="Image bg-secondary-color">
-            <img src="/test/goblin.svg" alt="image" className="h-" />
+            <Image
+              src={`/test${articlesData.images[0]?.path}`}
+              alt={`${articlesData.images[0]?.alt}の画像`}
+              width={1024}
+              height={1024}
+            />
           </div>
-          <div className="Detail p-4 pb-10 bg-secondary-color">
+          <div className="Detail pt-2 p-4 pb-10 bg-secondary-color">
             <div className="Profile m-4">
-              <div className="Names p-5">
+              <div className="Names">
                 <div className="Name flex justify-center">
-                  <div className="EN text-5xl">
+                  <div className="EN text-6xl">
                     <p className="font-overlock font-bold">
                       {articlesData.name.toUpperCase()}
                     </p>
@@ -37,88 +46,40 @@ export default function Article() {
                     <p className="inline-block">{articlesData.jp_name}</p>
                   </div>
                 </div>
-                <div className="Tags text-1xl flex justify-end">
-                  <div className="Tag flex bg-tertiary-color text-white px-1 utl-flex-center border-2 rounded-full w-1/4">
-                    <div className="h-2 w-2 mr-1.5 rounded-full bg-white"></div>
-                    <div className="mx-3">Fantasy</div>
-                  </div>
-                  <div className="Tag flex bg-tertiary-color text-white px-1 utl-flex-center border-2 rounded-full w-1/4">
-                    <div className="h-2 w-2 mr-1.5 rounded-full bg-white"></div>
-                    <div className="ml-3 mr-4">God</div>
-                  </div>
+
+                <div className="Tags text-sm flex justify-end">
+                  {articlesData.tags?.map(({ name, jp_name }, index) => {
+                    return (
+                      <Tag key={index} href={`/article/${name}`}>
+                        {jp_name}
+                      </Tag>
+                    );
+                  })}
                 </div>
-              </div>
-              <DotLine></DotLine>
-              <div className="Text">
-                <p className="px-8 my-0.5 leading-9 text-base tracking-widest">
-                  アンスプラッシュとは、大量の写真が保管されているストックフォトの一つです。そのため、わざわざアンスプラッシュからダウンロードして取り込まなくても、Figmaアプリなら直接かつ簡単に写真をUIデザインに追加できるので、時間短縮になり著しく業務が改善されます。また、写真の挿入にはアンスプラッシュだけでなくペクセルというプラグインも利用可能です。
-                </p>
               </div>
             </div>
             <div className="Root m-4">
-              <div className="Labels">
-                <div className="Label">
-                  <h3 className="p-2 mt-0.5 text-2xl">由来</h3>
-                </div>
-                <div className="Line flex">
-                  <DotLine></DotLine>
-                </div>
-              </div>
-              <div className="Text mt-6">
-                <p className="inline-block px-8 my-0.5 leading-9 text-base tracking-widest">
-                  写真の背景を取り除くためだけに、写真編集ソフトに時間を費やしていませんか？そういう時は、FigmaアプリにRemoveBGのプラグインをインストールすれば解決できます。わざわざ他のツールを使わなくても、RemoveBGでデザインファイル内にある写真の背景を簡単に取り除けます。
-                </p>
-              </div>
+              <SentenceTemplate>
+                {articlesData.monsters?.trait_text}
+              </SentenceTemplate>
+            </div>
+            <div className="Root m-4">
+              <SentenceTemplate title="由来">
+                {articlesData.monsters?.root_text}
+              </SentenceTemplate>
+            </div>
+            <div className="Root m-4">
+              <SentenceTemplate title="余談">
+                {articlesData.monsters?.other_text}
+              </SentenceTemplate>
             </div>
           </div>
         </div>
       </div>
       <div className="Right mx-4 w-1/3">
-        <div className="Graphs bg-tertiary-color text-white utl-size-h-550 mb-6 border-2 rounded">
-          <div className="Graph h-80">
-            <div className="Label flex justify-center">
-              <h2 className="inline-block m-2 utl-flex-center border-2 rounded-full w-1/5">
-                グラフ
-              </h2>
-            </div>
-            <div></div>
-          </div>
-          <div className="Datas h-64">
-            <div className="Label flex justify-center">
-              <h2 className="mt-2 mb-4 flex justify-center border-2 rounded-full  w-4/5">
-                基本情報
-              </h2>
-            </div>
-            <div className="Data">
-              <div className="Size my-2 mx-5 flex border-b">
-                <div className="Name mx-2 px-2">
-                  <p className="">大きさ</p>
-                </div>
-                <div className="Value">
-                  <p className="ml-10 px-2">約{articlesData.monsters.size}cm</p>
-                </div>
-              </div>
-              <div className="Weight my-2 mx-5 p-2 flex border-b">
-                <div className="Name mx-2 px-2">
-                  <p className="">体重</p>
-                </div>
-                <div className="value">
-                  <p className="ml-10 px-2">
-                    約{articlesData.monsters.weight}kg
-                  </p>
-                </div>
-              </div>
-              <div className="Habitat my-2 mx-5 flex">
-                <div className="Name mx-2 px-2">
-                  <p className="">登場作品</p>
-                </div>
-                <div className="Value">
-                  <p className="ml-9 px-2">オランダ</p>
-                  <p className="ml-9 px-2">フランス</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="Info bg-tertiary-color text-white utl-size-h-550 mb-6 border-2 rounded">
+          <RadarCharts></RadarCharts>
+          <Profiles title="基本情報"></Profiles>
         </div>
         <div className="Advertisement bg-white my-4 h-48">広告</div>
         <div className="Category bg-secondary-color mt-6 utl-size-h-550">

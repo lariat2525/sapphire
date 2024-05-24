@@ -46,7 +46,7 @@ model Monsters {
   rarity_value        Int
   trait_text          String
   root_text           String
-  weakness_text       String
+  other_text          String
   updated_at          DateTime  @default(now())
   created_at          DateTime  @default(now())
 }

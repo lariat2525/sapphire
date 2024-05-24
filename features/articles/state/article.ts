@@ -29,7 +29,7 @@ export const articlesState = atom<Article>({
       rarity_value: 0,
       trait_text: "",
       root_text: "",
-      weakness_text: "",
+      other_text: "",
       updated_at: "",
       created_at: "",
     },

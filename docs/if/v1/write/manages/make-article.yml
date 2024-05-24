@@ -45,7 +45,7 @@ post:
                 type: string
               root_text:
                 type: string
-              weakness_text:
+              other_text:
                 type: string
     "400":
       description: Bad request
