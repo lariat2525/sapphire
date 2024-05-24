@@ -22,7 +22,7 @@ export default function Article() {
   console.log(articlesData);
 
   return (
-    <div className="Content mt-24 flex justify-center z-0">
+    <div className="Content pt-24 flex justify-center z-0">
       <div className="Left mx-4 w-2/3">
         <div className="Info">
           <div className="Image bg-secondary-color">
@@ -77,7 +77,7 @@ export default function Article() {
         </div>
       </div>
       <div className="Right mx-4 w-1/3">
-        <div className="Info bg-tertiary-color text-white utl-size-h-550 mb-6 border-2 rounded">
+        <div className="Info bg-tertiary-color text-white min-h-96 mb-6 border-2 rounded">
           <RadarCharts></RadarCharts>
           <Profiles title="基本情報"></Profiles>
         </div>

@@ -4,11 +4,11 @@ import React from "react";
 
 const Header: React.FC = () => {
   return (
-    <header className="fixed top-0 w-full bg-main bg-opacity-50 bg-black p-4 border-b-2 z-0">
+    <header className="fixed top-0 w-full bg-main bg-opacity-80 bg-black p-4 border-b-2 z-0">
       <nav className="flex justify-start text-secondary-color">
         <div className="Titles flex">
           <img src="/test/AI-meme.svg" alt="image" />
-          <div className="Title text-2xl flex items-center font-zcoolKuaile">
+          <div className="Title text-2xl mx-4 flex items-center font-zcoolKuaile">
             AI-meme
           </div>
         </div>
@@ -19,10 +19,7 @@ const Header: React.FC = () => {
           記事
         </Link>
         <Link href="/tags" className="mx-4 flex items-center">
-          タグ
-        </Link>
-        <Link href="/appearance" className="mx-4 flex items-center">
-          アピアランス
+          カテゴリー
         </Link>
         <Link href="/rankings" className="mx-4 flex items-center">
           ランキング
