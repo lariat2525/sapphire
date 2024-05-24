@@ -21,12 +21,12 @@ export default function Profiles({ title }: Props) {
       <div className="Data">
         <div>
           <ProfileSingle title="大きさ">
-            <p className="ml-10 px-2">{monsters.size}</p>
+            <p className="flex justify-center px-2">{monsters.size}</p>
           </ProfileSingle>
         </div>
         <div>
           <ProfileSingle title="重さ">
-            <p className="ml-10 px-2">{monsters.weight}</p>
+            <p className="flex justify-center px-2">{monsters.weight}</p>
           </ProfileSingle>
         </div>
         <div>
@@ -36,7 +36,7 @@ export default function Profiles({ title }: Props) {
                 <a
                   key={index}
                   href={`/article/${name}`}
-                  className="inline-block ml-10 px-2"
+                  className="inline-block flex justify-center px-2"
                 >
                   {jp_name}
                 </a>
