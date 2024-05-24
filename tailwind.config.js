@@ -17,6 +17,11 @@ export default {
         "tertiary-color": "#13244E",
         "neutral-color": "#4E6896",
         "font-color": "#000000",
+        "manage-primary-color": "#111317",
+        "manage-secondary-color": "#FCFEFF",
+        "manage-tertiary-color": "#f8e58c",
+        "manage-accent-color": "#e95295",
+        "manage-neutral-color": "#f8e58c",
       },
       fontFamily: {
         sans: [
@@ -35,5 +40,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };
