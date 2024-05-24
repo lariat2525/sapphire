@@ -10,14 +10,42 @@ const prisma = getPrismaClient();
 export const GET = async (req: Request) => {
   try {
     const { searchParams } = new URL(req.url);
+
+    //　絞り込みオプション
+    const tagName = searchParams.get("tagName");
+    const appearanceName = searchParams.get("appearanceName");
+
+    //　取得時オプション
     const page: number = Number(searchParams.get("page")) || 1;
     const pageSize: number = Number(searchParams.get("pageSize")) || 10;
 
     const skip = (page - 1) * pageSize;
     const take = pageSize;
 
+    const where: any = {};
+
+    if (tagName) {
+      where.tags = {
+        some: {
+          tags: {
+            name: tagName,
+          },
+        },
+      };
+    }
+
+    if (appearanceName) {
+      where.appearances = {
+        some: {
+          appearances: {
+            name: appearanceName, // 指定されたタグ名のいずれかに一致
+          },
+        },
+      };
+    }
+
     const schema = {
-      where: {},
+      where,
       include: {
         images: true,
         tags: {
@@ -37,14 +65,14 @@ export const GET = async (req: Request) => {
     };
 
     // TODO: arinosu mati
-    let res: any = [];
+    let result: any = [];
 
     if (isProduction()) {
       const initResponses = await prisma.articles.findMany(schema);
       if (initResponses.length) {
-        res = initResponses.map((response) => {
+        result = initResponses.map((response) => {
           return [
-            ...res,
+            ...result,
             {
               ...response,
               tags: formatTags(response.tags),
@@ -54,10 +82,10 @@ export const GET = async (req: Request) => {
         });
       }
     } else {
-      res = articles; // 開発環境ではモックデータを使用
+      result = articles; // 開発環境ではモックデータを使用
     }
 
-    return NextResponse.json(res);
+    return NextResponse.json(result);
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });
   } finally {

@@ -4,11 +4,13 @@ get:
   tags:
     - "blogs"
   parameters:
-    description: 取得するブログ数の上限
-    schema:
-    type: integer
-    minimum: 1
-    default: 10
+    - name: pageSize
+      in: query
+      description: 取得するページ番号
+      schema:
+        type: integer
+        minimum: 1
+        default: 10
   responses:
     "200":
       description: "成功。更新が正常に行われました。"

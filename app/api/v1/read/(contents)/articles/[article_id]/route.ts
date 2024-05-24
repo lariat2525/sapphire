@@ -34,17 +34,17 @@ export const GET = async (req: Request, { params }: Params) => {
       },
     };
 
-    let res;
+    let result;
 
     if (isProduction()) {
       if (includeHeaders === "false") {
         // 記事ヘッダー情報がない場合、リレーションを除外
         const { include, ...newSchema } = schema;
-        res = await prisma.monsters.findUnique(newSchema);
+        result = await prisma.monsters.findUnique(newSchema);
       } else {
         const initResponse = await prisma.articles.findUnique(schema);
         if (initResponse) {
-          res = {
+          result = {
             ...initResponse,
             // タグと出演情報をフォーマット
             tags: formatTags(initResponse.tags),
@@ -53,10 +53,10 @@ export const GET = async (req: Request, { params }: Params) => {
         }
       }
     } else {
-      res = articles; // 開発環境ではモックデータを使用
+      result = articles; // 開発環境ではモックデータを使用
     }
 
-    return NextResponse.json(res);
+    return NextResponse.json(result);
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });
   } finally {
