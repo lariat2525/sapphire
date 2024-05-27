@@ -50,6 +50,9 @@
         ],
         "alphabetize": {
           "order": "asc"
+        },
+        "rules": {
+          "no-console": "off",
         }
       }
     ]

@@ -1,12 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
+import DropMenuOption from "@/features/manages/components/DropMenuOption";
 import useGetUser from "@/features/manages/hooks/useGetUser";
 import { userState } from "@/features/manages/state/user";
-import DropMenuOption from "@/features/manages/components/DropMenuOption";
 
 /* TSX */
 export default function Users() {

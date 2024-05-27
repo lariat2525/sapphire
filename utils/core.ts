@@ -43,7 +43,7 @@ export const toUpperFirstLetter = (str: string): string => {
  */
 export const truncateString = (str: string, strSize: number = 14): string => {
   const maxLength = strSize;
-  if (str.length > maxLength) {
+  if (str && str.length > maxLength) {
     return str.slice(0, maxLength) + "...";
   }
   return str;

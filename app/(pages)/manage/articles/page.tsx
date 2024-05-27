@@ -162,13 +162,13 @@ export default function ManageArticleList() {
                   {/* PV数カラム */}
                   <td>
                     <div className="badge badge-md">
-                      {preview.toLocaleString()}
+                      {preview && preview.toLocaleString()}
                     </div>
                   </td>
                   {/* 著者カラム */}
                   <td>
                     <div className="flex justify-between gap-1.5">
-                      <div>{truncateString(user.username, 8)}</div>
+                      <div>{truncateString(user?.username, 8)}</div>
                       <div className="relative top-8">
                         <div
                           onClick={() => openModal(Manages.Modals.Edit.AUTHOR)}
