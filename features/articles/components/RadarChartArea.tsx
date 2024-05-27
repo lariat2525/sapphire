@@ -6,13 +6,33 @@ import styles from "./chart.module.css";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function RadarChartArea() {
+type Props = {
+  rarity_value?: number;
+  strength_value: number;
+  intelligence_value: number;
+  risk_value: number;
+  magic_power_value: number;
+};
+
+export default function RadarChartArea({
+  rarity_value,
+  strength_value,
+  intelligence_value,
+  risk_value,
+  magic_power_value,
+}: Props) {
   const data = {
     labels: ["レア度", "力", "知能", "危険度", "魔力"],
     datasets: [
       {
         label: "",
-        data: [82, 65, 44, 92, 11],
+        data: [
+          rarity_value,
+          strength_value,
+          intelligence_value,
+          risk_value,
+          magic_power_value,
+        ],
         fill: true,
         backgroundColor: "rgba(0, 180, 100, 0.5)",
         borderColor: "rgb(0, 230, 110)",
