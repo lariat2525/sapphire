@@ -15,6 +15,7 @@ const useGetArticle = () => {
     const insertedUrl = replaceUrlPlaceholders(url, {
       article_id: id as string,
     });
+    console.log(insertedUrl);
     try {
       const response = await fetch(insertedUrl);
       if (!response.ok) {

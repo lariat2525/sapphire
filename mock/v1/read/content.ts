@@ -34,7 +34,7 @@ export const articles = {
     rarity_value: 1,
     trait_text: "ああああ",
     root_text: "いいいい",
-    weakness_text: "うううう",
+    other_text: "うううう",
     updated_at: "2024-05-13T06:14:07.075Z",
     created_at: "2024-05-13T06:14:07.075Z",
   },

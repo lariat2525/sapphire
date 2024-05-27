@@ -92,7 +92,7 @@ type Monster = {
   rarity_value: number | null; // モンスターの希少度の値
   trait_text: string; // モンスターの特徴テキスト
   root_text: string; // モンスターの起源テキスト
-  weakness_text: string; // モンスターの弱点テキスト
+  other_text: string;
   updated_at: string; // モンスターの更新日時
   created_at: string; // モンスターの作成日時
 };
