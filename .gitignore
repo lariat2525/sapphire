@@ -36,3 +36,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# exclude
+/app/(pages)/manage/
+/app/api/v1/read/(contents)/manages/
+/app/api/v1/write/(contents)/manages/
