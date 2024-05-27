@@ -12,7 +12,9 @@ export type TableType =
   | "blogs"
   | "articles"
   | "monsters"
-  | "tags";
+  | "tags"
+  | "configs"
+  | "sentences";
 
 /*================================================================================
  GET

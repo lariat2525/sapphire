@@ -23,9 +23,11 @@ model Articles {
   post_at      DateTime              @default(now())
   created_at   DateTime              @default(now())
   images       Images[]
+  sentence_enable_flg          Boolean
   monsters     Monsters?
   tags         ArticleTags[]
   appearances  ArticleAppearances[]
+  memo         String
   user         Users?        @relation(fields: [user_id], references: [id])
 }
 
@@ -111,4 +113,20 @@ model Appearances {
   jp_name             String
   created_at          DateTime              @default(now())
   articleAppearances  ArticleAppearances[]
+}
+
+// AIテキスト管理テーブル
+model Sentences {
+  id                  Int       @id @default(autoincrement())
+  sentence            String
+  enable_flg          Boolean
+  created_at          DateTime  @default(now())
+}
+
+// 設定テーブル
+model Configs {
+  id                  Int       @id @default(autoincrement())
+  username            String
+  updated_at          DateTime  @default(now())
+  created_at          DateTime  @default(now())
 }

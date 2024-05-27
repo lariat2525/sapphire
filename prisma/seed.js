@@ -20,6 +20,8 @@ async function main() {
         created_at: new Date(),
         updated_at: new Date(),
         user_id: 1,
+        sentence_enable_flg: true,
+        memo: "sasa",
         preview: 10,
       },
       {
@@ -30,6 +32,8 @@ async function main() {
         created_at: new Date(),
         updated_at: new Date(),
         user_id: 2,
+        sentence_enable_flg: false,
+        memo: "",
         preview: 2150,
       },
     ],
@@ -62,11 +66,11 @@ async function main() {
         size: "150~1800cm",
         weight: "80~1000kg",
         habitat: "オランダ",
-        strength_value: 10,
-        magic_power_value: 10,
-        intelligence_value: 10,
-        risk_value: 8,
-        rarity_value: 10,
+        strength_value: 100,
+        magic_power_value: 80,
+        intelligence_value: 65,
+        risk_value: 71,
+        rarity_value: 66,
         trait_text:
           "威力は一般的な艦隊砲撃の10倍以上で、艦隊決戦の切り札とされた。胴体は複数のブロックに分けられ、それぞれ決戦宙域に輸送して現地で組み立て、最後に砲座を連結する事で使用できる。その最大威力は60TJ（60兆J）、広島型原爆の9割にも及ぶ。有効射程距離は300㎞、最大射程は2000㎞にも及び、それをわずか1秒で突っ切る（マッハ5882に相当）。",
         root_text:
@@ -82,10 +86,10 @@ async function main() {
         weight: "80~100kg",
         habitat: "オランダ",
         strength_value: 6,
-        magic_power_value: 1,
-        intelligence_value: 2,
-        risk_value: 4,
-        rarity_value: 1,
+        magic_power_value: 100,
+        intelligence_value: 28,
+        risk_value: 41,
+        rarity_value: 100,
         trait_text:
           "威力は一般的な艦隊砲撃の10倍以上で、艦隊決戦の切り札とされた。胴体は複数のブロックに分けられ、それぞれ決戦宙域に輸送して現地で組み立て、最後に砲座を連結する事で使用できる。その最大威力は60TJ（60兆J）、広島型原爆の9割にも及ぶ。有効射程距離は300㎞、最大射程は2000㎞にも及び、それをわずか1秒で突っ切る（マッハ5882に相当）。",
         root_text:
@@ -118,6 +122,40 @@ async function main() {
       { article_id: 1, appearance_id: 1 },
       { article_id: 2, appearance_id: 1 },
     ],
+  });
+
+  // 記事出演作品の一括追加
+  const sentences = await prisma.sentences.createMany({
+    data: [
+      {
+        sentence:
+          "特定のブランチで .gitignore の内容を他のブランチとは異なる状態に保ちたい場合、Gitのブランチ管理を利用することで実現できます。以下の手順で進めてください。",
+        enable_flg: false,
+      },
+    ],
+    data: [
+      { sentence: "まず、特定のブランチに切り替えます。", enable_flg: false },
+    ],
+    data: [
+      {
+        sentence:
+          "この .gitignore の変更はこのブランチにのみ適用され、他のブランチには影響を与えません。必要に応じて、他のブランチに切り替えても .gitignore はそのブランチの状態のままです。",
+        enable_flg: true,
+      },
+    ],
+    data: [
+      {
+        sentence:
+          "必要に応じて、特定のブランチでは .gitignore に含めたくないファイルがある場合、それらのファイルを .git/info/exclude に追加することもできます。これはリポジトリ全体には影響しないローカルな設定です。",
+        enable_flg: true,
+      },
+    ],
+    data: [{ sentence: "sasasaasass", enable_flg: true }],
+  });
+
+  // 記事出演作品の一括追加
+  const configs = await prisma.configs.createMany({
+    data: [{ username: "ura" }],
   });
 
   console.log("tags seeded.");

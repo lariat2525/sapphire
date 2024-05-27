@@ -54,9 +54,11 @@ export type Article = {
   user_id: number; // ユーザーID
   title: string; // 記事のタイトル
   name: string; // 記事の名前
-  preview: number;
+  preview: number; // PV数
   jp_name: string; // 記事の日本語名
   release_flg: boolean; // 公開フラグ
+  sentence_enable_flg: boolean; // テキスト利用フラグ
+  memo: string; // 管理用メモ
   updated_at: string; // 記事の更新日時
   post_at: string; // 記事の投稿日時
   created_at: string; // 記事の作成日時

@@ -10,6 +10,8 @@ CREATE TABLE "Articles" (
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "post_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "sentence_enable_flg" BOOLEAN NOT NULL,
+    "memo" TEXT NOT NULL,
 
     CONSTRAINT "Articles_pkey" PRIMARY KEY ("id")
 );
@@ -103,6 +105,26 @@ CREATE TABLE "Appearances" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Appearances_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Sentences" (
+    "id" SERIAL NOT NULL,
+    "sentence" TEXT NOT NULL,
+    "enable_flg" BOOLEAN NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Sentences_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Configs" (
+    "id" SERIAL NOT NULL,
+    "username" TEXT NOT NULL,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Configs_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex

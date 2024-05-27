@@ -7,6 +7,9 @@ export const articles = {
   name: "zeus",
   jp_name: "ゼウス",
   release_flg: false,
+  preview: 0,
+  sentence_enable_flg: true,
+  memo: "saaaaaaaaaaaaaa",
   updated_at: "2024-05-13T06:14:06.961Z",
   post_at: "2024-05-13T06:14:06.966Z",
   created_at: "2024-05-13T06:14:06.961Z",
@@ -92,6 +95,8 @@ export const articleList: Article[] = [
     name: "renekton",
     preview: 6214,
     release_flg: true,
+    sentence_enable_flg: true,
+    memo: "saaaaaaaaaaaaaa",
     updated_at: "2024-05-01T12:00:00Z",
     post_at: "2024-05-01T12:00:00Z",
     created_at: "2024-05-01T12:00:00Z",
@@ -289,3 +294,28 @@ export const users = [
     created_at: "2024-05-13T06:14:06.905Z",
   },
 ];
+
+export const sentences = [
+  {
+    sentence:
+      "特定のブランチで .gitignore の内容を他のブランチとは異なる状態に保ちたい場合、Gitのブランチ管理を利用することで実現できます。以下の手順で進めてください。",
+    enable_flg: false,
+  },
+
+  { sentence: "まず、特定のブランチに切り替えます。", enable_flg: false },
+
+  {
+    sentence:
+      "この .gitignore の変更はこのブランチにのみ適用され、他のブランチには影響を与えません。必要に応じて、他のブランチに切り替えても .gitignore はそのブランチの状態のままです。",
+    enable_flg: true,
+  },
+
+  {
+    sentence:
+      "必要に応じて、特定のブランチでは .gitignore に含めたくないファイルがある場合、それらのファイルを .git/info/exclude に追加することもできます。これはリポジトリ全体には影響しないローカルな設定です。",
+    enable_flg: true,
+  },
+  { sentence: "sasasaasass", enable_flg: true },
+];
+
+export const configs = { username: "ura" };
