@@ -52,7 +52,7 @@
           "order": "asc"
         },
         "rules": {
-          "no-console": "off",
+          "no-console": "off"
         }
       }
     ]

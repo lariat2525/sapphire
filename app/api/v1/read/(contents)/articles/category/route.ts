@@ -6,4 +6,4 @@ import { category } from "@/mock/v1/read/content";
 const prisma = getPrismaClient();
 
 // リレーションつきGETテスト
-export const GET = async (req: Request) => {};
+// export const GET = async (req: Request) => {};
