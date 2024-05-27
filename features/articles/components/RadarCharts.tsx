@@ -14,7 +14,7 @@ export default function RadarCharts({}: Props) {
           グラフ
         </h2>
       </div>
-      <div>
+      <div className="RadarChart flex justify-center">
         <RadarChartArea></RadarChartArea>
       </div>
     </div>
