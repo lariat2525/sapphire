@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import Tag from "@/components/elements/Tag";
-import DotLine from "@/components/elements/shapes/DotLine";
 import LineDotCenter from "@/components/elements/shapes/LineDotCenter";
 import Profiles from "@/features/articles/components/Profiles";
 import RadarCharts from "@/features/articles/components/RadarCharts";
@@ -26,12 +25,12 @@ export default function Article() {
       <div className="Left mx-4 w-2/3">
         <div className="Info">
           <div className="Image bg-secondary-color">
-            {/* <Image
+            <Image
               src={`/test${articlesData.images[0]?.path}`}
               alt={`${articlesData.images[0]?.alt}の画像`}
               width={1024}
               height={1024}
-            /> */}
+            />
           </div>
           <div className="Detail pt-2 p-4 pb-10 bg-secondary-color">
             <div className="Profile m-4">

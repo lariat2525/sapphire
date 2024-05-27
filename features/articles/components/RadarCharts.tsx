@@ -1,12 +1,16 @@
 "use client";
 
+import { useRecoilValue } from "recoil";
 import RadarChartArea from "./RadarChartArea";
+import { articlesState } from "../state/article";
 
 // TODO: childrenのtype
 type Props = {};
 
 /* TSX */
 export default function RadarCharts({}: Props) {
+  const { monsters } = useRecoilValue(articlesState);
+
   return (
     <div className="Graph h-80">
       <div className="Label flex justify-center">
@@ -14,8 +18,14 @@ export default function RadarCharts({}: Props) {
           グラフ
         </h2>
       </div>
-      <div>
-        <RadarChartArea></RadarChartArea>
+      <div className="RadarChart flex justify-center">
+        <RadarChartArea
+          rarity_value={monsters?.rarity_value || 0}
+          strength_value={monsters?.strength_value || 0}
+          intelligence_value={monsters?.intelligence_value || 0}
+          risk_value={monsters?.risk_value || 0}
+          magic_power_value={monsters?.magic_power_value || 0}
+        ></RadarChartArea>
       </div>
     </div>
   );

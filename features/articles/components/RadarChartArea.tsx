@@ -6,21 +6,43 @@ import styles from "./chart.module.css";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function RadarChartArea() {
+type Props = {
+  rarity_value?: number;
+  strength_value: number;
+  intelligence_value: number;
+  risk_value: number;
+  magic_power_value: number;
+};
+
+export default function RadarChartArea({
+  rarity_value,
+  strength_value,
+  intelligence_value,
+  risk_value,
+  magic_power_value,
+}: Props) {
   const data = {
-    labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding"],
+    labels: ["レア度", "力", "知能", "危険度", "魔力"],
     datasets: [
       {
-        label: "My First Dataset",
-        data: [65, 59, 90, 81, 56],
+        label: "",
+        data: [
+          rarity_value,
+          strength_value,
+          intelligence_value,
+          risk_value,
+          magic_power_value,
+        ],
         fill: true,
-        backgroundColor: "rgba(255, 255, 255, 0.2)",
-        borderColor: "rgb(0, 0, 0)",
+        backgroundColor: "rgba(0, 180, 100, 0.5)",
+        borderColor: "rgb(0, 230, 110)",
+        borderWidth: 2,
         hoverBackgroundColor: "rgb(0, 0, 0)",
-        pointBackgroundColor: "rgb(255, 255, 132)",
-        pointBorderColor: "#fff",
+        pointBackgroundColor: "rgb(20, 150, 250)",
+        pointBorderColor: "rgb(20, 150, 250)",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(255, 255, 132)",
+        pointRadius: 2.5,
       },
     ],
   };
@@ -31,17 +53,27 @@ export default function RadarChartArea() {
         <Radar
           data={data}
           options={{
-            responsive: true,
             maintainAspectRatio: true,
+            plugins: {
+              legend: {
+                display: false, // 凡例を非表示にする
+              },
+            },
             scales: {
               r: {
-                angleLines: { color: "rgb(255, 255, 255)" },
-                grid: { color: "rgb(255, 255, 255)" },
+                min: 0,
+                max: 100,
+                angleLines: { color: "rgb(255, 255, 255)", lineWidth: 1 },
+                grid: { color: "rgb(255, 255, 255)", lineWidth: 0.5 },
                 ticks: {
                   display: false,
+                  count: 6,
+                  stepSize: 20,
+                  backdropColor: "rgba(255, 255, 255, 0.75)",
                 },
                 pointLabels: {
-                  color: "#fff", // 項目ラベルの文字色を変更
+                  color: "#fff",
+                  font: { size: 12 },
                 },
               },
             },
