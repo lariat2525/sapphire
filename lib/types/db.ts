@@ -6,7 +6,13 @@
  COMMON
 =============================================================================== */
 
-export type TableType = "users" | "templates" | "blogs" | "monsters" | "tags";
+export type TableType =
+  | "users"
+  | "templates"
+  | "blogs"
+  | "articles"
+  | "monsters"
+  | "tags";
 
 /*================================================================================
  GET
