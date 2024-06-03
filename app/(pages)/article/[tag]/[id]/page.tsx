@@ -11,12 +11,8 @@ import useGetArticle from "@/features/articles/hooks/useGetArticle";
 import { articlesState } from "@/features/articles/state/article";
 
 export default function Article() {
-  const callGetArticle = useGetArticle();
   const articlesData = useRecoilValue(articlesState);
-
-  useEffect(() => {
-    callGetArticle();
-  }, [callGetArticle]);
+  useGetArticle();
 
   console.log(articlesData);
 

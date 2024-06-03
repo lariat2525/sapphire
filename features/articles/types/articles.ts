@@ -61,7 +61,7 @@ export type Article = {
   jp_name: string; // 記事の日本語名
   release_flg: boolean; // 公開フラグ
   sentence_enable_flg: boolean; // テキスト利用フラグ
-  memo: string; // 管理用メモ
+  memo?: string; // 管理用メモ
   updated_at: string; // 記事の更新日時
   post_at: string; // 記事の投稿日時
   created_at: string; // 記事の作成日時
