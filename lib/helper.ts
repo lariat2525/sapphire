@@ -1,5 +1,3 @@
-import { TableType, WhereOptions } from "./types/db";
-
 /**
  * 本番環境かどうかを判定する関数
  * @returns 本番環境であればTrue
@@ -9,101 +7,22 @@ export const isProduction = (): boolean => {
 };
 
 /**
- * レスポンスデータを取得する関数
- * @param response 本番環境の場合に返すレスポンスデータ
- * @param mock 本番環境でない場合に返すMockデータ
- * @returns レスポンスデータ
- */
-export const getResponseData = (response: any, mock: any) => {
-  // 本番環境かどうかを判定
-  if (isProduction()) {
-    // 本番環境の場合はテンプレートデータとステータスコード200を返す
-    return { data: { response }, options: { status: 200 } };
-  } else {
-    // 本番環境でない場合は出演データを返す
-    return { data: mock };
-  }
-};
-
-/**
- * プリズマのfindManyメソッドをラップして、指定されたテーブルに対して検索を行います。
+ * 指定された文字列が日本語を含むかどうかを判定する関数
  *
- * @param prisma - Prismaクライアントインスタンス
- * @param table - 検索対象のテーブル名
- * @param options - 検索オプション
- * @param options.select - 取得するフィールドの指定
- * @param options.where - 取得する条件の指定
- * @param options.take - 取得するレコード数の制限
- * @param options.orderBy - ソート順の指定
- * @returns 検索結果のPromise
- * @throws Unknown table: ${table} - 指定されたテーブルが存在しない場合にエラーをスローします
- */
-export const prismaFindMany = async (
-  prisma: any,
-  table: TableType,
-  options: {
-    select: { [key: string]: boolean } | undefined;
-    take: number | undefined;
-    where: WhereOptions | undefined;
-    orderBy: { [key: string]: string } | undefined;
-    include: any;
-  }
-) => {
-  console.log(table);
-
-  switch (table) {
-    case "users":
-      return prisma.users.findMany(options);
-    case "templates":
-      return prisma.templates.findMany(options);
-    case "articles":
-      return prisma.articles.findMany(options);
-    case "monsters":
-      return prisma.monsters.findMany(options);
-    case "tags":
-      return prisma.tags.findMany(options);
-    // 他のテーブルに対するcaseをここに追加
-    default:
-      throw new Error(`Unknown table: ${table}`);
-  }
-};
-
-/**
- * WhereOptionsをPrismaのwhereオブジェクトに変換します。
+ * @param text - 判定する文字列
+ * @returns 日本語の文字が含まれている場合はtrue、それ以外の場合はfalseを返す
  *
- * @param whereOptions - 変換するWhereOptionsオブジェクト
- * @returns Prismaのwhereオブジェクト
+ * この関数は、Unicodeの範囲を使用して日本語の文字が含まれているかをチェックします。
+ * チェックする日本語の文字範囲は以下の通りです:
+ * - \u3000-\u303F: 句読点、括弧などの日本語記号
+ * - \u3040-\u309F: ひらがな
+ * - \u30A0-\u30FF: カタカナ
+ * - \uFF00-\uFFEF: 半角カナ、全角記号
+ * - \u4E00-\u9FAF: 一般的な漢字
+ * - \u3400-\u4DBF: 拡張Aの漢字
  */
-export const converterWhereOptions = (whereOptions: WhereOptions) => {
-  // Prismaのwhereオブジェクトを初期化
-  let where: any = {};
-
-  // 等価比較
-  if (whereOptions.equal) {
-    where.AND = Object.entries(whereOptions.equal).map(([field, value]) => ({
-      [field]: value,
-    }));
-  }
-
-  // 非等価比較
-  if (whereOptions.notEqual) {
-    where.NOT = Object.entries(whereOptions.notEqual).map(([field, value]) => ({
-      [field]: value,
-    }));
-  }
-
-  // 部分文字列検索
-  if (whereOptions.contains) {
-    where.AND = Object.entries(whereOptions.contains).map(([field, value]) => ({
-      [field]: { contains: value },
-    }));
-  }
-
-  // notNullを処理
-  if (whereOptions.notNull) {
-    where.NOT = whereOptions.notNull.map((field) => ({ [field]: null }));
-  }
-
-  // 変換したwhereオブジェクトを返す
-  return where;
+export const isJapanese = (text: string): boolean => {
+  return /[\u3000-\u303F\u3040-\u309F\u30A0-\u30FF\uFF00-\uFFEF\u4E00-\u9FAF\u3400-\u4DBF]/.test(
+    text
+  );
 };

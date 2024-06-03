@@ -8,6 +8,7 @@ import ArticleFooter from "@/components/layouts/articles/Footer";
 import ArticleHeader from "@/components/layouts/articles/Header";
 import ManageHeader from "@/components/layouts/manages/Header";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { SWRConfig } from "swr";
 
 export default function RootLayout({
   children,
@@ -32,26 +33,34 @@ export default function RootLayout({
         ${isManager ? "bg-manage-primary-color" : "bg-primary-color"}`}
       >
         <RecoilRoot>
-          <GlobalInitializer pathname={pathname} />
-          {isManager ? (
-            <>
-              <ManageHeader />
-              <div className="const-header-mt ml-6 py-2 bg-manage-primary-color text-white">
-                <BreadCrumbs />
-              </div>
-              <main className="w-full utl-flex-center">
-                <div className="utl-w-96per m-1 rounded bg-slate-50 p-4 z-15">
-                  {children}
+          <SWRConfig
+            value={{
+              revalidateOnFocus: false,
+              revalidateOnReconnect: false,
+              shouldRetryOnError: false,
+            }}
+          >
+            <GlobalInitializer pathname={pathname} />
+            {isManager ? (
+              <>
+                <ManageHeader />
+                <div className="const-header-mt ml-6 py-2 bg-manage-primary-color text-white">
+                  <BreadCrumbs />
                 </div>
-              </main>
-            </>
-          ) : (
-            <>
-              <ArticleHeader />
-              <main className="max-w-4xl mx-auto">{children}</main>
-              <ArticleFooter />
-            </>
-          )}
+                <main className="w-full utl-flex-center">
+                  <div className="utl-w-96per m-1 rounded bg-slate-50 p-4 z-15">
+                    {children}
+                  </div>
+                </main>
+              </>
+            ) : (
+              <>
+                <ArticleHeader />
+                <main className="max-w-4xl mx-auto">{children}</main>
+                <ArticleFooter />
+              </>
+            )}
+          </SWRConfig>
         </RecoilRoot>
       </body>
     </html>

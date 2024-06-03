@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { getPrismaClient } from "@/lib/config";
-import { getResponseData } from "@/lib/helper";
 import { tags } from "@/mock/v1/read/content";
 
 const prisma = getPrismaClient();

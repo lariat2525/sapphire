@@ -1,3 +1,6 @@
+import { User } from "@/features/manages/types/users";
+import { Image } from "@/features/manages/types/images";
+
 // APIレスポンスとして使用される記事タグの型
 export type ResponseArticleTag = {
   id: number; // タグの一意識別子
@@ -69,15 +72,6 @@ export type Article = {
   user: User; // ユーザー情報
 };
 
-// 画像情報を表す型
-type Image = {
-  id: number; // 画像ID
-  path: string; // 画像のパス
-  alt: string; // 画像の代替テキスト
-  created_at: string; // 画像の作成日時
-  article_id: number; // 関連する記事のID
-};
-
 // モンスター情報を表す型
 type Monster = {
   id: number; // モンスターID
@@ -97,11 +91,4 @@ type Monster = {
   other_text: string;
   updated_at: string; // モンスターの更新日時
   created_at: string; // モンスターの作成日時
-};
-
-// ユーザー情報を表す型
-type User = {
-  id: number; // ユーザーID
-  username: string; // ユーザー名
-  created_at: string; // ユーザーの作成日時
 };

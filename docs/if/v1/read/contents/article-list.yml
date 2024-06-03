@@ -7,6 +7,7 @@ get:
     - name: page
       in: query
       description: 取得するページ番号
+      required: false
       schema:
         type: integer
         minimum: 1
@@ -14,10 +15,25 @@ get:
     - name: pageSize
       in: query
       description: ページごとのブログ数
+      required: false
       schema:
         type: integer
         minimum: 1
         default: 10
+    - name: search
+      in: query
+      description: 検索(部分一致)
+      required: false
+      schema:
+        type: string
+        default: null
+    - name: filter
+      in: query
+      description: 絞り込み 新しい順 | 人気順 etc
+      required: false
+      schema:
+        type: string
+        default: null
   responses:
     "200":
       description: "成功。更新が正常に行われました。"

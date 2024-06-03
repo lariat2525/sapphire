@@ -1,24 +1,29 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+
 import {
   faFilm,
   faPenToSquare,
   faTag,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { useEffect } from "react";
-import { useRecoilValue } from "recoil";
+import { useEffect, useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   formatCustomDate,
   toUpperFirstLetter,
   truncateString,
-} from "@/utils/core";
+} from "@/utils/formatted";
 import { Manages } from "@/constants/common";
 import useGetArticleList from "@/features/articles/hooks/useGetArticleList";
 import { articleListState } from "@/features/articles/state/articleList";
-import ArticlesModals from "@/features/manages/components/ArticlesModals";
+import ArticlesModals from "@/features/manages/components/articleList/ArticlesModals";
 import DropMenuOption from "@/features/manages/components/DropMenuOption";
+import {
+  handlerArticleSingleState,
+  selectingIdState,
+} from "@/features/manages/state/actions";
+import useGetImageList from "@/features/manages/hooks/useGetImageList";
 
 const modals = [
   Manages.Modals.Edit.IMAGE,
@@ -32,18 +37,40 @@ const modals = [
 /* TSX */
 export default function ManageArticleList() {
   const articles = useRecoilValue(articleListState);
+  const setEventHandler = useSetRecoilState(handlerArticleSingleState);
+  const setSelectingId = useSetRecoilState(selectingIdState);
   const callGetArticleList = useGetArticleList();
 
-  const openModal = (modalId: string) => {
+  const [canImageFetch, setCanImageFetch] = useState<boolean>(false);
+
+  // 画像取得API呼び出し（モーダル押下時）
+  useGetImageList(canImageFetch, {});
+
+  const openModalAndSetId = (modalId: string, id: number) => {
     const modal = document.getElementById(modalId) as HTMLDialogElement;
-    if (modal) modal.showModal();
+
+    if (modal) {
+      modal.showModal();
+      // 画像モーダルがクリックされたときに初めてフェッチする
+      if (modalId === Manages.Modals.Edit.IMAGE) {
+        setCanImageFetch(true);
+      }
+      setSelectingId(id);
+    }
+  };
+
+  // イベント
+  const handleSubmitArticleSingle = async (
+    id: number,
+    field: { [key: string]: string | number }
+  ) => {
+    console.log(id, field);
   };
 
   useEffect(() => {
     callGetArticleList();
+    setEventHandler(() => handleSubmitArticleSingle);
   }, [callGetArticleList]);
-
-  console.log(articles);
 
   return (
     <div>
@@ -105,7 +132,9 @@ export default function ManageArticleList() {
                       </div>
                       <div className="relative bottom-8">
                         <div
-                          onClick={() => openModal(Manages.Modals.Edit.IMAGE)}
+                          onClick={() =>
+                            openModalAndSetId(Manages.Modals.Edit.IMAGE, id)
+                          }
                           className="text-slate-400 cursor-pointer"
                         >
                           <FontAwesomeIcon icon={faPenToSquare} />
@@ -127,7 +156,9 @@ export default function ManageArticleList() {
                       </div>
                       <div className="relative top-14">
                         <div
-                          onClick={() => openModal(Manages.Modals.Edit.TITLES)}
+                          onClick={() =>
+                            openModalAndSetId(Manages.Modals.Edit.TITLES, id)
+                          }
                           className="text-manage-accent-color cursor-pointer"
                         >
                           <FontAwesomeIcon icon={faPenToSquare} />
@@ -151,7 +182,9 @@ export default function ManageArticleList() {
                       </span>
                       <div className="relative top-8">
                         <div
-                          onClick={() => openModal(Manages.Modals.Edit.RELEASE)}
+                          onClick={() =>
+                            openModalAndSetId(Manages.Modals.Edit.RELEASE, id)
+                          }
                           className="text-manage-accent-color cursor-pointer"
                         >
                           <FontAwesomeIcon icon={faPenToSquare} />
@@ -171,7 +204,9 @@ export default function ManageArticleList() {
                       <div>{truncateString(user?.username, 8)}</div>
                       <div className="relative top-8">
                         <div
-                          onClick={() => openModal(Manages.Modals.Edit.AUTHOR)}
+                          onClick={() =>
+                            openModalAndSetId(Manages.Modals.Edit.AUTHOR, id)
+                          }
                           className="text-manage-accent-color cursor-pointer"
                         >
                           <FontAwesomeIcon icon={faPenToSquare} />
@@ -212,7 +247,9 @@ export default function ManageArticleList() {
                       </div>
                       <div className="flex gap-x-1">
                         <button
-                          onClick={() => openModal(Manages.Modals.Edit.TAG)}
+                          onClick={() =>
+                            openModalAndSetId(Manages.Modals.Edit.TAG, id)
+                          }
                           className={`dropdown btn px-3 border-1 border-slate-400 bg-manage-tertiary-color hover:bg-manage-tertiary-color text-nowrap min-h-6 h-1`}
                         >
                           <div
@@ -224,7 +261,10 @@ export default function ManageArticleList() {
                         </button>
                         <button
                           onClick={() =>
-                            openModal(Manages.Modals.Edit.APPEARANCE)
+                            openModalAndSetId(
+                              Manages.Modals.Edit.APPEARANCE,
+                              id
+                            )
                           }
                           className={`dropdown btn px-3 border-1 border-slate-400 bg-manage-tertiary-color hover:bg-manage-tertiary-color text-nowrap min-h-6 h-1`}
                         >
