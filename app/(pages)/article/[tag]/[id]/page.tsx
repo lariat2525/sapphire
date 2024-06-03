@@ -12,12 +12,8 @@ import TagList from "@/features/articles/components/TagList";
 import WorkList from "@/features/articles/components/WorkList";
 
 export default function Article() {
-  const callGetArticle = useGetArticle();
   const articlesData = useRecoilValue(articlesState);
-
-  useEffect(() => {
-    callGetArticle();
-  }, [callGetArticle]);
+  useGetArticle();
 
   console.log(articlesData);
 

@@ -15,6 +15,7 @@ export const articlesState = atom<Article>({
     post_at: "",
     created_at: "",
     images: [],
+    sentence_enable_flg: false,
     monsters: {
       id: 0,
       article_id: 0,
