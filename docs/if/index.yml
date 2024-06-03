@@ -22,6 +22,8 @@ paths:
     $ref: "v1/read/manages/user.yml"
   /read/images/{imageId}:
     $ref: "v1/read/manages/image.yml"
+  /read/images:
+    $ref: "v1/read/manages/image-list.yml"
 
   /write/make/image:
     $ref: "v1/write/manages/make-image.yml"

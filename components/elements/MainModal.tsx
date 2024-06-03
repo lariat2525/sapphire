@@ -1,12 +1,16 @@
 "use client";
 import React from "react";
 
-type Props = { modalId: string; children: React.ReactNode };
+type Props = {
+  modalId: string;
+  children: React.ReactNode;
+  customModalStyle?: string;
+};
 
-const MainModal = ({ modalId, children }: Props) => {
+const MainModal = ({ modalId, children, customModalStyle = "" }: Props) => {
   return (
     <dialog id={modalId} className="modal">
-      <div className="modal-box">{children}</div>
+      <div className={`modal-box ${customModalStyle}`}>{children}</div>
       <form method="dialog" className="modal-backdrop">
         <button>close</button>
       </form>

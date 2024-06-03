@@ -80,7 +80,14 @@ export const articleList: Article[] = [
       {
         id: 5,
         article_id: 5,
-        path: "/image/path",
+        path: "/test/test.svg",
+        alt: "image alt",
+        created_at: "2024-05-01T12:00:00Z",
+      },
+      {
+        id: 5,
+        article_id: 5,
+        path: "/test/test.svg",
         alt: "image alt",
         created_at: "2024-05-01T12:00:00Z",
       },
@@ -319,3 +326,20 @@ export const sentences = [
 ];
 
 export const configs = { username: "ura" };
+
+export const images = [
+  {
+    id: 1,
+    article_id: 5,
+    path: "/test/test.svg",
+    alt: "image alt",
+    created_at: "2024-05-01T12:00:00Z",
+  },
+  {
+    id: 40,
+    article_id: 5,
+    path: "next.svg",
+    alt: "test",
+    created_at: "2024-05-01T12:00:00Z",
+  },
+];

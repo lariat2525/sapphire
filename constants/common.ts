@@ -1,3 +1,8 @@
+namespace Commons {
+  export const JSX = {
+    ALT_AFTER_TEXT: "の画像",
+  };
+}
 namespace Manages {
   // 和名
   export const Wamei = {
@@ -20,4 +25,4 @@ namespace Manages {
   };
 }
 
-export { Manages };
+export { Manages, Commons };

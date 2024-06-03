@@ -6,6 +6,8 @@ namespace EndPoint {
     ARTICLE_LIST: "/api/v1/read/articles/list",
     //　ユーザー取得API
     USER: "/api/v1/read/manages/user",
+    //　イメージリスト取得API
+    IMAGE_LIST: "/api/v1/read/manages/images/list",
   };
   namespace Write {}
 }

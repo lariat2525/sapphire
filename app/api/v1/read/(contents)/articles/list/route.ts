@@ -1,9 +1,16 @@
 import { NextResponse } from "next/server";
 import { getPrismaClient } from "@/lib/config";
-import { formatAppearances, formatTags } from "@/lib/feature";
+import {
+  formatAppearances,
+  formatTags,
+  getOrderBy,
+  switchWhereJapanese,
+} from "@/lib/feature";
 import { isProduction } from "@/lib/helper";
-import { articles } from "@/mock/v1/read/content";
-import { addColumnArticleListLocal } from "@/mock/v1/read/helper";
+import { addColumnMapLocal } from "@/mock/v1/read/helper";
+import { articleList } from "@/mock/v1/read/content";
+import { Article } from "@/features/articles/types/articles";
+import { Prisma } from "@prisma/client";
 
 const prisma = getPrismaClient();
 
@@ -13,35 +20,49 @@ export const GET = async (req: Request) => {
     const { searchParams } = new URL(req.url);
     const page: number = Number(searchParams.get("page")) || 1;
     const pageSize: number = Number(searchParams.get("pageSize")) || 10;
+    const keyword: string = searchParams.get("keyword") || "";
+    const filter: string = searchParams.get("filter") || "";
 
     const skip = (page - 1) * pageSize;
     const take = pageSize;
 
-    const schema = {
-      where: {},
-      include: {
-        images: true,
-        tags: {
-          include: {
-            tags: true, // タグのリレーションを含める
-          },
-        },
-        appearances: {
-          include: {
-            appearances: true, // 出演のリレーションを含める
-          },
-        },
-        user: true,
-      },
-      skip,
-      take,
-    };
+    // 検索処理　〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜
+    const searchQuery = keyword
+      ? switchWhereJapanese<Prisma.ArticlesWhereInput>(keyword, "insensitive")
+      : {};
+
+    // 絞り込み処理　〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜
+    const filterQuery = filter
+      ? getOrderBy<Prisma.ArticlesOrderByWithRelationInput>(filter)
+      : {};
 
     // TODO: arinosu mati
     let res: any = [];
 
     if (isProduction()) {
+      const schema = {
+        where: searchQuery,
+        include: {
+          images: true,
+          tags: {
+            include: {
+              tags: true, // タグのリレーションを含める
+            },
+          },
+          appearances: {
+            include: {
+              appearances: true, // 出演のリレーションを含める
+            },
+          },
+          user: true,
+        },
+        orderBy: filterQuery,
+        skip,
+        take,
+      };
+
       const initResponses = await prisma.articles.findMany(schema);
+
       if (initResponses.length) {
         res = initResponses.map((response) => {
           return [
@@ -55,7 +76,7 @@ export const GET = async (req: Request) => {
         });
       }
     } else {
-      res = addColumnArticleListLocal(20); // 開発環境ではモックデータを使用
+      res = addColumnMapLocal<Article>(articleList, 20); // 開発環境ではモックデータを使用
     }
 
     return NextResponse.json(res);
