@@ -30,6 +30,7 @@
     "sass": "^1.77.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
+    "swr": "^2.2.5",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
