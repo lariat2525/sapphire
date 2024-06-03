@@ -1,13 +1,12 @@
 "use client";
 
+import LineDotCenter from "@/components/elements/shapes/LineDotCenter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import useGetArticle from "@/features/articles/hooks/useGetArticle";
 import { useRecoilValue } from "recoil";
 import { articlesState } from "@/features/articles/state/article";
 import { useEffect } from "react";
-import TagList from "@/components/elements/TagList";
-import WorkList from "@/components/elements/WorkList";
 import Card from "@/features/articles/components/Card";
 
 export default function ArticleList() {
@@ -23,10 +22,10 @@ export default function ArticleList() {
   return (
     <div className="Content pt-24 flex justify-center z-0">
       <div className="Left w-2/3">
-        <div className="Info bg-secondary-color h-screen .utl-size-w-600">
+        <div className="Info bg-secondary-color h-screen">
           <div className="Forms h-16 flex justify-start bg-secondary-color border-b-2 border-black ">
             <div
-              className="Form m-4 w-72 h-8 bg-tertiary-color border-2 
+              className="Search m-4 w-72 h-8 bg-tertiary-color border-2 
             border-tertiary-color flex rounded-xl"
             >
               <FontAwesomeIcon
@@ -40,7 +39,7 @@ export default function ArticleList() {
               <div className="PageNumber mx-1">ページ目</div>
             </div>
           </div>
-          <div className="Case">
+          <div className="Case m-4">
             <div className="Select h-12 flex justify-end">
               <a
                 href=""
@@ -71,11 +70,13 @@ export default function ArticleList() {
       <div className="Right ml-4 w-1/3">
         <div className="Advertisement bg-white my-4 h-48">広告</div>
         <div className="Category bg-secondary-color mt-6 utl-size-h-550">
-          <div className="TagList">
-            <TagList />
-          </div>
-          <div className="WorkList">
-            <WorkList />
+          <div className="Labels">
+            <div className="Label p-2 ml-5 mt-0.5 text-2xl">
+              <p>カテゴリー</p>
+            </div>
+            <div className="LineDotCenter flex">
+              <LineDotCenter />
+            </div>
           </div>
         </div>
       </div>

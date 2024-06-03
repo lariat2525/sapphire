@@ -8,8 +8,6 @@ import RadarCharts from "@/features/articles/components/RadarCharts";
 import SentenceTemplate from "@/features/articles/components/SentenceTemplate";
 import useGetArticle from "@/features/articles/hooks/useGetArticle";
 import { articlesState } from "@/features/articles/state/article";
-import TagList from "@/components/elements/TagList";
-import WorkList from "@/components/elements/WorkList";
 
 export default function Article() {
   const callGetArticle = useGetArticle();
@@ -78,17 +76,13 @@ export default function Article() {
       </div>
       <div className="Right mx-4 w-1/3">
         <div className="Info bg-tertiary-color text-white min-h-96 mb-6 border-2 rounded">
-          <RadarCharts></RadarCharts>
-          <Profiles title="基本情報"></Profiles>
+          <RadarCharts />
+          <Profiles title="基本情報" />
         </div>
         <div className="Advertisement bg-white my-4 h-48">広告</div>
         <div className="Category bg-secondary-color mt-6 utl-size-h-550">
-          <div className="TagList">
-            <TagList />
-          </div>
-          <div className="WorkList">
-            <WorkList />
-          </div>
+          <div className="TagList"></div>
+          <div className="WorkList"></div>
         </div>
       </div>
     </div>
