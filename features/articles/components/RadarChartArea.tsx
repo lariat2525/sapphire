@@ -2,7 +2,6 @@
 import "chart.js/auto";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Radar } from "react-chartjs-2";
-import styles from "./chart.module.css";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -49,7 +48,7 @@ export default function RadarChartArea({
 
   return (
     <>
-      <div className={styles.radarchart}>
+      <div className="const-radarcharts-size">
         <Radar
           data={data}
           options={{

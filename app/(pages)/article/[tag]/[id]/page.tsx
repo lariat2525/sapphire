@@ -3,12 +3,13 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import Tag from "@/components/elements/Tag";
-import LineDotCenter from "@/components/elements/shapes/LineDotCenter";
 import Profiles from "@/features/articles/components/Profiles";
 import RadarCharts from "@/features/articles/components/RadarCharts";
 import SentenceTemplate from "@/features/articles/components/SentenceTemplate";
 import useGetArticle from "@/features/articles/hooks/useGetArticle";
 import { articlesState } from "@/features/articles/state/article";
+import TagList from "@/features/articles/components/TagList";
+import WorkList from "@/features/articles/components/WorkList";
 
 export default function Article() {
   const articlesData = useRecoilValue(articlesState);
@@ -73,19 +74,13 @@ export default function Article() {
       </div>
       <div className="Right mx-4 w-1/3">
         <div className="Info bg-tertiary-color text-white min-h-96 mb-6 border-2 rounded">
-          <RadarCharts></RadarCharts>
-          <Profiles title="基本情報"></Profiles>
+          <RadarCharts />
+          <Profiles title="基本情報" />
         </div>
         <div className="Advertisement bg-white my-4 h-48">広告</div>
         <div className="Category bg-secondary-color mt-6 utl-size-h-550">
-          <div className="Labels">
-            <div className="Label p-2 ml-5 mt-0.5 text-2xl">
-              <p>カテゴリー</p>
-            </div>
-            <div className="LineDotCenter flex">
-              <LineDotCenter></LineDotCenter>
-            </div>
-          </div>
+          <TagList />
+          <WorkList />
         </div>
       </div>
     </div>
