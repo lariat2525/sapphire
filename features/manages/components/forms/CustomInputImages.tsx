@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { useRecoilValue } from "recoil";
-import { imagesState } from "../../state/images";
+import { imagesState } from "@/features/manages/state/images";
 import { Commons } from "@/constants/common";
 import { truncateString } from "@/utils/formatted";
 

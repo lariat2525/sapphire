@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { EndPoint } from "@/constants/api";
 import useSWR from "swr";
-import { tagState } from "../state/tags";
-import { Tag } from "../types/tags";
+import { tagState } from "@/features/manages/state/tags";
+import { Tag } from "@/features/manages/types/tags";
 
 const url = EndPoint.Read.TAG;
 

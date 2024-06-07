@@ -5,7 +5,6 @@ import {
   ResponseArticleTag,
 } from "@/features/articles/types/articles";
 import { isJapanese } from "./helper";
-import { Prisma } from "@prisma/client";
 
 /**
  * タグ情報をフォーマット

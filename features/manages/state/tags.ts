@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { Tag } from "../types/tags";
+import { Tag } from "@/features/manages/types/tags";
 
 // Define your Recoil state
 export const tagState = atom<Tag[]>({

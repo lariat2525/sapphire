@@ -31,7 +31,7 @@ flex justify-start"
             href=""
             className="Tag min-w-16 h-6 bg-tertiary-color text-white px-1 utl-flex-center border-2 rounded-full"
           >
-            <div className="h-2 w-2 mr-1.5 rounded-full bg-white"></div>
+            <div className="h-2 w-2 mr-1.5 rounded-full bg-white" />
             <div className="mx-2 text-sm">ファンタジー</div>
           </a>
           <a

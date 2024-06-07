@@ -2,9 +2,9 @@ import useSWR from "swr";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { EndPoint } from "@/constants/api";
-import { imagesState } from "../state/images";
+import { imagesState } from "@/features/manages/state/images";
 import { insertUrlWithQuery } from "@/utils/core";
-import { Image } from "../types/images";
+import { Image } from "@/features/manages/types/images";
 
 const url = EndPoint.Read.IMAGE_LIST;
 

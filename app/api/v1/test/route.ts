@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { getPrismaClient } from "@/lib/config";
 
 const prisma = getPrismaClient();

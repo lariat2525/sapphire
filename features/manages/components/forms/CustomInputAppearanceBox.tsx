@@ -2,8 +2,11 @@
 import { articleListState } from "@/features/articles/state/articleList";
 import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { appearanceState } from "../../state/appearances";
-import { formActiveAppearanceState, selectIdState } from "../../state/forms";
+import { appearanceState } from "@/features/manages/state/appearances";
+import {
+  formActiveAppearanceState,
+  selectIdState,
+} from "@/features/manages/state/forms";
 import IconButton from "../IconButton";
 import { faPenNib } from "@fortawesome/free-solid-svg-icons";
 import MainModal from "@/components/elements/MainModal";

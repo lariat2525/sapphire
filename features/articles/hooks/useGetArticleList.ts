@@ -1,13 +1,10 @@
 // addColumnArticleListLocal
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { EndPoint } from "@/constants/api";
 import { articleListState } from "@/features/articles/state/articleList";
-import { Article } from "../types/articles";
-import { useParams } from "next/navigation";
-import { replaceUrlPlaceholders } from "@/utils/core";
+import { Article } from "@/features/articles/types/articles";
 import useSWR from "swr";
-import { articlesState } from "../state/article";
 
 // 1.useSWR化する ※typescriptのエラーが出る　困ったらany
 // 2.検索のところをつくって、ボタンを作ってonClickをつくる。
@@ -26,7 +23,6 @@ const fetcher = async (urlWithQuery: string): Promise<Article[]> => {
 };
 
 const useGetArticleList = () => {
-  // const { id } = useParams();
   const setArticleList = useSetRecoilState(articleListState);
 
   const { data, error } = useSWR(url, fetcher);

@@ -16,7 +16,6 @@ import useGetImageList from "@/features/manages/hooks/useGetImageList";
 import useGetUser from "@/features/manages/hooks/useGetUser";
 import useGetTags from "@/features/manages/hooks/useGetTags";
 import useGetAppearances from "@/features/manages/hooks/useGetAppearance";
-import { appearanceState } from "@/features/manages/state/appearances";
 import IconButton from "@/features/manages/components/IconButton";
 import { selectIdState } from "@/features/manages/state/forms";
 
@@ -105,7 +104,6 @@ export default function ManageArticleList() {
   };
 
   useEffect(() => {
-    callGetArticleList();
     setHandlerArticleSingle(() => handleSubmitArticleSingle);
     setHandlerTag(() => handleSubmitTag);
     setHandlerAppearance(() => handleSubmitAppearance);

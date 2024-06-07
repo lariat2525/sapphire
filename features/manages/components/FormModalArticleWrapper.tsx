@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { useRecoilValue } from "recoil";
-import * as actions from "../state/actions";
-import { selectIdState } from "../state/forms";
+import * as actions from "@/features/manages/state/actions";
+import { selectIdState } from "@/features/manages/state/forms";
 
 type Fields<T> = { [key: string]: T };
 

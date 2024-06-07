@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import useGetImageList from "../hooks/useGetImageList";
+import useGetImageList from "@/features/manages/hooks/useGetImageList";
 import SearchBox from "@/components/elements/SearchBox";
 
 const SearchImageWrapper: React.FC = () => {

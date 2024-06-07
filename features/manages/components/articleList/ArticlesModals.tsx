@@ -2,23 +2,26 @@
 import React, { useEffect, useState } from "react";
 import MainModal from "@/components/elements/MainModal";
 import { Manages } from "@/constants/common";
-import FormModalWrapper from "../FormModalArticleWrapper";
+import FormModalWrapper from "@/features/manages/components/FormModalArticleWrapper";
 import CustomInputText from "@/components/elements/forms/CustomInputText";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faHeading, faPen, faUserTie } from "@fortawesome/free-solid-svg-icons";
 import { useRecoilValue } from "recoil";
 import { articleListState } from "@/features/articles/state/articleList";
-import { formActiveTagState, selectIdState } from "../../state/forms";
+import {
+  formActiveTagState,
+  selectIdState,
+} from "@/features/manages/state/forms";
 import { findObjectByColumnValue } from "@/utils/collections";
 import { Article } from "@/features/articles/types/articles";
 import CustomInputRadio from "@/components/elements/forms/CustomInputRadio";
-import CustomInputImages from "../forms/CustomInputImages";
-import SearchImageWrapper from "../SearchImageWrapper";
+import CustomInputImages from "@/features/manages/components/forms/CustomInputImages";
+import SearchImageWrapper from "@/features/manages/components/SearchImageWrapper";
 import CustomInputSelectBox from "@/components/elements/forms/CustomInputSelectBox";
-import { userState } from "../../state/user";
-import CustomInputTagBox from "../forms/CustomInputTagBox";
-import { appearanceState } from "../../state/appearances";
-import { tagState } from "../../state/tags";
+import { userState } from "@/features/manages/state/user";
+import CustomInputTagBox from "@/features/manages/components/forms/CustomInputTagBox";
+import { appearanceState } from "@/features/manages/state/appearances";
+import { tagState } from "@/features/manages//state/tags";
 
 type Props = {
   modals: string[];

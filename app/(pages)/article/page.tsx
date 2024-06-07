@@ -3,19 +3,13 @@
 import LineDotCenter from "@/components/elements/shapes/LineDotCenter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import useGetArticle from "@/features/articles/hooks/useGetArticle";
-import { useRecoilValue } from "recoil";
-import { articlesState } from "@/features/articles/state/article";
-import { useEffect } from "react";
 import Card from "@/features/articles/components/Card";
 import useGetArticleList from "@/features/articles/hooks/useGetArticleList";
 
 export default function ArticleList() {
-  const articlesData = useRecoilValue(articlesState);
-
   const { data, isError, isLoading } = useGetArticleList();
 
-  console.log(useGetArticleList());
+  console.log(data);
 
   return (
     <div className="Content pt-24 flex justify-center z-0">

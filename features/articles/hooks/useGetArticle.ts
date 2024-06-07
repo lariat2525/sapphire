@@ -5,7 +5,7 @@ import { replaceUrlPlaceholders } from "@/utils/core";
 import { EndPoint } from "@/constants/api";
 import { articlesState } from "@/features/articles/state/article";
 import useSWR from "swr";
-import { Article } from "../types/articles";
+import { Article } from "@/features/articles/types/articles";
 
 const url = EndPoint.Read.ARTICLE_SINGLE;
 

@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import Tag from "@/components/elements/Tag";
 import Profiles from "@/features/articles/components/Profiles";

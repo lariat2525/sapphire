@@ -5,7 +5,7 @@ import { faFilm } from "@fortawesome/free-solid-svg-icons/faFilm";
 import { faRuler } from "@fortawesome/free-solid-svg-icons/faRuler";
 import { useRecoilValue } from "recoil";
 import ProfileSingle from "./ProfileSingle";
-import { articlesState } from "../state/article";
+import { articlesState } from "@/features/articles/state/article";
 
 // TODO: childrenのtype
 type Props = { title?: string };

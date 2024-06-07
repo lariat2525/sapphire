@@ -3,7 +3,7 @@ import { useSetRecoilState } from "recoil";
 import { EndPoint } from "@/constants/api";
 import { userState } from "@/features/manages/state/user";
 import useSWR from "swr";
-import { User } from "../types/users";
+import { User } from "@/features/manages/types/users";
 
 const url = EndPoint.Read.USER;
 

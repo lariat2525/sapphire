@@ -2,7 +2,7 @@
 
 import { useRecoilValue } from "recoil";
 import RadarChartArea from "./RadarChartArea";
-import { articlesState } from "../state/article";
+import { articlesState } from "@/features/articles/state/article";
 
 // TODO: childrenのtype
 type Props = {};

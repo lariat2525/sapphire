@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { Appearance } from "../types/appearances";
+import { Appearance } from "@/features/manages/types/appearances";
 
 // Define your Recoil state
 export const appearanceState = atom<Appearance[]>({
