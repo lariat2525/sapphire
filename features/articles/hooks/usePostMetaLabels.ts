@@ -18,7 +18,7 @@ const fetcher = async (urlWithQuery: string): Promise<Article> => {
   return response.json();
 };
 
-const useGetArticle = () => {
+const usePostMetaLabels = () => {
   const { id } = useParams();
   const setArticles = useSetRecoilState(articlesState);
 
@@ -41,4 +41,4 @@ const useGetArticle = () => {
   };
 };
 
-export default useGetArticle;
+export default usePostMetaLabels;

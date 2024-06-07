@@ -1,11 +1,10 @@
-// addColumnArticleListLocal
 import { useCallback, useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { EndPoint } from "@/constants/api";
 import { articleListState } from "@/features/articles/state/articleList";
 import { Article } from "../types/articles";
 import { useParams } from "next/navigation";
-import { replaceUrlPlaceholders } from "@/utils/core";
+import { insertUrlWithPath } from "@/utils/core";
 import useSWR from "swr";
 import { articlesState } from "../state/article";
 
