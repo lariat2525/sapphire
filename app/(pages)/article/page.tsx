@@ -8,16 +8,14 @@ import { useRecoilValue } from "recoil";
 import { articlesState } from "@/features/articles/state/article";
 import { useEffect } from "react";
 import Card from "@/features/articles/components/Card";
+import useGetArticleList from "@/features/articles/hooks/useGetArticleList";
 
 export default function ArticleList() {
-  const callGetArticle = useGetArticle();
   const articlesData = useRecoilValue(articlesState);
 
-  useEffect(() => {
-    callGetArticle();
-  }, [callGetArticle]);
+  const { data, isError, isLoading } = useGetArticleList();
 
-  console.log(articlesData);
+  console.log(useGetArticleList());
 
   return (
     <div className="Content pt-24 flex justify-center z-0">

@@ -31,9 +31,7 @@ const useGetImageList = (
   const { data, error } = useSWR(canFetch ? queryUrl : null, fetcher);
 
   useEffect(() => {
-    if (data) {
-      setImageList(data);
-    }
+    if (data) setImageList(data);
   }, [data, setImageList]);
 
   return {
