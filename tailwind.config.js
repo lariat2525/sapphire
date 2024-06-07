@@ -17,6 +17,8 @@ export default {
         "tertiary-color": "#13244E",
         "neutral-color": "#4E6896",
         "font-color": "#000000",
+        "sub-color": "#C6DAF8",
+        "accent-color": "#FBDA2C",
         "manage-primary-color": "#111317",
         "manage-secondary-color": "#FCFEFF",
         "manage-tertiary-color": "#f8e58c",

@@ -77,7 +77,7 @@ export default function Article() {
           <Profiles title="基本情報" />
         </div>
         <div className="Advertisement bg-white my-4 h-48">広告</div>
-        <div className="Category bg-secondary-color mt-6 utl-size-h-550">
+        <div className="Category bg-secondary-color mt-6 pb-8 min-h-96">
           <TagList />
           <WorkList />
         </div>
