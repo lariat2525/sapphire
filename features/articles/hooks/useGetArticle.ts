@@ -34,8 +34,6 @@ const useGetArticle = () => {
     }
   }, [data, setArticles]);
 
-  console.log(data);
-
   return {
     data,
     isLoading: !error && !data,

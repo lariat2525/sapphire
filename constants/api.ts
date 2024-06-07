@@ -8,6 +8,10 @@ namespace EndPoint {
     USER: "/api/v1/read/manages/user",
     //　イメージリスト取得API
     IMAGE_LIST: "/api/v1/read/manages/images/list",
+    //　タグ全取得API
+    TAG: "/api/v1/read/tags",
+    //　作品全取得API
+    APPEARANCE: "/api/v1/read/appearances",
   };
   namespace Write {}
 }

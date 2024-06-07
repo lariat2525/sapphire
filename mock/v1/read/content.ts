@@ -1,4 +1,6 @@
 import { Article } from "@/features/articles/types/articles";
+import { Appearance } from "@/features/manages/types/appearances";
+import { Tag } from "@/features/manages/types/tags";
 
 export const articles = {
   id: 1,
@@ -140,35 +142,41 @@ export const articleList: Article[] = [
   },
 ];
 
-export const appearances = [
+export const appearances: Appearance[] = [
   {
     id: 2,
-    name: "スローン",
-    en_name: "thrones",
+    jp_name: "スローン",
+    name: "thrones",
     created_at: "2024-05-01T12:00:00Z",
   },
   {
     id: 1,
-    name: "ガガ",
-    en_name: "gaga",
+    jp_name: "ガガ",
+    name: "gaga",
     created_at: "2024-05-07T12:00:00Z",
   },
 ];
 
-export const tags = [
+export const tags: Tag[] = [
   {
     id: 1,
-    name: "タグ名1",
+    name: "apple",
+    jp_name: "アップル",
+    main_flg: true,
     created_at: "2024-05-02T12:00:00Z",
   },
   {
     id: 2,
-    name: "タグ名2",
+    name: "lemon",
+    jp_name: "レモン",
+    main_flg: false,
     created_at: "2024-05-01T08:30:00Z",
   },
   {
     id: 3,
-    name: "タグ名3",
+    name: "banana",
+    jp_name: "バナナ",
+    main_flg: false,
     created_at: "2024-04-30T15:45:00Z",
   },
 ];
@@ -296,7 +304,7 @@ export const users = [
     created_at: "2024-05-13T06:14:06.905Z",
   },
   {
-    id: 1,
+    id: 2,
     username: "Tanaka",
     created_at: "2024-05-13T06:14:06.905Z",
   },

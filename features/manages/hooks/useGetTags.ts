@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { EndPoint } from "@/constants/api";
-import { userState } from "@/features/manages/state/user";
 import useSWR from "swr";
-import { User } from "../types/users";
+import { tagState } from "../state/tags";
+import { Tag } from "../types/tags";
 
-const url = EndPoint.Read.USER;
+const url = EndPoint.Read.TAG;
 
 // フェッチ関数
-const fetcher = async (query: string): Promise<User[]> => {
+const fetcher = async (query: string): Promise<Tag[]> => {
   const response = await fetch(query);
   if (!response.ok) {
     throw new Error("Network response was not ok");
@@ -16,14 +16,14 @@ const fetcher = async (query: string): Promise<User[]> => {
   return response.json();
 };
 
-const useGetUser = () => {
-  const setUser = useSetRecoilState(userState);
+const useGetTags = (canFetch?: boolean) => {
+  const setTags = useSetRecoilState(tagState);
 
-  const { data, error } = useSWR(url, fetcher);
+  const { data, error } = useSWR(canFetch ? url : null, fetcher);
 
   useEffect(() => {
-    if (data) setUser(data);
-  }, [data, setUser]);
+    if (data) setTags(data);
+  }, [data, setTags]);
 
   return {
     data,
@@ -32,4 +32,4 @@ const useGetUser = () => {
   };
 };
 
-export default useGetUser;
+export default useGetTags;

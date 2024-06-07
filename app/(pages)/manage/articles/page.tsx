@@ -1,29 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import {
-  faFilm,
-  faPenToSquare,
-  faTag,
-} from "@fortawesome/free-solid-svg-icons";
+import * as icons from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  formatCustomDate,
-  toUpperFirstLetter,
-  truncateString,
-} from "@/utils/formatted";
+import * as formattedUtils from "@/utils/formatted";
 import { Manages } from "@/constants/common";
 import useGetArticleList from "@/features/articles/hooks/useGetArticleList";
 import { articleListState } from "@/features/articles/state/articleList";
 import ArticlesModals from "@/features/manages/components/articleList/ArticlesModals";
 import DropMenuOption from "@/features/manages/components/DropMenuOption";
-import {
-  handlerArticleSingleState,
-  selectingIdState,
-} from "@/features/manages/state/actions";
+import * as actions from "@/features/manages/state/actions";
 import useGetImageList from "@/features/manages/hooks/useGetImageList";
+import useGetUser from "@/features/manages/hooks/useGetUser";
+import useGetTags from "@/features/manages/hooks/useGetTags";
+import useGetAppearances from "@/features/manages/hooks/useGetAppearance";
+import { appearanceState } from "@/features/manages/state/appearances";
+import IconButton from "@/features/manages/components/IconButton";
+import { selectIdState } from "@/features/manages/state/forms";
 
 const modals = [
   Manages.Modals.Edit.IMAGE,
@@ -34,15 +29,36 @@ const modals = [
   Manages.Modals.Edit.RELEASE,
 ];
 
+const mainStyleColor = "bg-manage-tertiary-color";
+
+const iconStyles = {
+  buttonParent: `${mainStyleColor} hover:${mainStyleColor}`,
+};
+
 /* TSX */
 export default function ManageArticleList() {
   const articles = useRecoilValue(articleListState);
-  const setEventHandler = useSetRecoilState(handlerArticleSingleState);
-  const setSelectingId = useSetRecoilState(selectingIdState);
+  const setSelectingId = useSetRecoilState(selectIdState);
+
+  // アクションSTATE
+  const setHandlerArticleSingle = useSetRecoilState(actions.handlerTagState);
+  const setHandlerTag = useSetRecoilState(actions.handlerArticleSingleState);
+  const setHandlerAppearance = useSetRecoilState(
+    actions.handlerAppearanceState
+  );
+
   const callGetArticleList = useGetArticleList();
 
   const [canImageFetch, setCanImageFetch] = useState<boolean>(false);
+  const [canTagFetch, setCanTagFetch] = useState<boolean>(false);
+  const [canAppearanceFetch, setCanAppearanceFetch] = useState<boolean>(false);
 
+  // ユーザー情報取得API呼び出し
+  useGetUser();
+  // タグ全取得API呼び出し（モーダル押下時）
+  useGetTags(canTagFetch);
+  // 作品全取得API呼び出し（モーダル押下時）
+  useGetAppearances(canAppearanceFetch);
   // 画像取得API呼び出し（モーダル押下時）
   useGetImageList(canImageFetch, {});
 
@@ -51,9 +67,16 @@ export default function ManageArticleList() {
 
     if (modal) {
       modal.showModal();
-      // 画像モーダルがクリックされたときに初めてフェッチする
+
+      // 指定のモーダルがクリックされたときに初めてAPIをフェッチする
       if (modalId === Manages.Modals.Edit.IMAGE) {
         setCanImageFetch(true);
+      }
+      if (modalId === Manages.Modals.Edit.TAG) {
+        setCanTagFetch(true);
+      }
+      if (modalId === Manages.Modals.Edit.APPEARANCE) {
+        setCanAppearanceFetch(true);
       }
       setSelectingId(id);
     }
@@ -67,9 +90,25 @@ export default function ManageArticleList() {
     console.log(id, field);
   };
 
+  const handleSubmitTag = async (
+    id: number,
+    field: { [key: string]: string | number }
+  ) => {
+    console.log(id, field);
+  };
+
+  const handleSubmitAppearance = async (
+    id: number,
+    field: { [key: string]: string | number }
+  ) => {
+    console.log(id, field);
+  };
+
   useEffect(() => {
     callGetArticleList();
-    setEventHandler(() => handleSubmitArticleSingle);
+    setHandlerArticleSingle(() => handleSubmitArticleSingle);
+    setHandlerTag(() => handleSubmitTag);
+    setHandlerAppearance(() => handleSubmitAppearance);
   }, [callGetArticleList]);
 
   return (
@@ -137,7 +176,7 @@ export default function ManageArticleList() {
                           }
                           className="text-slate-400 cursor-pointer"
                         >
-                          <FontAwesomeIcon icon={faPenToSquare} />
+                          <FontAwesomeIcon icon={icons.faPenToSquare} />
                         </div>
                       </div>
                     </div>
@@ -147,11 +186,11 @@ export default function ManageArticleList() {
                     <div className="flex justify-between gap-1.5 text-nowrap">
                       <div className="flex flex-col">
                         <span className="badge badge-outline badge-sm">
-                          {truncateString(title)}
+                          {formattedUtils.truncateString(title)}
                         </span>
                         <div className="font-bold text-lg pt-1">{jp_name}</div>
                         <div className="text-slate-400">
-                          {toUpperFirstLetter(name)}
+                          {formattedUtils.toUpperFirstLetter(name)}
                         </div>
                       </div>
                       <div className="relative top-14">
@@ -161,7 +200,7 @@ export default function ManageArticleList() {
                           }
                           className="text-manage-accent-color cursor-pointer"
                         >
-                          <FontAwesomeIcon icon={faPenToSquare} />
+                          <FontAwesomeIcon icon={icons.faPenToSquare} />
                         </div>
                       </div>
                     </div>
@@ -171,9 +210,7 @@ export default function ManageArticleList() {
                     <div className="flex justify-between gap-1.5">
                       <span
                         className={`text-nowrap badge badge-ghost ${
-                          release_flg
-                            ? "bg-manage-tertiary-color"
-                            : "bg-slate-200"
+                          release_flg ? mainStyleColor : "bg-slate-200"
                         }`}
                       >
                         {release_flg
@@ -187,7 +224,7 @@ export default function ManageArticleList() {
                           }
                           className="text-manage-accent-color cursor-pointer"
                         >
-                          <FontAwesomeIcon icon={faPenToSquare} />
+                          <FontAwesomeIcon icon={icons.faPenToSquare} />
                         </div>
                       </div>
                     </div>
@@ -201,7 +238,9 @@ export default function ManageArticleList() {
                   {/* 著者カラム */}
                   <td>
                     <div className="flex justify-between gap-1.5">
-                      <div>{truncateString(user?.username, 8)}</div>
+                      <div>
+                        {formattedUtils.truncateString(user?.username, 8)}
+                      </div>
                       <div className="relative top-8">
                         <div
                           onClick={() =>
@@ -209,7 +248,7 @@ export default function ManageArticleList() {
                           }
                           className="text-manage-accent-color cursor-pointer"
                         >
-                          <FontAwesomeIcon icon={faPenToSquare} />
+                          <FontAwesomeIcon icon={icons.faPenToSquare} />
                         </div>
                       </div>
                     </div>
@@ -220,17 +259,25 @@ export default function ManageArticleList() {
                         <div className="flex justify-between border-b gap-2">
                           <div className="font-medium">Updated</div>
                           <div>
-                            {updated_at ? formatCustomDate(updated_at) : "-"}
+                            {updated_at
+                              ? formattedUtils.formatCustomDate(updated_at)
+                              : "-"}
                           </div>
                         </div>
                         <div className="flex justify-between border-b">
                           <div className="font-medium">Posted</div>
-                          <div>{post_at ? formatCustomDate(post_at) : "-"}</div>
+                          <div>
+                            {post_at
+                              ? formattedUtils.formatCustomDate(post_at)
+                              : "-"}
+                          </div>
                         </div>
                         <div className="flex justify-between border-b">
                           <div className="font-medium">Created</div>
                           <div>
-                            {created_at ? formatCustomDate(created_at) : "-"}
+                            {created_at
+                              ? formattedUtils.formatCustomDate(created_at)
+                              : "-"}
                           </div>
                         </div>
                       </div>
@@ -246,35 +293,23 @@ export default function ManageArticleList() {
                         </DropMenuOption>
                       </div>
                       <div className="flex gap-x-1">
-                        <button
+                        <IconButton
                           onClick={() =>
                             openModalAndSetId(Manages.Modals.Edit.TAG, id)
                           }
-                          className={`dropdown btn px-3 border-1 border-slate-400 bg-manage-tertiary-color hover:bg-manage-tertiary-color text-nowrap min-h-6 h-1`}
-                        >
-                          <div
-                            tabIndex={0}
-                            className={`text-xs text-slate-700`}
-                          >
-                            <FontAwesomeIcon icon={faTag} />
-                          </div>
-                        </button>
-                        <button
+                          icon={icons.faTag}
+                          style={iconStyles}
+                        />
+                        <IconButton
                           onClick={() =>
                             openModalAndSetId(
                               Manages.Modals.Edit.APPEARANCE,
                               id
                             )
                           }
-                          className={`dropdown btn px-3 border-1 border-slate-400 bg-manage-tertiary-color hover:bg-manage-tertiary-color text-nowrap min-h-6 h-1`}
-                        >
-                          <div
-                            tabIndex={0}
-                            className={`text-xs text-slate-700`}
-                          >
-                            <FontAwesomeIcon icon={faFilm} />
-                          </div>
-                        </button>
+                          icon={icons.faFilm}
+                          style={iconStyles}
+                        />
                       </div>
                     </div>
                   </td>

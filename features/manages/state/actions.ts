@@ -1,22 +1,19 @@
 import { atom } from "recoil";
 
-// ManageArticleList選択モーダルID
-export const selectingIdState = atom<number>({
-  key: "selectingIdState",
-  default: -1,
-});
+// ジェネリック型を使用したイベントハンドラーの型定義
+type Handler<T> = ((id: number, fields: { [key: string]: T }) => void) | null;
 
-// ManageArticleListイベントハンドラー格納
-export const handlerArticleSingleState = atom<
-  | ((id: number, fields: { [key: string]: string | number | boolean }) => void)
-  | null
->({
+export const handlerArticleSingleState = atom<Handler<unknown>>({
   key: "handlerArticleSingleState",
   default: null,
 });
 
-// ManageArticleListイベントハンドラー格納
-export const selectingImageIdState = atom<number>({
-  key: "selectingImageIdState",
-  default: -1,
+export const handlerTagState = atom<Handler<unknown>>({
+  key: "handlerTagState",
+  default: null,
+});
+
+export const handlerAppearanceState = atom<Handler<unknown>>({
+  key: "handlerAppearanceState",
+  default: null,
 });

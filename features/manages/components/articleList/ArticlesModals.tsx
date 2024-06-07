@@ -3,40 +3,53 @@ import React, { useEffect, useState } from "react";
 import MainModal from "@/components/elements/MainModal";
 import { Manages } from "@/constants/common";
 import FormModalWrapper from "../FormModalArticleWrapper";
-import CustomInputText from "@/components/elements/CustomInputText";
+import CustomInputText from "@/components/elements/forms/CustomInputText";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faHeading, faPen, faUserTie } from "@fortawesome/free-solid-svg-icons";
 import { useRecoilValue } from "recoil";
 import { articleListState } from "@/features/articles/state/articleList";
-import { selectingIdState } from "../../state/actions";
+import { formActiveTagState, selectIdState } from "../../state/forms";
 import { findObjectByColumnValue } from "@/utils/collections";
 import { Article } from "@/features/articles/types/articles";
-import CustomInputRadio from "@/components/elements/CustomInputRadio";
-import CustomInputImages from "../CustomInputImages";
+import CustomInputRadio from "@/components/elements/forms/CustomInputRadio";
+import CustomInputImages from "../forms/CustomInputImages";
 import SearchImageWrapper from "../SearchImageWrapper";
+import CustomInputSelectBox from "@/components/elements/forms/CustomInputSelectBox";
+import { userState } from "../../state/user";
+import CustomInputTagBox from "../forms/CustomInputTagBox";
+import { appearanceState } from "../../state/appearances";
+import { tagState } from "../../state/tags";
 
 type Props = {
   modals: string[];
 };
 
 const ArticlesModals = ({ modals }: Props) => {
-  const selectingId = useRecoilValue(selectingIdState); // 選択された記事のIDを取得
-  const articleList = useRecoilValue(articleListState); // 記事のリストを取得
+  // 選択された記事のIDを取得
+  const selectingId = useRecoilValue(selectIdState);
+  // 記事のリストを取得
+  const articleList = useRecoilValue(articleListState);
+  // 全タグを取得
+  const tags = useRecoilValue(tagState);
+  // 全出演作品を取得
+  const appearances = useRecoilValue(appearanceState);
+  // 全ユーザーを取得
+  const users = useRecoilValue(userState);
 
-  const [selectingData, setSelectingData] = useState<Article | null>(null); // 選択された記事のデータを保持
+  const [, setSelectingData] = useState<Article | null>(null); // 選択された記事のデータを保持
 
   // 各モーダルのフィールドの初期状態を設定
-  const [images, setImages] = useState({
+  const [imageFields, setImageFields] = useState({
     id: 0,
   });
-  const [titles, setTitles] = useState({
+  const [titleFields, setTitleFields] = useState({
     title: "",
     name: "",
     jp_name: "",
   });
-  const [author, setAuthor] = useState({ username: "" });
-  const [release, setRelease] = useState({ release_flg: false });
-  const [tags, setTags] = useState({ tag: "" });
+  const [authorFields, setAuthorFields] = useState({ id: 0 });
+  const [releaseFields, setReleaseFields] = useState({ release_flg: false });
+  const formActiveTagFields = useRecoilValue(formActiveTagState); // 編集されたタグを取得
 
   // 選択された記事データが変更された場合に状態を更新
   useEffect(() => {
@@ -55,51 +68,40 @@ const ArticlesModals = ({ modals }: Props) => {
       event.currentTarget?.getAttribute("data-image_id")
     );
     if (toolImageId) {
-      setImages({ id: toolImageId });
+      setImageFields({ id: toolImageId });
     }
   };
 
   // タイトルフィールドの変更ハンドラ
   const handleTitlesChange = (field: string, value: string) => {
-    setTitles((prevState) => ({
+    setTitleFields((prevState) => ({
       ...prevState,
       [field]: value,
     }));
   };
 
   // 著者フィールドの変更ハンドラ
-  const handleAuthorChange = (field: string, value: string) => {
-    setAuthor((prevState) => ({
-      ...prevState,
-      [field]: value,
-    }));
+  const handleAuthorChange = (value: string) => {
+    setAuthorFields({ id: Number(value) });
   };
 
   // 公開フィールドの変更ハンドラ
   const handleReleaseChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRelease({ release_flg: event.target.value === "true" });
-  };
-
-  // タグフィールドの変更ハンドラ
-  const handleTagsChange = (field: string, value: string) => {
-    setTags((prevState) => ({
-      ...prevState,
-      [field]: value,
-    }));
+    setReleaseFields({ release_flg: event.target.value === "true" });
   };
 
   // 選択されたデータから状態を一括更新する関数
   const updateStateFromSelectingData = (data: Article | null) => {
-    setImages({
+    setImageFields({
       id: data?.images[selectingId]?.id || 0,
     });
-    setTitles({
+    setTitleFields({
       title: data?.title || "",
       name: data?.name || "",
       jp_name: data?.jp_name || "",
     });
-    setAuthor({ username: data?.user.username || "" });
-    setRelease({ release_flg: data?.release_flg || false });
+    setAuthorFields({ id: data?.user.id || 0 });
+    setReleaseFields({ release_flg: data?.release_flg || false });
   };
 
   const renders = modals.map((key) => {
@@ -108,10 +110,10 @@ const ArticlesModals = ({ modals }: Props) => {
         return (
           <div key={key}>
             <MainModal modalId={key} customModalStyle="max-w-3xl">
-              <FormModalWrapper fields={images}>
+              <FormModalWrapper fields={imageFields}>
                 <SearchImageWrapper />
                 <CustomInputImages
-                  fields={images}
+                  fields={imageFields}
                   onClick={(event) => handleImagesClick(event)}
                 ></CustomInputImages>
               </FormModalWrapper>
@@ -123,10 +125,10 @@ const ArticlesModals = ({ modals }: Props) => {
         return (
           <div key={key}>
             <MainModal modalId={key}>
-              <FormModalWrapper fields={titles}>
+              <FormModalWrapper fields={titleFields}>
                 <CustomInputText
                   icon={faHeading}
-                  value={titles.title}
+                  value={titleFields.title}
                   onChange={(event) =>
                     handleTitlesChange("title", event.target.value)
                   }
@@ -134,7 +136,7 @@ const ArticlesModals = ({ modals }: Props) => {
                 />
                 <CustomInputText
                   icon={faUser}
-                  value={titles.name}
+                  value={titleFields.name}
                   onChange={(event) =>
                     handleTitlesChange("name", event.target.value)
                   }
@@ -142,7 +144,7 @@ const ArticlesModals = ({ modals }: Props) => {
                 />
                 <CustomInputText
                   icon={faUserTie}
-                  value={titles.jp_name}
+                  value={titleFields.jp_name}
                   onChange={(event) =>
                     handleTitlesChange("jp_name", event.target.value)
                   }
@@ -157,10 +159,10 @@ const ArticlesModals = ({ modals }: Props) => {
         return (
           <div key={key}>
             <MainModal modalId={key}>
-              <FormModalWrapper fields={release}>
+              <FormModalWrapper fields={releaseFields}>
                 <CustomInputRadio
                   icon={faPen}
-                  value={release.release_flg}
+                  value={releaseFields.release_flg}
                   onChange={handleReleaseChange}
                   placeholders={{ true: "公開", false: "非公開" }}
                 />
@@ -173,14 +175,14 @@ const ArticlesModals = ({ modals }: Props) => {
         return (
           <div key={key}>
             <MainModal modalId={key}>
-              <FormModalWrapper fields={author}>
-                <CustomInputText
-                  icon={faPen}
-                  value={author.username}
-                  onChange={(event) =>
-                    handleAuthorChange("author", event.target.value)
+              <FormModalWrapper fields={authorFields}>
+                <CustomInputSelectBox
+                  items={users.map(({ id, username }) => {
+                    return { id, label: username };
+                  })}
+                  onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                    handleAuthorChange(event.target.value)
                   }
-                  placeholder="著者"
                 />
               </FormModalWrapper>
             </MainModal>
@@ -190,14 +192,28 @@ const ArticlesModals = ({ modals }: Props) => {
       case Manages.Modals.Edit.TAG:
         return (
           <div key={key}>
-            <MainModal modalId={key}>tag</MainModal>
+            <MainModal modalId={key} customModalStyle="max-w-3xl">
+              <FormModalWrapper
+                fields={{ list: formActiveTagFields }}
+                mode="tag"
+              >
+                <CustomInputTagBox />
+              </FormModalWrapper>
+            </MainModal>
           </div>
         );
 
       case Manages.Modals.Edit.APPEARANCE:
         return (
           <div key={key}>
-            <MainModal modalId={key}>appearance</MainModal>
+            <MainModal modalId={key} customModalStyle="max-w-3xl">
+              <FormModalWrapper
+                fields={{ list: formActiveTagFields }}
+                mode="appearance"
+              >
+                <CustomInputTagBox />
+              </FormModalWrapper>
+            </MainModal>
           </div>
         );
 

@@ -6,18 +6,18 @@ import SearchBox from "@/components/elements/SearchBox";
 
 const SearchImageWrapper: React.FC = () => {
   const [keyword, setKeyword] = useState<string>("");
-  const [canFetch, setCanFetch] = useState<boolean>(false);
+  const [canFetchImage, setCanFetchImage] = useState<boolean>(false);
 
-  const { data } = useGetImageList(canFetch, { keyword });
+  const { data } = useGetImageList(canFetchImage, { keyword });
 
   const handleSearch = (searchKeyword: string) => {
     setKeyword(searchKeyword);
-    setCanFetch(true); // 再度fetchを許可
+    setCanFetchImage(true); // 再度fetchを許可
   };
 
   useEffect(() => {
-    if (canFetch) {
-      setCanFetch(false); // fetchが完了したらリセット
+    if (canFetchImage) {
+      setCanFetchImage(false); // fetchが完了したらリセット
     }
   }, [data]); // dataが更新されたらリセット
 
@@ -28,13 +28,6 @@ const SearchImageWrapper: React.FC = () => {
         onSearch={handleSearch}
         initialKeyword={keyword}
       />
-      {data && (
-        <ul>
-          {data.map((image: any) => (
-            <li key={image.id}>{image.name}</li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 };

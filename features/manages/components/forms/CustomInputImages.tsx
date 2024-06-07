@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { useRecoilValue } from "recoil";
-import { imagesState } from "../state/images";
+import { imagesState } from "../../state/images";
 import { Commons } from "@/constants/common";
 import { truncateString } from "@/utils/formatted";
 
@@ -17,7 +17,14 @@ const CustomInputImages = ({ fields, onClick }: Props) => {
     <div className="flex gap-4 flex-wrap justify-center">
       {images.map(({ id, path, alt, article_id }, index) => {
         return (
-          <div className="text-center" key={index}>
+          <div
+            className={`text-center cursor-pointer ${
+              Number(fields.id) === id
+                ? "border border-solid border-yellow-500"
+                : ""
+            }`}
+            key={index}
+          >
             <div onClick={onClick} data-image_id={id}>
               <Image
                 src={path}
