@@ -67,7 +67,7 @@ const CustomInputAppearanceBox: React.FC = () => {
 
   // 記事が選択された際にアクティブタグを更新
   useEffect(() => {
-    const articleAppearances = articles[selectId]?.tags || [];
+    const articleAppearances = articles[selectId]?.appearances || [];
     setActiveAppearances(ensureElements(articleAppearances));
   }, [articles, selectId]);
 

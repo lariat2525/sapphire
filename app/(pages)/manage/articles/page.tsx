@@ -105,7 +105,6 @@ export default function ManageArticleList() {
   };
 
   useEffect(() => {
-    callGetArticleList();
     setHandlerArticleSingle(() => handleSubmitArticleSingle);
     setHandlerTag(() => handleSubmitTag);
     setHandlerAppearance(() => handleSubmitAppearance);
