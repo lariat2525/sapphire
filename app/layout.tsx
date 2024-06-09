@@ -56,7 +56,7 @@ export default function RootLayout({
             ) : (
               <>
                 <ArticleHeader />
-                <main className="max-w-4xl mx-auto">{children}</main>
+                <main className="max-w-5xl mx-auto">{children}</main>
                 <ArticleFooter />
               </>
             )}

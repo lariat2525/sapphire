@@ -16,8 +16,8 @@
   .utl-ml-104 {
     margin-left: 104px;
   }
-  .utl-w-90 {
-    width: 360px;
+  .utl-w-120 {
+    width: 424px;
   }
   .utl-size-w-500 {
     width: 500px;
@@ -31,6 +31,9 @@
   .utl-w-96per {
     width: 96%;
   }
+  .utl-fontSize-10 {
+    font-size: 0.625rem;
+  }
   /*---------------------------------------------------------
    CONST
   ----------------------------------------------------------- */
@@ -42,8 +45,8 @@
     width: 250px;
   }
   .const-card-image-size {
-    height: 204px;
-    width: 204px;
+    height: 222px;
+    width: 222px;
   }
   /*---------------------------------------------------------
    FEATURES
