@@ -12,6 +12,8 @@ export const GET = async (req: Request) => {
     let result;
 
     if (isProduction()) {
+      // 本番環境の場合、データベースからタグを取得
+      result = await prisma.tags.findMany({});
     } else {
       result = tags;
     }
