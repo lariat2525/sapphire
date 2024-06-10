@@ -7,10 +7,6 @@ type IconButtonProps = {
   icon: IconProp;
   children?: React.ReactNode;
   style?: {
-    backgroundColor?: string;
-    hoverColor?: string;
-    textColor?: string;
-    widthPadding?: string;
     buttonParent?: string;
     buttonChild?: string;
   };

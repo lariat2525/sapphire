@@ -58,9 +58,26 @@ export default function ArticleList() {
               </a>
             </div>
             <div className="Cards">
-              <Card />
-              <Card />
-              <Card />
+              {data?.map((items, index) => {
+                return (
+                  <Card
+                    key={index}
+                    fields={{
+                      id: items.id,
+                      imagePath: items.images[0].path,
+                      imageAlt: items.images[0].alt,
+                      tags: items.tags,
+                      title: items.title,
+                      name: items.name,
+                      jpName: items.jp_name,
+                      appearances: items.appearances,
+                      postedAt: items.post_at,
+                      preview: items.preview,
+                      author: items.user.username,
+                    }}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

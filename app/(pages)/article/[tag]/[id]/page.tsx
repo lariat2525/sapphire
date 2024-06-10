@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useRecoilValue } from "recoil";
-import Tag from "@/components/elements/Tag";
 import Profiles from "@/features/articles/components/Profiles";
 import RadarCharts from "@/features/articles/components/RadarCharts";
 import SentenceTemplate from "@/features/articles/components/SentenceTemplate";
@@ -9,6 +8,7 @@ import useGetArticle from "@/features/articles/hooks/useGetArticle";
 import { articlesState } from "@/features/articles/state/article";
 import TagList from "@/features/articles/components/TagList";
 import WorkList from "@/features/articles/components/WorkList";
+import ArticleTag from "@/features/articles/components/ArticleTag";
 
 export default function Article() {
   const articlesData = useRecoilValue(articlesState);
@@ -45,9 +45,9 @@ export default function Article() {
                 <div className="Tags text-sm flex justify-end">
                   {articlesData.tags?.map(({ name, jp_name }, index) => {
                     return (
-                      <Tag key={index} href={`/article/${name}`}>
+                      <ArticleTag key={index} href={`/article/${name}`}>
                         {jp_name}
-                      </Tag>
+                      </ArticleTag>
                     );
                   })}
                 </div>

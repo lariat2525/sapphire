@@ -5,19 +5,21 @@ import DotLineList from "@/components/elements/shapes/DotLineList";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormattedAppearance, FormattedTag } from "../types/articles";
+import SimpleTag from "../../../components/elements/SimpleTag";
 
 /// TODO: childrenのtype
 type Props = {
   fields: {
-    id: string;
+    id: number;
     imagePath: string;
+    imageAlt: string;
     tags: FormattedTag[];
-    Label: string;
+    title: string;
     name: string;
     jpName: string;
     appearances: FormattedAppearance[];
     postedAt: string;
-    preview: string;
+    preview: number;
     author: string;
   };
 };
@@ -33,8 +35,8 @@ export default function Card({ fields }: Props) {
     >
       <div className="Image const-card-image-size">
         <Image
-          src={`/test/goblin.svg`}
-          alt={`ゴブリンの画像`}
+          src={`/test${fields.imagePath}`}
+          alt={`${fields.imageAlt}の画像`}
           width={1024}
           height={1024}
         />
@@ -44,35 +46,28 @@ export default function Card({ fields }: Props) {
           FILE :0001
         </div>
         <div className="Tags mr-4 mb-1 pb-1 flex justify-start">
-          <a
-            href=""
-            className="Tag min-w-24 h-6 mx-2 px-1 utl-flex-center border-2 border-tertiary-color  rounded-full"
-          >
-            <div className="h-2 w-2 mr-1.5 rounded-full bg-tertiary-color" />
-            <div className="mx-2 text-xs">ファンタジー</div>
-          </a>
-          <a
-            href=""
-            className="Tag min-w-24 h-6 px-1 utl-flex-center border-2 border-tertiary-color  rounded-full"
-          >
-            <div className="h-2 w-2 mr-1.5 rounded-full bg-tertiary-color" />
-            <div className="mx-2 text-xs">魔物</div>
-          </a>
+          {fields.tags?.map(({ name, jp_name }, index) => {
+            return (
+              <SimpleTag key={index} href={`/article/${name}`}>
+                {jp_name}
+              </SimpleTag>
+            );
+          })}
         </div>
         <div className="Names ml-2">
-          <div className="SubTitle text-base font-semibold flex">
-            めっちゃ弱い
-          </div>
+          <p className="Title text-base font-semibold flex">{fields.title}</p>
           <div className="Name flex">
-            <div className="EN text-5xl font-semibold mr-2 font-overlock font-bold">
-              <p>GOBLIN</p>
-            </div>
-            <div className="JP text-base font-semibold flex items-end">
-              <p>ゴブリン</p>
+            <div className="w-80 flex">
+              <p className="EnName text-5xl font-semibold mr-2 font-overlock font-bold">
+                {fields.name.toUpperCase()}
+              </p>
+              <p className="JpName text-base font-semibold flex items-end">
+                {fields.jpName}
+              </p>
             </div>
             <div className="Bottoms flex justify-end items-end">
               <div
-                className="Bottom ml-24 mt-3 mr-1 w-16 h-6 bg-accent-color border-2 
+                className="Bottom mt-3 mr-1 w-16 h-6 bg-accent-color border-2 
         border-accent-color flex justify-center rounded-xl shadow-md shadow-gray-400"
               >
                 <p className="inline-block text-lg font-semibold flex items-center">
@@ -88,14 +83,15 @@ export default function Card({ fields }: Props) {
         </div>
         <div className="Appearances flex">
           <div>
-            <div
+            <a
+              href=""
               className="Appearance m-1 h-5 min-w-24 flex justify-center  border-2 
         border-sub-color rounded-xl"
             >
               <p className="mx-2 h-5 flex justify-center text-xs">
                 #エルデンリング
               </p>
-            </div>
+            </a>
             <div
               className="Appearance m-1 h-5 min-w-24 flex justify-center  border-2 
       border-sub-color rounded-xl"
