@@ -103,6 +103,8 @@ export default function ManageArticleList() {
     console.log(id, field);
   };
 
+  console.log(articles);
+
   useEffect(() => {
     setHandlerArticleSingle(() => handleSubmitArticleSingle);
     setHandlerTag(() => handleSubmitTag);

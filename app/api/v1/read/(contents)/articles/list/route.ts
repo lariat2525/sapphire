@@ -65,14 +65,14 @@ export const GET = async (req: Request) => {
 
       if (initResponses.length) {
         res = initResponses.map((response) => {
-          return [
+          return {
             ...res,
-            {
+            ...{
               ...response,
               tags: formatTags(response.tags),
               appearances: formatAppearances(response.appearances),
             },
-          ];
+          };
         });
       }
     } else {

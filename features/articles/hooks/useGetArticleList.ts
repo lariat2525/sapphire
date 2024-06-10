@@ -33,8 +33,6 @@ const useGetArticleList = () => {
     }
   }, [data, setArticleList]);
 
-  console.log(data);
-
   return {
     data,
     isLoading: !error && !data,
