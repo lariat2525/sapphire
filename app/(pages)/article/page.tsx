@@ -57,9 +57,11 @@ export default function ArticleList() {
                 人気順
               </a>
             </div>
-            <Card />
-            <Card />
-            <Card />
+            <div className="Cards">
+              <Card />
+              <Card />
+              <Card />
+            </div>
           </div>
         </div>
       </div>
