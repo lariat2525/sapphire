@@ -19,6 +19,7 @@ import useGetAppearances from "@/features/manages/hooks/useGetAppearance";
 import { appearanceState } from "@/features/manages/state/appearances";
 import IconButton from "@/features/manages/components/IconButton";
 import { selectIdState } from "@/features/manages/state/forms";
+import usePostMetaArticles from "@/features/manages/hooks/usePostMetaArticles";
 
 const modals = [
   Manages.Modals.Edit.IMAGE,
@@ -41,8 +42,10 @@ export default function ManageArticleList() {
   const setSelectingId = useSetRecoilState(selectIdState);
 
   // アクションSTATE
-  const setHandlerArticleSingle = useSetRecoilState(actions.handlerTagState);
-  const setHandlerTag = useSetRecoilState(actions.handlerArticleSingleState);
+  const setHandlerArticleSingle = useSetRecoilState(
+    actions.handlerArticleSingleState
+  );
+  const setHandlerTag = useSetRecoilState(actions.handlerTagState);
   const setHandlerAppearance = useSetRecoilState(
     actions.handlerAppearanceState
   );
@@ -52,6 +55,9 @@ export default function ManageArticleList() {
   const [canImageFetch, setCanImageFetch] = useState<boolean>(false);
   const [canTagFetch, setCanTagFetch] = useState<boolean>(false);
   const [canAppearanceFetch, setCanAppearanceFetch] = useState<boolean>(false);
+
+  // ヘッダー情報更新API呼び出し
+  const { triggerMetaArticles } = usePostMetaArticles();
 
   // ユーザー情報取得API呼び出し
   useGetUser();
@@ -87,7 +93,7 @@ export default function ManageArticleList() {
     id: number,
     field: { [key: string]: string | number }
   ) => {
-    console.log(id, field);
+    await triggerMetaArticles({ id, fields: field });
   };
 
   const handleSubmitTag = async (
@@ -103,8 +109,6 @@ export default function ManageArticleList() {
   ) => {
     console.log(id, field);
   };
-
-  console.log(articles);
 
   useEffect(() => {
     setHandlerArticleSingle(() => handleSubmitArticleSingle);

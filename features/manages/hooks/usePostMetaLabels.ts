@@ -5,9 +5,9 @@ import { insertUrlWithPath } from "@/utils/core";
 import { EndPoint } from "@/constants/api";
 import { articlesState } from "@/features/articles/state/article";
 import useSWR from "swr";
-import { Article } from "../types/articles";
+import { Article } from "@/features/articles/types/articles";
 
-const url = EndPoint.Read.ARTICLE_SINGLE;
+const url = EndPoint.Write.META_LABEL;
 
 // フェッチ関数
 const fetcher = async (urlWithQuery: string): Promise<Article> => {

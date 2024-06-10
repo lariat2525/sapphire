@@ -24,5 +24,5 @@ export const formActiveAppearanceState = atom<FormattedAppearance[]>({
 // ManageArticleList選択モーダルID
 export const selectIdState = atom<number>({
   key: "selectIdState",
-  default: -1,
+  default: 0,
 });
