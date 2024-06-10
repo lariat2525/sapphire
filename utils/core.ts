@@ -12,7 +12,7 @@ type Params = { [key: string]: string | number };
  * @returns paramsオブジェクトの対応する値で全てのプレースホルダーが置き換えられたURL。
  *
  */
-export const replaceUrlPlaceholders = (
+export const insertUrlWithPath = (
   urlTemplate: string,
   params: Params
 ): string => {

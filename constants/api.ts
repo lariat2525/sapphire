@@ -13,7 +13,12 @@ namespace EndPoint {
     //　作品全取得API
     APPEARANCE: "/api/v1/read/appearances",
   };
-  namespace Write {}
+  export const Write = {
+    // 記事メタ情報更新API
+    META_ARTICLE: "/api/v1/write/article",
+    // タグ全取得API
+    META_LABEL: "/api/v1/write/label",
+  };
 }
 
 export { EndPoint };

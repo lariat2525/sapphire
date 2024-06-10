@@ -5,7 +5,7 @@ import { insertUrlWithPath } from "@/utils/core";
 import { EndPoint } from "@/constants/api";
 import { articlesState } from "@/features/articles/state/article";
 import useSWR from "swr";
-import { Article } from "@/features/articles/types/articles";
+import { Article } from "../types/articles";
 
 const url = EndPoint.Read.ARTICLE_SINGLE;
 
@@ -18,7 +18,7 @@ const fetcher = async (urlWithQuery: string): Promise<Article> => {
   return response.json();
 };
 
-const useGetArticle = () => {
+const usePostMetaArticles = () => {
   const { id } = useParams();
   const setArticles = useSetRecoilState(articlesState);
 
@@ -41,4 +41,4 @@ const useGetArticle = () => {
   };
 };
 
-export default useGetArticle;
+export default usePostMetaArticles;

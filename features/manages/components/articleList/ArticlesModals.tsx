@@ -9,6 +9,7 @@ import { faHeading, faPen, faUserTie } from "@fortawesome/free-solid-svg-icons";
 import { useRecoilValue } from "recoil";
 import { articleListState } from "@/features/articles/state/articleList";
 import {
+  formActiveAppearanceState,
   formActiveTagState,
   selectIdState,
 } from "@/features/manages/state/forms";
@@ -21,7 +22,8 @@ import CustomInputSelectBox from "@/components/elements/forms/CustomInputSelectB
 import { userState } from "@/features/manages/state/user";
 import CustomInputTagBox from "@/features/manages/components/forms/CustomInputTagBox";
 import { appearanceState } from "@/features/manages/state/appearances";
-import { tagState } from "@/features/manages//state/tags";
+import { tagState } from "@/features/manages/state/tags";
+import CustomInputAppearanceBox from "@/features/manages/components/forms/CustomInputAppearanceBox";
 
 type Props = {
   modals: string[];
@@ -53,6 +55,7 @@ const ArticlesModals = ({ modals }: Props) => {
   const [authorFields, setAuthorFields] = useState({ id: 0 });
   const [releaseFields, setReleaseFields] = useState({ release_flg: false });
   const formActiveTagFields = useRecoilValue(formActiveTagState); // 編集されたタグを取得
+  const formActiveAppearanceFields = useRecoilValue(formActiveAppearanceState); // 編集されたタグを取得
 
   // 選択された記事データが変更された場合に状態を更新
   useEffect(() => {
@@ -211,10 +214,10 @@ const ArticlesModals = ({ modals }: Props) => {
           <div key={key}>
             <MainModal modalId={key} customModalStyle="max-w-3xl">
               <FormModalWrapper
-                fields={{ list: formActiveTagFields }}
+                fields={{ list: formActiveAppearanceFields }}
                 mode="appearance"
               >
-                <CustomInputTagBox />
+                <CustomInputAppearanceBox />
               </FormModalWrapper>
             </MainModal>
           </div>
