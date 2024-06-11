@@ -6,6 +6,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormattedAppearance, FormattedTag } from "../types/articles";
 import SimpleTag from "../../../components/elements/SimpleTag";
+import AppearanceTag from "./AppearanceTag";
 
 /// TODO: childrenのtype
 type Props = {
@@ -82,43 +83,23 @@ export default function Card({ fields }: Props) {
           <DotLineList />
         </div>
         <div className="Appearances flex">
-          <div>
-            <a
-              href=""
-              className="Appearance m-1 h-5 min-w-24 flex justify-center  border-2 
-        border-sub-color rounded-xl"
-            >
-              <p className="mx-2 h-5 flex justify-center text-xs">
-                #エルデンリング
-              </p>
-            </a>
-            <div
-              className="Appearance m-1 h-5 min-w-24 flex justify-center  border-2 
-      border-sub-color rounded-xl"
-            >
-              <p className="mx-2 flex justify-center text-xs">
-                #ドラゴンクエスト
-              </p>
-            </div>
-          </div>
-          <div
-            className="Appearance m-1 h-5 min-w-24 flex justify-center  border-2 
-      border-sub-color rounded-xl"
-          >
-            <p className="mx-2 h-5 flex justify-center text-xs">
-              #ゲームオブスローンズ
-            </p>
-          </div>
+          {fields.appearances?.map(({ name, jp_name }, index) => {
+            return (
+              <AppearanceTag key={index} href={`/article/${name}`}>
+                {jp_name}
+              </AppearanceTag>
+            );
+          })}
         </div>
         <div className="Manages h-5 mr-5 flex justify-end items-end">
           <p className="Manages mx-1 utl-fontSize-10 text-neutral-color">
-            投稿時間：2022/07/04
+            投稿時間：{fields.postedAt}
           </p>
           <p className="Manages mx-1 utl-fontSize-10 text-neutral-color">
-            視聴数：1,200
+            視聴数：{fields.preview}
           </p>
           <p className="Manages mx-1 utl-fontSize-10 text-neutral-color">
-            著者：ura shoe
+            著者：{fields.author}
           </p>
         </div>
       </div>

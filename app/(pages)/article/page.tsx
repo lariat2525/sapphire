@@ -84,9 +84,11 @@ export default function ArticleList() {
       </div>
       <div className="Right ml-4 w-1/3">
         <div className="Advertisement bg-white mb-4 h-48">広告</div>
-        <div className="Category bg-secondary-color mt-6 pb-8 min-h-96">
-          <TagList />
-          <WorkList />
+        <div>
+          <div className="Category bg-secondary-color mt-6 pb-8 min-h-96">
+            <TagList />
+            <WorkList />
+          </div>
         </div>
       </div>
     </div>
