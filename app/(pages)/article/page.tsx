@@ -1,12 +1,10 @@
 "use client";
 
-import LineDotCenter from "@/components/elements/shapes/LineDotCenter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Card from "@/features/articles/components/Card";
 import useGetArticleList from "@/features/articles/hooks/useGetArticleList";
-import WorkList from "@/features/articles/components/WorkList";
-import TagList from "@/features/articles/components/TagList";
+import Category from "@/features/articles/components/Category";
 
 export default function ArticleList() {
   const { data, isError, isLoading } = useGetArticleList();
@@ -14,23 +12,34 @@ export default function ArticleList() {
   console.log(data);
 
   return (
-    <div className="Content pt-24 flex justify-center z-0">
+    <div className="Content pt-24 flex z-0">
       <div className="Left w-2/3">
-        <div className="Info bg-secondary-color h-screen">
+        <div className="Info bg-secondary-color min-h-48 pb-10">
           <div className="Search h-16 flex justify-start bg-secondary-color border-b-2 border-black ">
-            <FontAwesomeIcon
-              className="m-1 text-white"
-              icon={faMagnifyingGlass}
-            />
-            <input
-              type="text"
-              placeholder="Type here"
-              className="Search m-4 w-72 h-8 bg-tertiary-color border-2 
+            <div
+              className="Searches ml-6 m-3 flex items-center bg-tertiary-color border 
             border-tertiary-color flex rounded-xl"
-            ></input>
-            <div className="Pagination flex place-items-end">
-              <div className="PageNumber ml-24 text-xl">2/30</div>
-              <div className="PageString mx-1">ページ目</div>
+            >
+              <FontAwesomeIcon
+                className="bg-tertiary-color text-2xl text-white border-2 
+            border-tertiary-color flex rounded-l-xl"
+                icon={faMagnifyingGlass}
+              />
+              <input
+                type="text"
+                placeholder="Type here"
+                className="Search w-80 h-8 bg-tertiary-color border-2 
+            border-tertiary-color flex rounded-r-xl"
+              ></input>
+            </div>
+            <div className="Pagination w-72 flex justify-end place-items-end">
+              <div className="join">
+                <button className="join-item btn">1</button>
+                <button className="join-item btn">2</button>
+                <button className="join-item btn btn-disabled">...</button>
+                <button className="join-item btn">99</button>
+                <button className="join-item btn">100</button>
+              </div>
             </div>
           </div>
           <div className="Case m-4">
@@ -85,12 +94,14 @@ export default function ArticleList() {
       <div className="Right ml-4 w-1/3">
         <div className="Advertisement bg-white mb-4 h-48">広告</div>
         <div>
-          <div className="Category bg-secondary-color mt-6 pb-8 min-h-96">
-            <TagList />
-            <WorkList />
+          <div className="Category">
+            <Category />
           </div>
         </div>
       </div>
     </div>
   );
+}
+function insertUrlWithPath(url: any, arg1: { article_id: string }) {
+  throw new Error("Function not implemented.");
 }

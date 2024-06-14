@@ -6,11 +6,9 @@ import { articleListState } from "@/features/articles/state/articleList";
 import { Article } from "@/features/articles/types/articles";
 import useSWR from "swr";
 
-// 1.useSWR化する ※typescriptのエラーが出る　困ったらany
-// 2.検索のところをつくって、ボタンを作ってonClickをつくる。
-// 3.apiに送るデータの準備
-// 4.asyncで非同期処理でapiをたたく　await使う
-// 5.console.logで検索対象のログを表示をする
+// 1.queryを取ってこれるようにする、console.logできるようになったらゴール
+// 2.apiにqueryをのせる。
+// 3.pagenationのcomponentをつくる。
 
 const url = EndPoint.Read.ARTICLE_LIST;
 

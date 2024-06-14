@@ -43,7 +43,7 @@ export default function Card({ fields }: Props) {
         />
       </div>
       <div className="Detail utl-w-120 pl-2">
-        <div className="FileNumber mr-6 text-xs flex justify-end text-neutral-color">
+        <div className="FileNumber mr-4 text-xs flex justify-end text-neutral-color">
           FILE :0001
         </div>
         <div className="Tags mr-4 mb-1 pb-1 flex justify-start">

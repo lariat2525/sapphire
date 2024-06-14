@@ -26,6 +26,8 @@ const useGetArticle = () => {
     article_id: id as string,
   });
 
+  console.log(id);
+
   const { data, error } = useSWR(insertedUrl, fetcher);
 
   useEffect(() => {
