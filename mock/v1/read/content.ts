@@ -84,13 +84,15 @@ export const articleList: Article[] = [
         article_id: 5,
         path: "/test/test.svg",
         alt: "image alt",
+        used_flg: false,
         created_at: "2024-05-01T12:00:00Z",
       },
       {
-        id: 5,
+        id: 6,
         article_id: 5,
         path: "/test/test.svg",
         alt: "image alt",
+        used_flg: false,
         created_at: "2024-05-01T12:00:00Z",
       },
     ],
@@ -115,6 +117,8 @@ export const articleList: Article[] = [
         main_flg: true,
         jp_name: "幽霊",
         name: "tag1",
+        description:
+          "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
         created_at: "2024-05-01T12:00:00Z",
       },
       {
@@ -122,6 +126,8 @@ export const articleList: Article[] = [
         main_flg: false,
         jp_name: "妖怪",
         name: "tag2",
+        description:
+          "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
         created_at: "2024-05-01T12:00:00Z",
       },
     ],
@@ -130,12 +136,16 @@ export const articleList: Article[] = [
         id: 1,
         name: "appearance1",
         jp_name: "appearance1_en",
+        description:
+          "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
         created_at: "2024-05-01T12:00:00Z",
       },
       {
         id: 2,
         name: "appearance2",
         jp_name: "appearance2_en",
+        description:
+          "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
         created_at: "2024-05-01T12:00:00Z",
       },
     ],
@@ -144,15 +154,17 @@ export const articleList: Article[] = [
 
 export const appearances: Appearance[] = [
   {
-    id: 2,
-    jp_name: "スローン",
-    name: "thrones",
+    id: 1,
+    jp_name: "ゲームオブスローンズ",
+    name: "Game of Thrones",
+    description: "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
     created_at: "2024-05-01T12:00:00Z",
   },
   {
-    id: 1,
+    id: 2,
     jp_name: "ガガ",
     name: "gaga",
+    description: "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
     created_at: "2024-05-07T12:00:00Z",
   },
 ];
@@ -163,6 +175,7 @@ export const tags: Tag[] = [
     name: "apple",
     jp_name: "アップル",
     main_flg: true,
+    description: "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
     created_at: "2024-05-02T12:00:00Z",
   },
   {
@@ -170,6 +183,7 @@ export const tags: Tag[] = [
     name: "lemon",
     jp_name: "レモン",
     main_flg: false,
+    description: "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
     created_at: "2024-05-01T08:30:00Z",
   },
   {
@@ -177,6 +191,7 @@ export const tags: Tag[] = [
     name: "banana",
     jp_name: "バナナ",
     main_flg: false,
+    description: "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
     created_at: "2024-04-30T15:45:00Z",
   },
 ];
@@ -341,13 +356,15 @@ export const images = [
     article_id: 5,
     path: "/test/test.svg",
     alt: "image alt",
+    used_flg: false,
     created_at: "2024-05-01T12:00:00Z",
   },
   {
     id: 40,
     article_id: 5,
-    path: "next.svg",
+    path: "/test/test2.svg",
     alt: "test",
+    used_flg: true,
     created_at: "2024-05-01T12:00:00Z",
   },
 ];

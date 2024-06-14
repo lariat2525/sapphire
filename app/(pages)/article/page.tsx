@@ -15,8 +15,6 @@ export default function ArticleList() {
 
   const { data, isError, isLoading } = useGetArticleList();
 
-  console.log(useGetArticleList());
-
   return (
     <div className="Content pt-24 flex justify-center z-0">
       <div className="Left w-2/3">

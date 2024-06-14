@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import { getPrismaClient } from "@/lib/config";
 import { isProduction } from "@/lib/helper";
 import { appearances } from "@/mock/v1/read/content";
+import { Appearance } from "@/features/manages/types/appearances";
+import { addColumnMapLocal } from "@/mock/v1/read/helper";
 
 const prisma = getPrismaClient();
 
@@ -13,7 +15,7 @@ export const GET = async (req: Request) => {
 
     if (isProduction()) {
     } else {
-      result = appearances;
+      result = addColumnMapLocal<Appearance>(appearances, 13);
     }
 
     return NextResponse.json(result);

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import MainModal from "@/components/elements/MainModal";
 import { Manages } from "@/constants/common";
-import FormModalWrapper from "../FormModalArticleWrapper";
+import FormModalWrapper from "../FormModalWrapper";
 import CustomInputText from "@/components/elements/forms/CustomInputText";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faHeading, faPen, faUserTie } from "@fortawesome/free-solid-svg-icons";
@@ -24,6 +24,7 @@ import CustomInputTagBox from "../forms/CustomInputTagBox";
 import { appearanceState } from "../../state/appearances";
 import { tagState } from "../../state/tags";
 import CustomInputAppearanceBox from "../forms/CustomInputAppearanceBox";
+import * as actions from "@/features/manages/state/actions";
 
 type Props = {
   modals: string[];
@@ -116,7 +117,10 @@ const ArticlesModals = ({ modals }: Props) => {
         return (
           <div key={key}>
             <MainModal modalId={key} customModalStyle="max-w-3xl">
-              <FormModalWrapper fields={imageFields}>
+              <FormModalWrapper
+                fields={imageFields}
+                state={actions.handlerArticleSingleState}
+              >
                 <SearchImageWrapper />
                 <CustomInputImages
                   fields={imageFields}
@@ -131,7 +135,10 @@ const ArticlesModals = ({ modals }: Props) => {
         return (
           <div key={key}>
             <MainModal modalId={key}>
-              <FormModalWrapper fields={titleFields}>
+              <FormModalWrapper
+                fields={titleFields}
+                state={actions.handlerArticleSingleState}
+              >
                 <CustomInputText
                   icon={faHeading}
                   value={titleFields.title}
@@ -165,7 +172,10 @@ const ArticlesModals = ({ modals }: Props) => {
         return (
           <div key={key}>
             <MainModal modalId={key}>
-              <FormModalWrapper fields={releaseFields}>
+              <FormModalWrapper
+                fields={releaseFields}
+                state={actions.handlerArticleSingleState}
+              >
                 <CustomInputRadio
                   icon={faPen}
                   value={releaseFields.release_flg}
@@ -181,7 +191,10 @@ const ArticlesModals = ({ modals }: Props) => {
         return (
           <div key={key}>
             <MainModal modalId={key}>
-              <FormModalWrapper fields={authorFields}>
+              <FormModalWrapper
+                fields={authorFields}
+                state={actions.handlerArticleSingleState}
+              >
                 <CustomInputSelectBox
                   items={users.map(({ id, username }) => {
                     return { id, label: username };
@@ -201,7 +214,7 @@ const ArticlesModals = ({ modals }: Props) => {
             <MainModal modalId={key} customModalStyle="max-w-3xl">
               <FormModalWrapper
                 fields={{ list: formActiveTagFields }}
-                mode="tag"
+                state={actions.handlerTagState}
               >
                 <CustomInputTagBox />
               </FormModalWrapper>
@@ -215,7 +228,7 @@ const ArticlesModals = ({ modals }: Props) => {
             <MainModal modalId={key} customModalStyle="max-w-3xl">
               <FormModalWrapper
                 fields={{ list: formActiveAppearanceFields }}
-                mode="appearance"
+                state={actions.handlerAppearanceState}
               >
                 <CustomInputAppearanceBox />
               </FormModalWrapper>

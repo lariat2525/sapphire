@@ -4,7 +4,7 @@
 import * as icons from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import * as formattedUtils from "@/utils/formatted";
 import { Manages } from "@/constants/common";
 import useGetArticleList from "@/features/articles/hooks/useGetArticleList";
@@ -21,6 +21,18 @@ import IconButton from "@/features/manages/components/IconButton";
 import { selectIdState } from "@/features/manages/state/forms";
 import usePostMetaArticles from "@/features/manages/hooks/usePostMetaArticles";
 import ReadModal from "@/components/elements/modals/ReadModal";
+import { useReadModal } from "@/hooks/useReadModal";
+import MainModal from "@/components/elements/MainModal";
+import CustomInputRadio from "@/components/elements/forms/CustomInputRadio";
+import CustomInputSelectBox from "@/components/elements/forms/CustomInputSelectBox";
+import CustomInputText from "@/components/elements/forms/CustomInputText";
+import FormModalWrapper from "@/features/manages/components/FormModalWrapper";
+import SearchImageWrapper from "@/features/manages/components/SearchImageWrapper";
+import CustomInputAppearanceBox from "@/features/manages/components/forms/CustomInputAppearanceBox";
+import CustomInputImages from "@/features/manages/components/forms/CustomInputImages";
+import CustomInputTagBox from "@/features/manages/components/forms/CustomInputTagBox";
+import { users } from "@/mock/v1/read/content";
+import { findObjectByColumnValue } from "@/utils/collections";
 
 const modals = [
   Manages.Modals.Edit.IMAGE,
@@ -40,7 +52,7 @@ const iconStyles = {
 /* TSX */
 export default function ManageArticleList() {
   const articles = useRecoilValue(articleListState);
-  const setSelectingId = useSetRecoilState(selectIdState);
+  const [selectingId, setSelectingId] = useRecoilState(selectIdState);
 
   // アクションSTATE
   const setHandlerArticleSingle = useSetRecoilState(
@@ -53,9 +65,17 @@ export default function ManageArticleList() {
 
   const callGetArticleList = useGetArticleList();
 
+  const [fields, setFields] = useState<any>({});
+  const [saves, setSaves] = useState<any>({});
+
+  const [selectModalKey, setSelectModalKey] = useState<string>("");
+
   const [canImageFetch, setCanImageFetch] = useState<boolean>(false);
   const [canTagFetch, setCanTagFetch] = useState<boolean>(false);
   const [canAppearanceFetch, setCanAppearanceFetch] = useState<boolean>(false);
+
+  // 読み取り専用モーダルカスタムフック
+  const { isVisible, openModal, modalRef } = useReadModal();
 
   // ヘッダー情報更新API呼び出し
   const { triggerMetaArticles } = usePostMetaArticles();
@@ -68,26 +88,6 @@ export default function ManageArticleList() {
   useGetAppearances(canAppearanceFetch);
   // 画像取得API呼び出し（モーダル押下時）
   useGetImageList(canImageFetch, {});
-
-  const openModalAndSetId = (modalId: string, id: number) => {
-    const modal = document.getElementById(modalId) as HTMLDialogElement;
-
-    if (modal) {
-      modal.showModal();
-
-      // 指定のモーダルがクリックされたときに初めてAPIをフェッチする
-      if (modalId === Manages.Modals.Edit.IMAGE) {
-        setCanImageFetch(true);
-      }
-      if (modalId === Manages.Modals.Edit.TAG) {
-        setCanTagFetch(true);
-      }
-      if (modalId === Manages.Modals.Edit.APPEARANCE) {
-        setCanAppearanceFetch(true);
-      }
-      setSelectingId(id);
-    }
-  };
 
   // イベント
   const handleSubmitArticleSingle = async (
@@ -112,14 +112,188 @@ export default function ManageArticleList() {
     console.log(id, field);
   };
 
+  // 画像フィールドのクリックハンドラ
+  const handleImagesClick = (event: React.MouseEvent<HTMLInputElement>) => {
+    const toolImageId = Number(
+      event.currentTarget?.getAttribute("data-image_id")
+    );
+    if (toolImageId) {
+      setSaves({ id: toolImageId });
+    }
+  };
+
+  // タイトルフィールドの変更ハンドラ
+  const handleTitlesChange = (field: string, value: string) => {
+    setSaves((prevState: any) => ({
+      ...prevState,
+      [field]: value,
+    }));
+  };
+
+  // 著者フィールドの変更ハンドラ
+  const handleAuthorChange = (value: string) => {
+    setSaves({ id: Number(value) });
+  };
+
+  // 公開フィールドの変更ハンドラ
+  const handleReleaseChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSaves({ release_flg: event.target.value === "true" });
+  };
+
+  const openModalAndSetId = async (modalKey: string, id: number) => {
+    setSelectingId(id);
+
+    const selectedData = findObjectByColumnValue(
+      callGetArticleList.data as any,
+      "id",
+      id
+    );
+
+    setFields(selectedData);
+
+    setSelectModalKey(modalKey);
+    // 指定のモーダルがクリックされたときに初めてAPIをフェッチする
+    if (modalKey === Manages.Modals.Edit.IMAGE) {
+      setCanImageFetch(true);
+    }
+    if (modalKey === Manages.Modals.Edit.TAG) {
+      setCanTagFetch(true);
+    }
+    if (modalKey === Manages.Modals.Edit.APPEARANCE) {
+      setCanAppearanceFetch(true);
+    }
+    openModal();
+  };
+
   useEffect(() => {
     setHandlerArticleSingle(() => handleSubmitArticleSingle);
     setHandlerTag(() => handleSubmitTag);
     setHandlerAppearance(() => handleSubmitAppearance);
   }, [callGetArticleList]);
 
+  const switchModals = (key: string) => {
+    switch (key) {
+      case Manages.Modals.Edit.IMAGE:
+        return (
+          <div key={key}>
+            <FormModalWrapper
+              fields={fields}
+              state={actions.handlerArticleSingleState}
+            >
+              <SearchImageWrapper />
+              <CustomInputImages
+                fields={fields}
+                onClick={(event) => handleImagesClick(event)}
+              />
+            </FormModalWrapper>
+          </div>
+        );
+
+      case Manages.Modals.Edit.TITLES:
+        return (
+          <div key={key} className="flex flex-col gap-y-8">
+            <FormModalWrapper
+              fields={fields}
+              state={actions.handlerArticleSingleState}
+            >
+              <CustomInputText
+                icon={icons.faHeading}
+                value={fields?.title}
+                onChange={(event) =>
+                  handleTitlesChange("title", event.target.value)
+                }
+                placeholder="タイトル"
+              />
+              <CustomInputText
+                icon={icons.faUser}
+                value={fields?.name}
+                onChange={(event) =>
+                  handleTitlesChange("name", event.target.value)
+                }
+                placeholder="英名"
+              />
+              <CustomInputText
+                icon={icons.faUserTie}
+                value={fields?.jp_name}
+                onChange={(event) =>
+                  handleTitlesChange("jp_name", event.target.value)
+                }
+                placeholder="和名"
+              />
+            </FormModalWrapper>
+          </div>
+        );
+
+      case Manages.Modals.Edit.RELEASE:
+        return (
+          <div key={key}>
+            <FormModalWrapper
+              fields={fields}
+              state={actions.handlerArticleSingleState}
+            >
+              <CustomInputRadio
+                icon={icons.faPen}
+                value={fields?.release_flg}
+                onChange={handleReleaseChange}
+                placeholders={{ true: "公開", false: "非公開" }}
+              />
+            </FormModalWrapper>
+          </div>
+        );
+
+      case Manages.Modals.Edit.AUTHOR:
+        return (
+          <div key={key}>
+            <FormModalWrapper
+              fields={fields}
+              state={actions.handlerArticleSingleState}
+            >
+              <CustomInputSelectBox
+                items={users.map(({ id, username }) => {
+                  return { id, label: username };
+                })}
+                onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                  handleAuthorChange(event.target.value)
+                }
+              />
+            </FormModalWrapper>
+          </div>
+        );
+
+      case Manages.Modals.Edit.TAG:
+        return (
+          <div key={key}>
+            <FormModalWrapper
+              fields={{ list: fields }}
+              state={actions.handlerTagState}
+            >
+              <CustomInputTagBox />
+            </FormModalWrapper>
+          </div>
+        );
+
+      case Manages.Modals.Edit.APPEARANCE:
+        return (
+          <div key={key}>
+            <FormModalWrapper
+              fields={{ list: fields }}
+              state={actions.handlerAppearanceState}
+            >
+              <CustomInputAppearanceBox />
+            </FormModalWrapper>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
   return (
     <div>
+      <ReadModal isVisible={isVisible} modalRef={modalRef}>
+        {switchModals(selectModalKey)}
+      </ReadModal>
       <table className="table">
         {/* head */}
         <thead>
@@ -326,7 +500,6 @@ export default function ManageArticleList() {
           )}
         </tbody>
       </table>
-      <ArticlesModals modals={modals} />
     </div>
   );
 }

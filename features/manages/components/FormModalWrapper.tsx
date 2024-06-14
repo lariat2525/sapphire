@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { RecoilState, useRecoilValue } from "recoil";
 import { selectIdState } from "../state/forms";
 
 type Fields<T> = { [key: string]: T };
@@ -11,10 +11,10 @@ type Props<T> = {
   state: any;
 };
 
-const FormModalArticleWrapper = <T,>({ children, fields, state }: Props<T>) => {
+const FormModalWrapper = <T,>({ children, fields, state }: Props<T>) => {
   const selectingId = useRecoilValue(selectIdState);
 
-  let handleSubmit: ((id: number, fields: Fields<T>) => void) | null =
+  const handleSubmit: ((id: number, fields: Fields<T>) => void) | null =
     useRecoilValue(state);
 
   if (!handleSubmit) return null;
@@ -32,4 +32,4 @@ const FormModalArticleWrapper = <T,>({ children, fields, state }: Props<T>) => {
   );
 };
 
-export default FormModalArticleWrapper;
+export default FormModalWrapper;

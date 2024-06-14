@@ -97,10 +97,11 @@ type Monster = {
 };
 
 // 出演情報の詳細の型
-export type CommonLabels = {
+export type CommonLabel = {
   id: number;
   name: string;
   jp_name: string;
   description?: string;
-  created_at: Date;
+  main_flg?: boolean;
+  created_at?: string;
 };

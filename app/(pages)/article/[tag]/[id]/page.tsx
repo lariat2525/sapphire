@@ -15,8 +15,6 @@ export default function Article() {
   const articlesData = useRecoilValue(articlesState);
   useGetArticle();
 
-  console.log(articlesData);
-
   return (
     <div className="Content pt-24 flex justify-center z-0">
       <div className="Left mx-4 w-2/3">

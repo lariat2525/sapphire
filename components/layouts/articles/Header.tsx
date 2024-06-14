@@ -4,7 +4,7 @@ import React from "react";
 
 const Header: React.FC = () => {
   return (
-    <header className="fixed top-0 w-full bg-main bg-opacity-80 bg-black p-4 border-b-2 z-0">
+    <header className="fixed top-0 w-full bg-main bg-opacity-80 bg-black p-4 border-b-2 z-10">
       <nav className="flex justify-start text-secondary-color">
         <div className="Titles flex">
           <img src="/test/AI-meme.svg" alt="image" />

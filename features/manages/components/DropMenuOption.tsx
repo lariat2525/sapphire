@@ -1,23 +1,28 @@
 "use client";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
-type Props = { children: React.ReactNode; text?: string; size?: "xs" | "base" };
+type Props = {
+  children: React.ReactNode;
+  text?: string;
+  styles?: { buttonStyle: string; iconStyle: string; ulStyle: string };
+};
 
-const DropMenuOption = ({ children, text, size = "base" }: Props) => {
-  const buttonSizeStyle = size === "base" ? "min-h-10 h-2" : "min-h-6 h-1";
-
+const DropMenuOption = ({ children, text = "Options", styles }: Props) => {
   return (
     <button
-      className={`dropdown btn px-3 border-1 border-slate-400 text-nowrap ${buttonSizeStyle}`}
+      className={`dropdown btn min-h-8 h-10 px-3 text-slate-600 rounded bg-white border-1 border-slate-500 text-nowrap hover:bg-slate-200 ${styles?.buttonStyle}`}
     >
-      <div tabIndex={0} className={`text-${size} text-slate-700`}>
-        <FontAwesomeIcon icon={faBars} /> {text}
+      <div
+        tabIndex={0}
+        className={`flex gap-2 items-center text-xs ${styles?.iconStyle}`}
+      >
+        <p>{text}</p>
+        <FontAwesomeIcon icon={faCaretDown} />
       </div>
       <ul
-        tabIndex={0}
-        className="dropdown-content z-[1000] menu p-2 shadow rounded-box top-8 left-8 text-font-color bg-slate-100"
+        className={`dropdown-content z-[1000] menu w-40 text-xs text-left shadow rounded top-10 right-0 text-slate-600 bg-white ${styles?.ulStyle}`}
       >
         {children}
       </ul>
