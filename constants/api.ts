@@ -15,9 +15,9 @@ namespace EndPoint {
   };
   export const Write = {
     // 記事メタ情報更新API
-    META_ARTICLE: "/api/v1/write/article",
+    META_ARTICLE: "/api/v1/write/meta/article",
     // タグ全取得API
-    META_LABEL: "/api/v1/write/label",
+    META_LABEL: "/api/v1/write/meta/label",
   };
 }
 

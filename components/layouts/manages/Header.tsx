@@ -24,7 +24,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Header: React.FC = () => {
   return (
-    <header className="fixed top-0 w-full bg-manage-tertiary-color p-2 z-10">
+    <header className="fixed top-0 w-full bg-manage-tertiary-color p-2 z-20">
       <nav>
         <ul className="text-white menu bg-manage-primary-color lg:menu-horizontal w-full rounded-box">
           <li>

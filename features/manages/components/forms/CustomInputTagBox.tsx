@@ -69,7 +69,7 @@ const CustomInputTagBox: React.FC = () => {
 
   // 記事が選択された際にアクティブタグを更新
   useEffect(() => {
-    const articleTags = articles[selectId]?.tags || [];
+    const articleTags = articles[selectId - 1]?.tags || [];
     setActiveTags(ensureElements(articleTags));
   }, [articles, selectId]);
 

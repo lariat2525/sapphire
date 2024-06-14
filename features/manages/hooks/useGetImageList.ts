@@ -18,7 +18,7 @@ const fetcher = async (urlWithQuery: string): Promise<Image[]> => {
 };
 
 const useGetImageList = (
-  canFetch: boolean,
+  canFetch: boolean = true,
   query?: {
     [key: string]: string | boolean | number;
   }
