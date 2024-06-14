@@ -1,9 +1,8 @@
-// addColumnArticleListLocal
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { EndPoint } from "@/constants/api";
 import { articleListState } from "@/features/articles/state/articleList";
-import { Article } from "@/features/articles/types/articles";
+import { ResponseArticle } from "@/features/articles/types/articles";
 import useSWR from "swr";
 import { insertUrlWithQuery } from "@/utils/core";
 
@@ -13,7 +12,7 @@ import { insertUrlWithQuery } from "@/utils/core";
 
 const url = EndPoint.Read.ARTICLE_LIST;
 
-const fetcher = async (urlWithQuery: string): Promise<Article[]> => {
+const fetcher = async (urlWithQuery: string): Promise<ResponseArticle> => {
   const response = await fetch(urlWithQuery);
   if (!response.ok) {
     throw new Error("Network response was not ok");
@@ -33,7 +32,7 @@ const useGetArticleList = (query?: {
 
   useEffect(() => {
     if (data) {
-      setArticleList(data);
+      setArticleList(data.list);
     }
   }, [data, setArticleList]);
 

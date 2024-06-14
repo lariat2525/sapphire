@@ -38,8 +38,12 @@ export const GET = async (req: Request) => {
 
     // TODO: arinosu mati
     let res: any = [];
+    let totalCount: number = 0;
 
     if (isProduction()) {
+      // 全件数を取得
+      totalCount = await prisma.articles.count({ where: searchQuery });
+
       const schema = {
         where: searchQuery,
         include: {
@@ -76,10 +80,11 @@ export const GET = async (req: Request) => {
         });
       }
     } else {
+      totalCount = 20;
       res = addColumnMapLocal<Article>(articleList, 20); // 開発環境ではモックデータを使用
     }
 
-    return NextResponse.json(res);
+    return NextResponse.json({ list: res, totalCount });
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });
   } finally {

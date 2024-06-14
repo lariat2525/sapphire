@@ -54,6 +54,12 @@ export type FormattedAppearance = {
   created_at: string; // 出演情報の作成日時（ISO形式の文字列）
 };
 
+// API記事情報を表す型
+export type ResponseArticle = {
+  list: Article[];
+  totalCount: number;
+};
+
 // 記事情報を表す型
 export type Article = {
   id: number; // 記事ID
