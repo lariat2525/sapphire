@@ -45,3 +45,21 @@ export const insertUrlWithQuery = (
 
   return `${baseUrl}${baseUrl.includes("?") ? "&" : "?"}${queryString}`;
 };
+
+/**
+ * クエリオブジェクトを作成する関数
+ *
+ * @param useParams - クエリパラメータ
+ * @param queries - クエリパラメータのそれぞれのオブジェクトの配列
+ * @returns クエリオブジェクトを返す
+ */
+export const getClientQueryParams = (useParams: any, queries: string[]) => {
+  let result = {};
+
+  queries.forEach((query) => {
+    const param = useParams.get(query);
+    if (param) result = { ...result, [query]: param };
+  });
+
+  return result;
+};

@@ -5,9 +5,15 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Card from "@/features/articles/components/Card";
 import useGetArticleList from "@/features/articles/hooks/useGetArticleList";
 import Category from "@/features/articles/components/Category";
+import { useParams, useSearchParams } from "next/navigation";
+import { getClientQueryParams } from "@/utils/core";
+import Pagination from "@/components/elements/Pagenation";
 
+const queries = ["page", "pageSize", "search", "filter"];
 export default function ArticleList() {
-  const { data, isError, isLoading } = useGetArticleList();
+  const clientParams = getClientQueryParams(useSearchParams(), queries);
+
+  const { data, isError, isLoading } = useGetArticleList(clientParams);
 
   console.log(data);
 
@@ -31,15 +37,6 @@ export default function ArticleList() {
                 className="Search w-80 h-8 bg-tertiary-color border-2 
             border-tertiary-color flex rounded-r-xl"
               ></input>
-            </div>
-            <div className="Pagination w-72 flex justify-end place-items-end">
-              <div className="join">
-                <button className="join-item btn">1</button>
-                <button className="join-item btn">2</button>
-                <button className="join-item btn btn-disabled">...</button>
-                <button className="join-item btn">99</button>
-                <button className="join-item btn">100</button>
-              </div>
             </div>
           </div>
           <div className="Case m-4">
@@ -88,6 +85,9 @@ export default function ArticleList() {
                 );
               })}
             </div>
+          </div>
+          <div className="Pagination mb-1 flex justify-end place-items-end">
+            <Pagination />
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { EndPoint } from "@/constants/api";
 import { articleListState } from "@/features/articles/state/articleList";
 import { Article } from "@/features/articles/types/articles";
 import useSWR from "swr";
+import { insertUrlWithQuery } from "@/utils/core";
 
 // 1.queryを取ってこれるようにする、console.logできるようになったらゴール
 // 2.apiにqueryをのせる。
@@ -20,10 +21,15 @@ const fetcher = async (urlWithQuery: string): Promise<Article[]> => {
   return response.json();
 };
 
-const useGetArticleList = () => {
+const useGetArticleList = (query?: {
+  [key: string]: string | boolean | number;
+}) => {
   const setArticleList = useSetRecoilState(articleListState);
 
-  const { data, error } = useSWR(url, fetcher);
+  // URLとクエリを結合したURLを生成
+  const queryUrl = insertUrlWithQuery(url, query || {});
+
+  const { data, error } = useSWR(queryUrl, fetcher);
 
   useEffect(() => {
     if (data) {
