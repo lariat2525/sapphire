@@ -80,8 +80,8 @@ export const GET = async (req: Request) => {
         });
       }
     } else {
-      totalCount = 20;
-      res = addColumnMapLocal<Article>(articleList, 20); // 開発環境ではモックデータを使用
+      totalCount = 84;
+      res = addColumnMapLocal<Article>(articleList, 84); // 開発環境ではモックデータを使用
     }
 
     return NextResponse.json({ list: res, totalCount });

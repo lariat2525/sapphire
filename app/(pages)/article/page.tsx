@@ -7,7 +7,7 @@ import useGetArticleList from "@/features/articles/hooks/useGetArticleList";
 import Category from "@/features/articles/components/Category";
 import { useParams, useSearchParams } from "next/navigation";
 import { getClientQueryParams } from "@/utils/core";
-import Pagination from "@/components/elements/Pagenation";
+import Pagination from "@/components/elements/Pagination";
 
 const queries = ["page", "pageSize", "search", "filter"];
 export default function ArticleList() {
@@ -64,7 +64,7 @@ export default function ArticleList() {
               </a>
             </div>
             <div className="Cards">
-              {data?.map((items, index) => {
+              {data?.list.slice(0, 8).map((items, index) => {
                 return (
                   <Card
                     key={index}
@@ -87,7 +87,7 @@ export default function ArticleList() {
             </div>
           </div>
           <div className="Pagination mb-1 flex justify-end place-items-end">
-            <Pagination />
+            <Pagination></Pagination>
           </div>
         </div>
       </div>
