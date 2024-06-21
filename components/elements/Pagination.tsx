@@ -2,25 +2,34 @@
 
 import useGetArticleList from "@/features/articles/hooks/useGetArticleList";
 import { getClientQueryParams } from "@/utils/core";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 import PaginationButton from "./PaginationButton";
 
-const queries = ["page", "pageSize", "search", "filter"];
+const queries: string[] = ["page", "pageSize", "search", "filter"];
 
 export default function Pagination() {
-  const clientParams = getClientQueryParams(useSearchParams(), queries);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const clientParams: { [key: string]: string } = getClientQueryParams(
+    searchParams,
+    queries
+  );
   const { data } = useGetArticleList(clientParams);
 
   const [exceedMaxDisplay, setExceedMaxDisplay] = useState(false);
+
+  const clientPageSize = Number(clientParams?.pageSize) || 0;
+
+  console.log(data);
 
   useEffect(() => {
     if (data?.list) {
       const maxDisplayCount = 8;
       let displayCount = 0;
 
-      for (let i = 0; i < data.list.length; i++) {
+      for (let i = 0; i < (data?.totalCount ?? 0); i++) {
         if (displayCount >= maxDisplayCount) {
           setExceedMaxDisplay(true);
           return;
@@ -33,15 +42,38 @@ export default function Pagination() {
     }
   }, [data]);
 
+  const handlePageChange = (newPage: number) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("page", newPage.toString());
+    router.push(`?${newParams.toString()}`);
+  };
+
   if (exceedMaxDisplay) {
+    const currentPage = Number(clientParams?.page) || 1;
+    const totalPages =
+      clientPageSize > 0 && data?.totalCount !== undefined
+        ? Math.ceil(data.totalCount / clientPageSize)
+        : 1;
+
     return (
       <div className="join">
-        <button className="join-item btn">«</button>
-        <button className="join-item btn">
-          8/
-          {data?.totalCount ? Math.floor(data.totalCount / 8) : 0}
+        <button
+          className="JoinItem btn"
+          onClick={() => handlePageChange(currentPage - 1)} // onClickイベントの追加
+          disabled={currentPage <= 1}
+        >
+          «
         </button>
-        <button className="join-item btn">»</button>
+        <span className="JoinItem btn">
+          {currentPage} / {totalPages}
+        </span>
+        <button
+          className="JoinItem btn"
+          onClick={() => handlePageChange(currentPage + 1)} // onClickイベントの追加
+          disabled={currentPage >= totalPages}
+        >
+          »
+        </button>
       </div>
     );
   }
@@ -49,13 +81,12 @@ export default function Pagination() {
   return (
     <div>
       {data?.list.map((items, index) => {
-        // インデックスが8の倍数のときのみPaginationを表示する条件を追加
-        if (index % 8 === 0) {
+        if (clientPageSize > 0 && index % clientPageSize === 0) {
           return (
             <PaginationButton
               key={items.id}
               field={{
-                id: `${index / 8 + 1}`, // 8の倍数ごとにインクリメントして表示
+                id: `${index / clientPageSize + 1}`,
               }}
             />
           );

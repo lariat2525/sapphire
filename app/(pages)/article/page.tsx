@@ -11,9 +11,14 @@ import Pagination from "@/components/elements/Pagination";
 
 const queries = ["page", "pageSize", "search", "filter"];
 export default function ArticleList() {
-  const clientParams = getClientQueryParams(useSearchParams(), queries);
+  const clientParams: { [key: string]: string } = getClientQueryParams(
+    useSearchParams(),
+    queries
+  );
 
   const { data, isError, isLoading } = useGetArticleList(clientParams);
+
+  const clientPageSize = Number(clientParams?.pageSize) || 0;
 
   console.log(data);
 
@@ -64,7 +69,7 @@ export default function ArticleList() {
               </a>
             </div>
             <div className="Cards">
-              {data?.list.slice(0, 8).map((items, index) => {
+              {data?.list.slice(0, clientPageSize).map((items, index) => {
                 return (
                   <Card
                     key={index}
@@ -87,7 +92,7 @@ export default function ArticleList() {
             </div>
           </div>
           <div className="Pagination mb-1 flex justify-end place-items-end">
-            <Pagination></Pagination>
+            <Pagination />
           </div>
         </div>
       </div>
