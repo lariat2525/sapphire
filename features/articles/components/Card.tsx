@@ -27,8 +27,6 @@ type Props = {
 
 /* TSX */
 export default function Card({ fields }: Props) {
-  console.log(fields);
-
   return (
     <div
       className="Cards mb-6 h-56 box-border border-2 
@@ -36,7 +34,7 @@ export default function Card({ fields }: Props) {
     >
       <div className="Image const-card-image-size">
         <Image
-          src={`/test${fields.imagePath}`}
+          src={`${fields.imagePath}`}
           alt={`${fields.imageAlt}の画像`}
           width={1024}
           height={1024}

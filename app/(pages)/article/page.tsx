@@ -5,11 +5,12 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Card from "@/features/articles/components/Card";
 import useGetArticleList from "@/features/articles/hooks/useGetArticleList";
 import Category from "@/features/articles/components/Category";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { getClientQueryParams } from "@/utils/core";
 import Pagination from "@/components/elements/Pagination";
 
 const queries = ["page", "pageSize", "search", "filter"];
+
 export default function ArticleList() {
   const clientParams: { [key: string]: string } = getClientQueryParams(
     useSearchParams(),
@@ -21,6 +22,7 @@ export default function ArticleList() {
   const clientPageSize = Number(clientParams?.pageSize) || 0;
 
   console.log(data);
+  console.log(clientPageSize);
 
   return (
     <div className="Content pt-24 flex z-0">
@@ -69,7 +71,7 @@ export default function ArticleList() {
               </a>
             </div>
             <div className="Cards">
-              {data?.list.slice(0, clientPageSize).map((items, index) => {
+              {data?.list.map((items, index) => {
                 return (
                   <Card
                     key={index}
@@ -91,7 +93,7 @@ export default function ArticleList() {
               })}
             </div>
           </div>
-          <div className="Pagination mb-1 flex justify-end place-items-end">
+          <div className="Pagination mb-1 flex justify-center place-items-end">
             <Pagination />
           </div>
         </div>
@@ -106,7 +108,4 @@ export default function ArticleList() {
       </div>
     </div>
   );
-}
-function insertUrlWithPath(url: any, arg1: { article_id: string }) {
-  throw new Error("Function not implemented.");
 }

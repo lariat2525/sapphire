@@ -1,98 +1,82 @@
 "use client";
 
-import useGetArticleList from "@/features/articles/hooks/useGetArticleList";
 import { getClientQueryParams } from "@/utils/core";
-import { useSearchParams, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
-import PaginationButton from "./PaginationButton";
+import { articleListState } from "@/features/articles/state/articleList";
+import { useRecoilValue } from "recoil";
 
 const queries: string[] = ["page", "pageSize", "search", "filter"];
 
+const disableStyle = "opacity-50 pointer-events-none";
+
+const multiDisableStyle = "opacity-50 pointer-events-none";
+
 export default function Pagination() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const clientParams: { [key: string]: string } = getClientQueryParams(
     searchParams,
     queries
   );
-  const { data } = useGetArticleList(clientParams);
+  const { totalCount } = useRecoilValue(articleListState);
 
-  const [exceedMaxDisplay, setExceedMaxDisplay] = useState(false);
+  const pageCount = Math.ceil(totalCount / Number(clientParams.pageSize));
 
-  const clientPageSize = Number(clientParams?.pageSize) || 0;
+  const clientPageNum = Number(clientParams.page);
 
-  console.log(data);
+  const createElement = () => {
+    if (totalCount < 9) {
+      return Array.from({ length: pageCount }).map((_, index) => (
+        <div key={index} className="join shadow shadow-gray-300">
+          <a
+            href={`/article?pageSize=${clientParams.pageSize}&page=${
+              index + 1
+            }`}
+            className={`join-item btn btn-xs border border-black bg-white btn-active ${
+              clientPageNum === index + 1 && disableStyle
+            }`}
+          >
+            {index + 1}
+          </a>
+        </div>
+      ));
+    } else {
+      const canGoPage = (pageNum: number) => {
+        if (!pageNum) return false;
+        if (pageNum < 2) return false;
+        if (pageNum >= totalCount) return false;
+        return true;
+      };
 
-  useEffect(() => {
-    if (data?.list) {
-      const maxDisplayCount = 8;
-      let displayCount = 0;
-
-      for (let i = 0; i < (data?.totalCount ?? 0); i++) {
-        if (displayCount >= maxDisplayCount) {
-          setExceedMaxDisplay(true);
-          return;
-        }
-        if (i % 8 === 0) {
-          displayCount++;
-        }
-      }
-      setExceedMaxDisplay(false); // リストが更新された場合にリセット
+      return (
+        <div className="MultiPagination join">
+          <a
+            href={`/article?pageSize=${clientParams.pageSize}&page=${
+              clientPageNum - 1
+            }`}
+            className={`JoinItem btn ${
+              canGoPage(clientPageNum - 1) || multiDisableStyle
+            }`}
+          >
+            «
+          </a>
+          <span className="JoinItem btn">
+            {clientParams.page} / {totalCount}
+          </span>
+          <a
+            href={`/article?pageSize=${clientParams.pageSize}&page=${
+              clientPageNum + 1
+            }`}
+            className={`JoinItem btn ${
+              canGoPage(clientPageNum + 1) || multiDisableStyle
+            }`}
+          >
+            »
+          </a>
+        </div>
+      );
     }
-  }, [data]);
-
-  const handlePageChange = (newPage: number) => {
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set("page", newPage.toString());
-    router.push(`?${newParams.toString()}`);
   };
 
-  if (exceedMaxDisplay) {
-    const currentPage = Number(clientParams?.page) || 1;
-    const totalPages =
-      clientPageSize > 0 && data?.totalCount !== undefined
-        ? Math.ceil(data.totalCount / clientPageSize)
-        : 1;
-
-    return (
-      <div className="join">
-        <button
-          className="JoinItem btn"
-          onClick={() => handlePageChange(currentPage - 1)} // onClickイベントの追加
-          disabled={currentPage <= 1}
-        >
-          «
-        </button>
-        <span className="JoinItem btn">
-          {currentPage} / {totalPages}
-        </span>
-        <button
-          className="JoinItem btn"
-          onClick={() => handlePageChange(currentPage + 1)} // onClickイベントの追加
-          disabled={currentPage >= totalPages}
-        >
-          »
-        </button>
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      {data?.list.map((items, index) => {
-        if (clientPageSize > 0 && index % clientPageSize === 0) {
-          return (
-            <PaginationButton
-              key={items.id}
-              field={{
-                id: `${index / clientPageSize + 1}`,
-              }}
-            />
-          );
-        }
-        return null; // それ以外の場合はnullを返す
-      })}
-    </div>
-  );
+  return <div className="flex justify-center">{createElement()}</div>;
 }

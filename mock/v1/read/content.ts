@@ -1,4 +1,4 @@
-import { Article } from "@/features/articles/types/articles";
+import { Article, ArticleList } from "@/features/articles/types/articles";
 import { Appearance } from "@/features/manages/types/appearances";
 import { Tag } from "@/features/manages/types/tags";
 
@@ -74,83 +74,86 @@ export const articles = {
   },
 };
 
-export const articleList: Article[] = [
-  {
-    id: 1,
-    user_id: 2,
-    images: [
-      {
-        id: 5,
-        article_id: 5,
-        path: "/test/test.svg",
-        alt: "image alt",
-        used_flg: false,
-        created_at: "2024-05-01T12:00:00Z",
-      },
-      {
+export const articleList: ArticleList = {
+  list: [
+    {
+      id: 1,
+      user_id: 2,
+      images: [
+        {
+          id: 5,
+          article_id: 5,
+          path: "/test/goblin.svg",
+          alt: "image alt",
+          used_flg: false,
+          created_at: "2024-05-01T12:00:00Z",
+        },
+        {
+          id: 6,
+          article_id: 5,
+          path: "/test/goblin.svg",
+          alt: "image alt",
+          used_flg: false,
+          created_at: "2024-05-01T12:00:00Z",
+        },
+      ],
+      user: {
         id: 6,
-        article_id: 5,
-        path: "/test/test.svg",
-        alt: "image alt",
-        used_flg: false,
+        username: "username",
         created_at: "2024-05-01T12:00:00Z",
       },
-    ],
-    user: {
-      id: 6,
-      username: "username",
+      title: "海外の有名SNSシェアボタンsasasa",
+      jp_name: "レネクトン",
+      name: "renekton",
+      preview: 6214,
+      release_flg: true,
+      sentence_enable_flg: true,
+      memo: "saaaaaaaaaaaaaa",
+      updated_at: "2024-05-01T12:00:00Z",
+      post_at: "2024-05-01T12:00:00Z",
       created_at: "2024-05-01T12:00:00Z",
+      tags: [
+        {
+          id: 1,
+          main_flg: true,
+          jp_name: "幽霊",
+          name: "tag1",
+          description:
+            "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
+          created_at: "2024-05-01T12:00:00Z",
+        },
+        {
+          id: 2,
+          main_flg: false,
+          jp_name: "妖怪",
+          name: "tag2",
+          description:
+            "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
+          created_at: "2024-05-01T12:00:00Z",
+        },
+      ],
+      appearances: [
+        {
+          id: 1,
+          name: "appearance1",
+          jp_name: "appearance1_en",
+          description:
+            "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
+          created_at: "2024-05-01T12:00:00Z",
+        },
+        {
+          id: 2,
+          name: "appearance2",
+          jp_name: "appearance2_en",
+          description:
+            "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
+          created_at: "2024-05-01T12:00:00Z",
+        },
+      ],
     },
-    title: "海外の有名SNSシェアボタンsasasa",
-    jp_name: "レネクトン",
-    name: "renekton",
-    preview: 6214,
-    release_flg: true,
-    sentence_enable_flg: true,
-    memo: "saaaaaaaaaaaaaa",
-    updated_at: "2024-05-01T12:00:00Z",
-    post_at: "2024-05-01T12:00:00Z",
-    created_at: "2024-05-01T12:00:00Z",
-    tags: [
-      {
-        id: 1,
-        main_flg: true,
-        jp_name: "幽霊",
-        name: "tag1",
-        description:
-          "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
-        created_at: "2024-05-01T12:00:00Z",
-      },
-      {
-        id: 2,
-        main_flg: false,
-        jp_name: "妖怪",
-        name: "tag2",
-        description:
-          "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
-        created_at: "2024-05-01T12:00:00Z",
-      },
-    ],
-    appearances: [
-      {
-        id: 1,
-        name: "appearance1",
-        jp_name: "appearance1_en",
-        description:
-          "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
-        created_at: "2024-05-01T12:00:00Z",
-      },
-      {
-        id: 2,
-        name: "appearance2",
-        jp_name: "appearance2_en",
-        description:
-          "コンテンツコンテンツコンテンツコンテンツコンテンツコンテンツ",
-        created_at: "2024-05-01T12:00:00Z",
-      },
-    ],
-  },
-];
+  ],
+  totalCount: 21,
+};
 
 export const appearances: Appearance[] = [
   {

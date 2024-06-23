@@ -1,14 +1,10 @@
 import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import { useResetRecoilState, useSetRecoilState } from "recoil";
 import { EndPoint } from "@/constants/api";
 import { articleListState } from "@/features/articles/state/articleList";
 import { ResponseArticle } from "@/features/articles/types/articles";
 import useSWR from "swr";
 import { insertUrlWithQuery } from "@/utils/core";
-
-// 1.queryを取ってこれるようにする、console.logできるようになったらゴール
-// 2.apiにqueryをのせる。
-// 3.pagenationのcomponentをつくる。
 
 const url = EndPoint.Read.ARTICLE_LIST;
 
@@ -29,10 +25,11 @@ const useGetArticleList = (query?: {
   const queryUrl = insertUrlWithQuery(url, query || {});
 
   const { data, error } = useSWR(queryUrl, fetcher);
+  console.log(data);
 
   useEffect(() => {
     if (data) {
-      setArticleList(data.list);
+      setArticleList(data);
     }
   }, [data, setArticleList]);
 

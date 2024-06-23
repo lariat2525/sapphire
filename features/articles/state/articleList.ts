@@ -1,7 +1,7 @@
 import { atom } from "recoil";
-import { Article } from "@/features/articles/types/articles";
+import { ArticleList } from "@/features/articles/types/articles";
 
-export const articleListState = atom<Article[]>({
+export const articleListState = atom<ArticleList>({
   key: "articleListState",
-  default: [],
+  default: { list: [], totalCount: 0 },
 });

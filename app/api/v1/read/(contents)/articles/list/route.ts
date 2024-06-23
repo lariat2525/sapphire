@@ -14,6 +14,8 @@ import { Prisma } from "@prisma/client";
 
 const prisma = getPrismaClient();
 
+const mockTotalCount = 8;
+
 // リレーションつきGETテスト
 export const GET = async (req: Request) => {
   try {
@@ -80,8 +82,8 @@ export const GET = async (req: Request) => {
         });
       }
     } else {
-      totalCount = 21;
-      res = addColumnMapLocal<Article>(articleList, 21); // 開発環境ではモックデータを使用
+      totalCount = mockTotalCount;
+      res = addColumnMapLocal<Article>(articleList.list, pageSize); // 開発環境ではモックデータを使用
     }
 
     return NextResponse.json({ list: res, totalCount });

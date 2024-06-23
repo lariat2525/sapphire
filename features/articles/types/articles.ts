@@ -61,6 +61,12 @@ export type ResponseArticle = {
 };
 
 // 記事情報を表す型
+export type ArticleList = {
+  list: Article[];
+  totalCount: number;
+};
+
+// 記事情報を表す型
 export type Article = {
   id: number; // 記事ID
   user_id: number; // ユーザーID
